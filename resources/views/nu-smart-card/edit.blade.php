@@ -14,16 +14,71 @@
                 <div class="card-body">
                     <form method="POST" enctype="multipart/form-data" id="ajax-form">
                         @csrf
-                        <div class="row">
-                            <div class="col-md-6">
-                                <label for="image" class="form-label">Upload Image</label>
-                                <input type="file" id="image" name="image" class="form-control">
-                                <div class="mt-3">
-                                    <img id="profilePreview" src="{{ asset('storage/' . $data->image) }}" class="img-thumbnail img-fluid w-50">
+                        <div class="row row-cols-lg-2 gx-4">
+                            <div>
+                                <div class="mb-3">
+                                    <label for="name" class="form-label">Name</label>
+                                    <input type="text" id="name" value="{{ $data->name }}" class="form-control">
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="department" class="form-label">Department</label>
+                                    <input type="text" id="department" value="{{$data->department}}" name="department" class="form-control"
+                                           placeholder="Department">
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="designation" class="form-label">Designation</label>
+                                    <input type="text" id="designation" class="form-control" value="{{$data->designation}}">
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="pf_number" class="form-label">PF No.</label>
+                                    <input type="text" id="pf_number" class="form-control" value="{{$data->pf_number}}">
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="present_address" class="form-label">Present Address</label>
+                                    <textarea class="form-control" id="present_address" rows="5">{{$data->present_address}}</textarea>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="image" class="form-label">Image</label>
+                                    <input type="file" id="image" name="image" class="form-control">
+                                    <img src="{{ asset('storage/' . $data->image)  }}" id="profilePreview" alt="{{ $data->name }}" class="w-25 img-thumbnail img-fluid">
                                 </div>
                             </div>
+                            <div>
+                                <div class="mb-3">
+                                    <label for="mobile_number" class="form-label">Mobile Number</label>
+                                    <input type="text" value="{{ $data->mobile_number }}" id="mobile_number" class="form-control">
+                                </div>
 
-                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="birth_date" class="form-label">Date of Birth</label>
+                                    <input type="date" id="birth_date" name="birth_date" value="{{$data->birth_date}}" class="form-control">
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="example-emergency_contact" class="form-label">Emergency Contact</label>
+                                    <input type="text" id="example-emergency_contact" class="form-control" value="{{ $data->emergency_contact }}">
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="example-textarea" class="form-label">Blood Group</label>
+                                    <select class="form-select">
+                                        <option value="">Select Blood Group</option>
+                                        <option value="A+">A+</option>
+                                        <option value="A-">A-</option>
+                                        <option value="B+">B+</option>
+                                        <option value="B-">B-</option>
+                                        <option value="O+">O+</option>
+                                        <option value="O-">O-</option>
+                                        <option value="AB+">AB+</option>
+                                        <option value="AB-">AB-</option>
+                                    </select>
+                                </div>
+
+                            <div class="mb-3">
                                 <label for="signature" class="form-label">Upload Signature</label>
                                 <input type="file" id="signature" name="signature" class="form-control">
                                 <div class="mt-3">
@@ -31,12 +86,14 @@
                                 </div>
                             </div>
                         </div>
+                        </div>
                         <button type="submit" id="nu_form_btn" class="btn btn-success mt-3">Submit</button>
                     </form>
                 </div>
             </div>
         </div>
     </div>
+
 
     <!-- Fullscreen Bootstrap Modal for Image Cropping -->
     <div class="modal fade" id="cropperModal" tabindex="-1" aria-labelledby="cropperModalLabel" aria-hidden="true">

@@ -1,0 +1,58 @@
+@extends('layouts.vertical', ['subtitle' => 'Nu Smart Card'])
+@section('css')
+@endsection
+@section('content')
+
+    @include('layouts.partials/page-title', ['title' => 'Nu Module', 'subtitle' => 'Nu Smart Card'])
+
+    <div class="card">
+        <div class="card-header">
+            <h5 class="card-title">
+                College Inspection Staff List
+            </h5>
+        </div>
+
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-centered">
+                    <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Designation</th>
+                        <th scope="col">Created At</th>
+                        <th width="200" class="text-center" scope="col">Image</th>
+                        <th width="250" scope="col" class="text-center">Action</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        @forelse($data as $nu)
+                            <tr>
+                                <th scope="row">{{ $loop->iteration }}</th>
+                                <td>{{ $nu->name }}</td>
+                                <td>{{ $nu->designation }}</td>
+                                <td>{{ $nu->created_at->toDateString() }}</td>
+                                <td><img class="img-thumbnail img-fluid rounded mx-auto d-block w-25" alt="image" src="{!! asset('storage/' . $nu->image)  !!}"> </td>
+                                <td class="text-center">
+                                    <form action="{{ route('nu-smart-card.destroy',$nu->id) }}" method="POST">
+                                        <a href="{{ route('nu-smart-card.show', $nu->id) }}" class="btn btn-primary btn-sm"><i class="bx bx-show fs-4"></i></a>
+                                        <a href="{{ route('nu-smart-card.edit', $nu->id) }}" class="btn btn-sm btn-green"><i class="bx bx-edit fs-4"></i></a>
+                                        @csrf
+                                        @method("DELETE")
+                                        <button type="submit" class="btn btn-danger btn-sm"><i class="bx bx-trash fs-4"></i></button>
+                                    </form>
+                                </td>
+                            </tr>
+                        @empty
+                        @endforelse
+
+                    </tbody>
+                </table>
+                {{ $data->links('pagination::bootstrap-5') }}
+            </div>
+        </div>
+    </div>
+@endsection
+@section('scripts')
+
+@endsection

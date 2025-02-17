@@ -7,9 +7,10 @@
 
     <div class="card">
         <div class="card-header">
-            <h5 class="card-title">
-                College Inspection Staff List
-            </h5>
+            <div class="flex-box justify-content-between">
+                <h5 class="card-title">College Inspection Staff List</h5>
+                <a class="btn btn-sm btn-info" href="{{ route('nu-smart-card.create') }}">Add New</a>
+            </div>
         </div>
 
         <div class="card-body">

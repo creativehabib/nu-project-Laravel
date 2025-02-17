@@ -2,6 +2,7 @@
 
 @section('css')
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/izitoast/dist/css/iziToast.min.css">
 @endsection
 @section('content')
     <div class="row row-cols-lg-1 gx-3">
@@ -12,60 +13,68 @@
                 </div>
 
                 <div class="card-body">
-                    <form method="POST" enctype="multipart/form-data" id="ajax-form">
-                        @csrf
+                    <form id="ajax-form" enctype="multipart/form-data">
                         <div class="row row-cols-lg-2 gx-4">
                             <div>
                                 <div class="mb-3">
                                     <label for="name" class="form-label">Name</label>
-                                    <input type="text" id="name" value="{{ $data->name }}" class="form-control">
+                                    <input type="text" name="name" id="name" value="{{ $data->name }}" class="form-control">
+                                    <span class="text-red small" id="name-error"></span>
                                 </div>
 
                                 <div class="mb-3">
                                     <label for="department" class="form-label">Department</label>
                                     <input type="text" id="department" value="{{$data->department}}" name="department" class="form-control"
                                            placeholder="Department">
+                                    <span class="text-red small" id="department-error"></span>
                                 </div>
 
                                 <div class="mb-3">
                                     <label for="designation" class="form-label">Designation</label>
-                                    <input type="text" id="designation" class="form-control" value="{{$data->designation}}">
+                                    <input type="text" id="designation" name="designation" class="form-control" value="{{$data->designation}}">
+                                    <span class="text-red small" id="designation-error"></span>
                                 </div>
 
                                 <div class="mb-3">
                                     <label for="pf_number" class="form-label">PF No.</label>
-                                    <input type="text" id="pf_number" class="form-control" value="{{$data->pf_number}}">
+                                    <input type="text" id="pf_number" name="pf_number" class="form-control" value="{{$data->pf_number}}">
+                                    <span class="text-red small" id="pf_number-error"></span>
                                 </div>
 
                                 <div class="mb-3">
                                     <label for="present_address" class="form-label">Present Address</label>
-                                    <textarea class="form-control" id="present_address" rows="5">{{$data->present_address}}</textarea>
+                                    <textarea class="form-control" name="present_address" id="present_address" rows="5">{{$data->present_address}}</textarea>
+                                    <span class="text-red small" id="present_address-error"></span>
                                 </div>
                                 <div class="mb-3">
                                     <label for="image" class="form-label">Image</label>
                                     <input type="file" id="image" name="image" class="form-control">
+                                    <span class="text-red small" id="image-error"></span>
                                     <img src="{{ asset('storage/' . $data->image)  }}" id="profilePreview" alt="{{ $data->name }}" class="w-25 img-thumbnail img-fluid">
                                 </div>
                             </div>
                             <div>
                                 <div class="mb-3">
                                     <label for="mobile_number" class="form-label">Mobile Number</label>
-                                    <input type="text" value="{{ $data->mobile_number }}" id="mobile_number" class="form-control">
+                                    <input type="text" name="mobile_number" value="{{ $data->mobile_number }}" id="mobile_number" class="form-control">
+                                    <span class="text-red small" id="mobile_number-error"></span>
                                 </div>
 
                                 <div class="mb-3">
                                     <label for="birth_date" class="form-label">Date of Birth</label>
                                     <input type="date" id="birth_date" name="birth_date" value="{{$data->birth_date}}" class="form-control">
+                                    <span class="text-red small" id="birth_date-error"></span>
                                 </div>
 
                                 <div class="mb-3">
-                                    <label for="example-emergency_contact" class="form-label">Emergency Contact</label>
-                                    <input type="text" id="example-emergency_contact" class="form-control" value="{{ $data->emergency_contact }}">
+                                    <label for="emergency_contact" class="form-label">Emergency Contact</label>
+                                    <input type="text" id="emergency_contact" name="emergency_contact" class="form-control" value="{{ $data->emergency_contact }}">
+                                    <span class="text-red small" id="emergency_contact-error"></span>
                                 </div>
 
                                 <div class="mb-3">
                                     <label for="example-textarea" class="form-label">Blood Group</label>
-                                    <select class="form-select">
+                                    <select name="blood_group" class="form-select">
                                         <option value="">Select Blood Group</option>
                                         <option value="A+">A+</option>
                                         <option value="A-">A-</option>
@@ -76,11 +85,13 @@
                                         <option value="AB+">AB+</option>
                                         <option value="AB-">AB-</option>
                                     </select>
+                                    <span class="text-red small" id="blood_group-error"></span>
                                 </div>
 
                             <div class="mb-3">
                                 <label for="signature" class="form-label">Upload Signature</label>
                                 <input type="file" id="signature" name="signature" class="form-control">
+                                <span class="text-red small" id="signature-error"></span>
                                 <div class="mt-3">
                                     <img id="signaturePreview" src="{{ asset('storage/' . $data->signature) }}" class="img-thumbnail img-fluid w-50">
                                 </div>
@@ -120,6 +131,7 @@
 @endsection
 
 @section('scripts')
+    <script src="https://cdn.jsdelivr.net/npm/izitoast/dist/js/iziToast.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
@@ -189,6 +201,7 @@
                 e.preventDefault();
 
                 let formData = new FormData(this);
+                formData.append("_method", "PUT");
                 if (croppedBlob) {
                     formData.set(activeInput.name, croppedBlob, "cropped-image.png");
                 }
@@ -196,8 +209,8 @@
                 $("#nu_form_btn").prop("disabled", true).text("Submitting...");
 
                 $.ajax({
-                    url: "{{ route('nu-smart-card.store') }}",
-                    method: "POST",
+                    url: "{{ route('nu-smart-card.update', $data->id) }}",  // Pass ID correctly
+                    method: "POST", // Change to POST or PUT
                     data: formData,
                     processData: false,
                     contentType: false,
@@ -208,12 +221,12 @@
                     success: function (response) {
                         iziToast.success({
                             title: "Success",
-                            message: "Data inserted successfully!",
+                            message: "Data updated successfully!",
                             position: "topRight"
                         });
 
                         setTimeout(() => {
-                            window.location.href = "{{ route('view-data') }}";
+                            window.location.href = "{{ route('nu-smart-card.index') }}";
                         }, 2000);
                     },
                     error: function (response) {
@@ -225,6 +238,7 @@
                     }
                 });
             });
+
         });
     </script>
 @endsection

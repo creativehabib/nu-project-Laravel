@@ -74,18 +74,15 @@
 
                                 <div class="mb-3">
                                     <label for="example-textarea" class="form-label">Blood Group</label>
-                                    <select name="blood_group" class="form-select">
+                                    <select name="blood_id" class="form-select">
                                         <option value="">Select Blood Group</option>
-                                        <option value="A+">A+</option>
-                                        <option value="A-">A-</option>
-                                        <option value="B+">B+</option>
-                                        <option value="B-">B-</option>
-                                        <option value="O+">O+</option>
-                                        <option value="O-">O-</option>
-                                        <option value="AB+">AB+</option>
-                                        <option value="AB-">AB-</option>
+                                        @foreach($bloods as $blood)
+                                            <option value="{{$blood->id}}"
+                                            {{ $data->blood_id == $blood->id ? 'selected' : '' }}
+                                            >{{$blood->name}}</option>
+                                        @endforeach
                                     </select>
-                                    <span class="text-red small" id="blood_group-error"></span>
+                                    <span class="text-red small" id="blood_id-error"></span>
                                 </div>
 
                             <div class="mb-3">

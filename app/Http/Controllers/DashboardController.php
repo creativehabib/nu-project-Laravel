@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\BloodGroup;
 use App\Models\NuSmartCard;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -27,14 +28,15 @@ class DashboardController extends Controller
 
     public function show($id)
     {
-        $nuSmartCard = NuSmartCard::query()->findOrFail($id);
+        $nuSmartCard = NuSmartCard::query()->with('blood')->findOrFail($id);
         return view('nu-smart-card.show',compact('nuSmartCard'));
     }
 
     public function edit($id)
     {
+        $bloods = BloodGroup::where('status', 1)->get();
         $data = NuSmartCard::query()->findOrFail($id);
-        return view('nu-smart-card.edit',compact('data'));
+        return view('nu-smart-card.edit',compact('data','bloods'));
     }
 
     public function update(Request $request, $id)
@@ -48,6 +50,7 @@ class DashboardController extends Controller
             'pf_number' => 'required|string|max:255',
             'mobile_number' => 'required|string|max:255',
             'birth_date' => 'required|date',
+            'blood_id' => 'required',
             'emergency_contact' => 'required|string|max:255',
             'present_address' => 'required|string',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',

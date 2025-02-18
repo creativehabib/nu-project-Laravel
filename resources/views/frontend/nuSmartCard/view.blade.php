@@ -48,7 +48,7 @@
             </tr>
             <tr class="border-b border-gray-300 dark:border-gray-700">
                 <th class="p-2 w-50">Blood Group:</th>
-                <td class="p-2">{{ $data->blood_group }}</td>
+                <td class="p-2">{{ $data->blood?->name }}</td>
             </tr>
             <tr class="border-b border-gray-300 dark:border-gray-700">
                 <th class="p-2 w-50">Present Address:</th>

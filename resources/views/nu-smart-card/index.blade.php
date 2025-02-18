@@ -29,7 +29,7 @@
                     <tbody>
                         @forelse($data as $nu)
                             <tr>
-                                <th scope="row">{{ $loop->iteration }}</th>
+                                <th scope="row">{{ $data->firstItem()+$loop->index }}</th>
                                 <td>{{ $nu->name }}</td>
                                 <td>{{ $nu->designation }}</td>
                                 <td>{{ $nu->created_at->toDateString() }}</td>

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BloodGroupController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\NuSmartCardController;
 use App\Http\Controllers\RoutingController;
@@ -10,6 +11,10 @@ require __DIR__ . '/auth.php';
 Route::group(['prefix' => '/dashboard', 'middleware' => 'auth'], function () {
     Route::resource('nu-smart-card', DashboardController::class);
     Route::get('view-pdf', [DashboardController::class, 'getPdfData'])->name('view-pdf');
+
+    // Blood Group
+    Route::resource('blood-group', BloodGroupController::class);
+    Route::post('/blood-group/{id}/update-status', [BloodGroupController::class, 'updateStatus'])->name('blood-group.update-status');
 
     Route::get('', [RoutingController::class, 'index'])->name('root');
     Route::get('{first}/{second}/{third}', [RoutingController::class, 'thirdLevel'])->name('third');

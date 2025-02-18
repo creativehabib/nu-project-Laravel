@@ -44,6 +44,9 @@
                           <li class="sub-nav-item">
                               <a class="sub-nav-link" href="{{ route ('second' , ['auth','signup']) }}">Sign Up</a>
                           </li>
+                          <li class="sub-nav-item">
+                              <a class="sub-nav-link" href="{{ route ('blood-group.index') }}">Blood Group</a>
+                          </li>
                       </ul>
                   </div>
               </li>

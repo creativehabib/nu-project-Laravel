@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\BloodGroup;
 use App\Models\NuSmartCard;
 use Carbon\Carbon;
 use Illuminate\Contracts\View\Factory;
@@ -20,7 +21,8 @@ class NuSmartCardController extends Controller
      */
     public function index()
     {
-        return view('frontend.nuSmartCard.index');
+        $bloods = BloodGroup::where('status', 1)->get();
+        return view('frontend.nuSmartCard.index', compact('bloods'));
     }
 
     /**
@@ -126,7 +128,7 @@ class NuSmartCardController extends Controller
             'birth_date' => $request->birth_date,
             'prl_date' => $prlDate->toDateString(),
             'mobile_number' => $request->mobile_number,
-            'blood_group' => $request->blood_group,
+            'blood_id' => $request->blood_group,
             'present_address' => $request->present_address,
             'emergency_contact' => $request->emergency_contact,
             'image' => $imagePath,

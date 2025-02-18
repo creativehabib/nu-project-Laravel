@@ -20,7 +20,7 @@ return new class extends Migration
             $table->date('birth_date')->nullable();
             $table->string('prl_date')->nullable();
             $table->string('mobile_number')->nullable();
-            $table->string('blood_group')->nullable();
+            $table->unsignedInteger('blood_id')->nullable();
             $table->text('present_address')->nullable();
             $table->string('emergency_contact')->nullable();
             $table->string('signature')->nullable();

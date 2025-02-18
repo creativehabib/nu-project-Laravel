@@ -77,14 +77,9 @@
                                     <label class="mb-2 text-sm font-medium">Blood Group</label>
                                     <select name="blood_group" class="p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400 dark:bg-gray-800 dark:text-white">
                                         <option value="">Select Blood Group</option>
-                                        <option value="A+">A+</option>
-                                        <option value="A-">A-</option>
-                                        <option value="B+">B+</option>
-                                        <option value="B-">B-</option>
-                                        <option value="O+">O+</option>
-                                        <option value="O-">O-</option>
-                                        <option value="AB+">AB+</option>
-                                        <option value="AB-">AB-</option>
+                                        @foreach($bloods as $blood)
+                                            <option value="{{ $blood->id }}">{{ $blood->name }}</option>
+                                        @endforeach
                                     </select>
                                     <span class="text-red-500 text-sm mt-1" id="blood_group-error"></span>
                                 </div>

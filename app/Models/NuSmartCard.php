@@ -16,14 +16,15 @@ class NuSmartCard extends Model
     public const SIGNATURE_UPLOAD_PATH = 'uploads/signature/';
 
     protected $fillable = [
-        'name', 'department', 'designation', 'pf_number', 'birth_date',
-        'prl_date', 'mobile_number', 'blood_id', 'present_address',
-        'emergency_contact', 'image', 'signature'
+        'name', 'department', 'designation', 'pf_number',
+        'birth_date', 'prl_date', 'mobile_number', 'blood_id',
+        'present_address', 'emergency_contact', 'image', 'signature'
     ];
 
     public function storeSmartCard(Request $request)
     {
-        return self::query()->create($this->prepareData($request));
+        $data = $this->prepareData($request);
+        return self::create($data);
     }
 
     /**
@@ -68,18 +69,18 @@ class NuSmartCard extends Model
     /**
      * @param Request $request
      * @param string $fileName
-     * @param string $existingFile
+     * @param string|null $existingFile
      * @param string $uploadPath
-     * @return string
+     * @return string|null
      */
-    private function handleFileUpload(Request $request, string $fileName, string $existingFile, string $uploadPath): string
+    private function handleFileUpload(Request $request, string $fileName, ?string $existingFile, string $uploadPath): ?string
     {
         if(!$request->hasFile($fileName)){
             return $existingFile; // Return existing file if new one isn't upload
         }
         $file = $request->file($fileName);
         // Delete old file/image if it exists
-        if($existingFile){
+        if(!empty($existingFile)){
             $oldFilePath = public_path($uploadPath . $existingFile);
             if(File::exists($oldFilePath)){
                 File::delete($oldFilePath);

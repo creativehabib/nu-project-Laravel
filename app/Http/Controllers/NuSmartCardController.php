@@ -69,18 +69,21 @@ class NuSmartCardController extends Controller
      */
     public function store_data(StoreSmartCardRequest $request): JsonResponse
     {
+        logger('StoreSmartCardRequest Data:', $request->all());
         try {
             $smartCard = (new NuSmartCard())->storeSmartCard($request);
+            if(!$smartCard){
+                return response()->json(['success' => false, 'message' => 'Something went wrong!'], 500);
+            }
             session(['submitted_id' => $smartCard->id]);
             return response()->json([
                 'success' => true,
                 'message' => 'Data submitted successfully!',
             ]);
         } catch (\Throwable $th) {
-            return response()->json(['success' => false], 500);
+            logger($th);
+            return response()->json(['success' => false, 'error' => $th->getMessage()], 500);
         }
-
-
     }
 
 

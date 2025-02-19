@@ -238,7 +238,7 @@
             $("#nu_form_btn").prop("disabled", true).text("Submitting...");
 
             $.ajax({
-                url: "{{ route('nu-smart-card.store') }}",
+                url: "{{ route('nu-smart-card.store_data') }}",
                 method: "POST",
                 data: formData,
                 processData: false,

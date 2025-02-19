@@ -25,7 +25,7 @@ Route::group(['prefix' => '/dashboard', 'middleware' => 'auth'], function () {
 // frontend route
 
 Route::get('/nu-smart-card', [NuSmartCardController::class, 'index']);
-Route::post('/nu-smart-card', [NuSmartCardController::class, 'store'])->name('nu-smart-card.store');
+Route::post('/nu-smart-card', [NuSmartCardController::class, 'store_data'])->name('nu-smart-card.store_data');
 Route::get('/view-data', [NuSmartCardController::class, 'viewData'])->name('view-data');
 
 

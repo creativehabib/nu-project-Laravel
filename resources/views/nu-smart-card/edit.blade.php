@@ -50,7 +50,7 @@
                                     <label for="image" class="form-label">Image</label>
                                     <input type="file" id="image" name="image" class="form-control">
                                     <span class="text-red small" id="image-error"></span>
-                                    <img src="{{ asset('storage/' . $data->image)  }}" id="profilePreview" alt="{{ $data->name }}" class="w-25 img-thumbnail img-fluid">
+                                    <img src="{{ asset('uploads/images/' . $data->image)  }}" id="profilePreview" alt="{{ $data->name }}" class="w-25 img-thumbnail img-fluid">
                                 </div>
                             </div>
                             <div>
@@ -90,7 +90,7 @@
                                 <input type="file" id="signature" name="signature" class="form-control">
                                 <span class="text-red small" id="signature-error"></span>
                                 <div class="mt-3">
-                                    <img id="signaturePreview" src="{{ asset('storage/' . $data->signature) }}" class="img-thumbnail img-fluid w-50">
+                                    <img id="signaturePreview" src="{{ asset('uploads/signature/' . $data->signature) }}" class="img-thumbnail img-fluid w-50">
                                 </div>
                             </div>
                         </div>

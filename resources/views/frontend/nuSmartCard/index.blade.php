@@ -63,7 +63,7 @@
                                 <div class="flex flex-col text-gray-700 dark:text-gray-200">
                                     <label class="mb-2 text-sm font-medium">Date of Birth</label>
                                     <input type="date" name="birth_date" placeholder="Select date" class="p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400 dark:bg-gray-800 dark:text-white">
-                                    <span class="text-red-500 text-sm mt-1" id="brith_date-error"></span>
+                                    <span class="text-red-500 text-sm mt-1" id="birth_date-error"></span>
                                 </div>
                             </div>
 
@@ -75,13 +75,13 @@
                                 </div>
                                 <div class="flex flex-col text-gray-700 dark:text-gray-200">
                                     <label class="mb-2 text-sm font-medium">Blood Group</label>
-                                    <select name="blood_group" class="p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400 dark:bg-gray-800 dark:text-white">
+                                    <select name="blood_id" class="p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400 dark:bg-gray-800 dark:text-white">
                                         <option value="">Select Blood Group</option>
                                         @foreach($bloods as $blood)
                                             <option value="{{ $blood->id }}">{{ $blood->name }}</option>
                                         @endforeach
                                     </select>
-                                    <span class="text-red-500 text-sm mt-1" id="blood_group-error"></span>
+                                    <span class="text-red-500 text-sm mt-1" id="blood_id-error"></span>
                                 </div>
                             </div>
 

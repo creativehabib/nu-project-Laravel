@@ -33,7 +33,7 @@
                                 <td>{{ $nu->name }}</td>
                                 <td>{{ $nu->designation }}</td>
                                 <td>{{ $nu->created_at->toDateString() }}</td>
-                                <td><img class="img-thumbnail img-fluid rounded mx-auto d-block w-25" alt="image" src="{!! asset('storage/' . $nu->image)  !!}"> </td>
+                                <td><img class="img-thumbnail img-fluid rounded mx-auto d-block w-25" alt="image" src="{!! asset('uploads/images/' . $nu->image)  !!}"> </td>
                                 <td class="text-center">
                                     <form action="{{ route('nu-smart-card.destroy',$nu->id) }}" method="POST">
                                         <a href="{{ route('nu-smart-card.show', $nu->id) }}" class="btn btn-primary btn-sm"><i class="bx bx-show fs-4"></i></a>

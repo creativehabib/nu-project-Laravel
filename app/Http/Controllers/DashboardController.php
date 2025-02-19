@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreSmartCardRequest;
+use App\Http\Requests\updateSmartCardRequest;
 use App\Models\BloodGroup;
 use App\Models\NuSmartCard;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -22,8 +25,18 @@ class DashboardController extends Controller
         return view('nu-smart-card.create');
     }
 
-    public function store(Request $request)
+    public function store(StoreSmartCardRequest $request)
     {
+        try {
+            $smartCard = (new NuSmartCard())->storeSmartCard($request);
+            session(['submitted_id' => $smartCard->id]);
+            return response()->json([
+                'success' => true,
+                'message' => 'Data submitted successfully!',
+            ]);
+        } catch (\Throwable $th) {
+            return response()->json(['success' => false,'message'=> 'Data not submitted successfully!'], 500);
+        }
     }
 
     public function show($id)
@@ -39,78 +52,24 @@ class DashboardController extends Controller
         return view('nu-smart-card.edit',compact('data','bloods'));
     }
 
-    public function update(Request $request, $id)
+    public function update(updateSmartCardRequest $request, NuSmartCard $nuSmartCard)
     {
-        $nuSmartCard = NuSmartCard::findOrFail($id);
-
-        $validated = $request->validate([
-            'name' => 'required|string|max:255',
-            'department' => 'required|string|max:255',
-            'designation' => 'required|string|max:255',
-            'pf_number' => 'required|string|max:255',
-            'mobile_number' => 'required|string|max:255',
-            'birth_date' => 'required|date',
-            'blood_id' => 'required',
-            'emergency_contact' => 'required|string|max:255',
-            'present_address' => 'required|string',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-            'signature' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-        ]);
-
-        // ✅ Handle Image Upload and Delete Old Image
-        if ($request->hasFile('image')) {
-            if ($nuSmartCard->image && Storage::disk('public')->exists($nuSmartCard->image)) {
-                Storage::disk('public')->delete($nuSmartCard->image);
-            }
-
-            $signatureFile = $request->file('image');
-            $signature = Image::make($signatureFile->getRealPath());
-
-            // ✅ Resize the signature to 300x80 before saving
-            $signature->resize(300, 80);
-
-            // ✅ Generate a unique filename
-            $filename = 'uploads/signatures/' . uniqid() . '.' . $signatureFile->getClientOriginalExtension();
-
-            // ✅ Save the resized image to the public storage
-            Storage::disk('public')->put($filename, (string) $signature->encode());
-
-            $validated['signature'] = $filename;
+        try {
+            (new NuSmartCard())->updateSmartCard($request, $nuSmartCard);
+            return response()->json(['success' => true, 'message' => 'Data updated successfully!']);
+        } catch (\Throwable $throwable){
+            return response()->json(['success' => false,'message'=> 'Data not updated successfully!'], 500);
         }
-
-
-        // ✅ Handle Signature Upload and Delete Old Signature
-        if ($request->hasFile('signature')) {
-            if ($nuSmartCard->signature && Storage::disk('public')->exists($nuSmartCard->signature)) {
-                Storage::disk('public')->delete($nuSmartCard->signature);
-            }
-
-            $signatureFile = $request->file('signature');
-            $signature = Image::make($signatureFile->getRealPath());
-
-            // ✅ Resize the signature to 300x80 before saving
-            $signature->resize(300, 80);
-
-            // ✅ Generate a unique filename
-            $filename = 'uploads/signatures/' . uniqid() . '.' . $signatureFile->getClientOriginalExtension();
-
-            // ✅ Save the resized image to the public storage
-            Storage::disk('public')->put($filename, (string) $signature->encode());
-
-            $validated['signature'] = $filename;
-        }
-
-
-        // ✅ Update the database
-        $nuSmartCard->update($validated);
-
-        return response()->json(['message' => 'Updated successfully']);
     }
 
-
-    public function destroy($id)
+    /**
+     * @param NuSmartCard $nuSmartCard
+     * @return JsonResponse
+     */
+    public function destroy(NuSmartCard $nuSmartCard): JsonResponse
     {
-
+        (new NuSmartCard())->deleteSmartCard($nuSmartCard);
+        return response()->json(['success' => true, 'message' => 'Data deleted successfully!']);
     }
 
 

@@ -61,19 +61,19 @@
             <tr class="border-b border-gray-300 dark:border-gray-700">
                 <th class="p-2 w-50">Signature:</th>
                 <td class="p-2">
-                    <img src="{{ asset('storage/' . $data->signature) }}" alt="Signature" class="w-40 h-12 border rounded-md">
+                    <img src="{{ asset('uploads/signature/' . $data->signature) }}" alt="Signature" class="w-40 h-12 border rounded-md">
                 </td>
             </tr>
             <tr class="border-b border-gray-300 dark:border-gray-700">
                 <th class="p-2 w-50">Image:</th>
                 <td class="p-2">
-                    <img src="{{ asset('storage/' . $data->image) }}" alt="Signature" class="w-full h-full border rounded-md">
+                    <img src="{{ asset('uploads/images/' . $data->image) }}" alt="Signature" class="w-full h-full border rounded-md">
                 </td>
             </tr>
         </table>
 
         <div class="mt-4 flex justify-center">
-            <a href="{{ route('nu-smart-card.store') }}" class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition">
+            <a href="{{ route('nu-smart-card.store_data') }}" class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition">
                 Back to Form
             </a>
         </div>

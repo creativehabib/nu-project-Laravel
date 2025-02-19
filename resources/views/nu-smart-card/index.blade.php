@@ -40,7 +40,7 @@
                                         <a href="{{ route('nu-smart-card.edit', $nu->id) }}" class="btn btn-sm btn-green"><i class="bx bx-edit fs-4"></i></a>
                                         @csrf
                                         @method("DELETE")
-                                        <button type="submit" class="btn btn-danger btn-sm"><i class="bx bx-trash fs-4"></i></button>
+                                        <button data-url="{{ route('nu-smart-card.destroy', $nu->id) }}" class="btn btn-danger delete-btn btn-sm"><i class="bx bx-trash fs-4"></i></button>
                                     </form>
                                 </td>
                             </tr>
@@ -55,5 +55,55 @@
     </div>
 @endsection
 @section('scripts')
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/izitoast/dist/css/iziToast.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdn.jsdelivr.net/npm/izitoast/dist/js/iziToast.min.js"></script>
+    <script type="text/javascript">
+        $(document).on("click", ".delete-btn", function (e) {
+            e.preventDefault();
 
+            let deleteUrl = $(this).data("url");
+            let row = $(this).closest("tr"); // Adjust this for non-table elements
+
+            Swal.fire({
+                title: "Are you sure?",
+                text: "This action cannot be undone!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#d33",
+                cancelButtonColor: "#3085d6",
+                confirmButtonText: "Yes, delete it!"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        url: deleteUrl,
+                        type: "DELETE",
+                        data: {
+                            _token: $('meta[name="csrf-token"]').attr("content")
+                        },
+                        success: function (response) {
+                            iziToast.success({
+                                title: "Success",
+                                message: "Record deleted successfully!",
+                                position: "topRight"
+                            });
+
+                            // Fade out the deleted row smoothly
+                            row.fadeOut(500, function () {
+                                $(this).remove();
+                            });
+                        },
+                        error: function (xhr, status, error) {
+                            console.error(xhr.responseText); // Log error to console
+                            iziToast.error({
+                                title: "Error",
+                                message: "Something went wrong!",
+                                position: "topRight"
+                            });
+                        }
+                    });
+                }
+            });
+        });
+    </script>
 @endsection

@@ -111,7 +111,7 @@
                     $('#saveBlood').text('Update');
                     $('#bloodId').val(response.id);
                     $('#name').val(response.name);
-                    $('#bloodStatus').prop('checked', response.status === 1);
+                    $('#bloodStatus').prop('checked', response.status == 1);
                     $('.error-message').remove(); // Clear previous errors
                     $('#bloodModal').modal('show');
                 },

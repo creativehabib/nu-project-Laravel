@@ -69,7 +69,7 @@
                             <input type="text" id="name" name="name" placeholder="Enter blood name" class="form-control">
                         </div>
                         <div class="form-check form-switch">
-                            <input class="form-check-input bloodStatus" type="checkbox" role="switch" id="bloodStatus" checked>
+                            <input class="form-check-input bloodStatus" type="checkbox" role="switch" id="bloodStatus" checked="">
                             <label class="form-check-label" for="bloodStatus">Status</label>
                         </div>
                     </div>

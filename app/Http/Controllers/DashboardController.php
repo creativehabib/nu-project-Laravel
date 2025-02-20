@@ -22,14 +22,14 @@ class DashboardController extends Controller
 
     public function create()
     {
-        return view('nu-smart-card.create');
+        $bloods = BloodGroup::all();
+        return view('nu-smart-card.create', compact('bloods'));
     }
 
     public function store(StoreSmartCardRequest $request)
     {
         try {
             $smartCard = (new NuSmartCard())->storeSmartCard($request);
-            session(['submitted_id' => $smartCard->id]);
             return response()->json([
                 'success' => true,
                 'message' => 'Data submitted successfully!',

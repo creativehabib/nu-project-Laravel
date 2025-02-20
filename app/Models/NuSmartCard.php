@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Helpers\DateHelpers;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -43,9 +44,6 @@ class NuSmartCard extends Model
      */
     public function prepareData(Request $request, Model|NULL $model = null): array
     {
-        // Parse birth date and calculate PRL date
-        $birthDate = Carbon::parse($request->birth_date);
-        $prlDate = $birthDate->addYears(60); // Add 60 years
 
         $data = [
             'name'              => $request->input('name'),
@@ -53,7 +51,7 @@ class NuSmartCard extends Model
             'designation'       => $request->input('designation'),
             'pf_number'         => $request->input('pf_number'),
             'birth_date'        => $request->input('birth_date'),
-            'prl_date'          => $prlDate,
+            'prl_date'          => DateHelpers::calculatePRLDate($request->input('birth_date')),
             'mobile_number'     => $request->input('mobile_number'),
             'blood_id'          => $request->input('blood_id'),
             'present_address'   => $request->input('present_address'),

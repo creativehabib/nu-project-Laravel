@@ -9,7 +9,7 @@
         <div class="col">
             <div class="card">
                 <div class="card-header">
-                    <h5 class="card-title mb-0">Nu Smart Data Edit</h5>
+                    <h5 class="card-title mb-0">Nu Smart Data Add</h5>
                 </div>
 
                 <div class="card-body">

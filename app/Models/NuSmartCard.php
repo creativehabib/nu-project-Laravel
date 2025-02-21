@@ -3,13 +3,11 @@
 namespace App\Models;
 
 use App\Helpers\DateHelpers;
-use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
-use function Laravel\Prompts\select;
 
 class NuSmartCard extends Model
 {
@@ -42,7 +40,7 @@ class NuSmartCard extends Model
      * @param Model|NULL $model
      * @return array
      */
-    public function prepareData(Request $request, Model|NULL $model = null): array
+    final public function prepareData(Request $request, Model|NULL $model = null): array
     {
 
         $data = [
@@ -97,23 +95,9 @@ class NuSmartCard extends Model
      */
     final public function deleteSmartCard(Model $model): void
     {
-        $this->deleteFile($model->image, self::IMAGE_UPLOAD_PATH);
-        $this->deleteFile($model->signature, self::SIGNATURE_UPLOAD_PATH);
+        DateHelpers::deleteFile($model->image, self::IMAGE_UPLOAD_PATH);
+        DateHelpers::deleteFile($model->signature, self::SIGNATURE_UPLOAD_PATH);
         $model->delete();
-    }
-
-    /**
-     * @param string|null $fileName
-     * @param string $uploadPath
-     * @return void
-     */
-    private function deleteFile(?string $fileName, string $uploadPath): void
-    {
-        if(!$fileName) return;
-        $filePath = public_path($uploadPath . $fileName);
-        if(File::exists($filePath)){
-            File::delete($filePath);
-        }
     }
 
     /**

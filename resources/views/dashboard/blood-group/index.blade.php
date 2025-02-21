@@ -38,7 +38,7 @@
 
                             <td class="text-center">
                                 <button class="btn btn-sm btn-green editBlood" data-bs-toggle="modal" data-bs-target="#bloodModal" data-id="{{ $blood->id }}"><i class="bx bx-edit fs-4"></i></button>
-                                <button class="btn btn-danger btn-sm deleteBlood" data-id="{{ $blood->id }}"><i class="bx bx-trash fs-4"></i></button>
+                                <button class="btn btn-danger btn-sm delete-btn" data-url="{{ route('blood-group.destroy', $blood->id) }}"><i class="bx bx-trash fs-4"></i></button>
                             </td>
                         </tr>
                     @empty
@@ -86,6 +86,7 @@
 
 @endsection
 @section('scripts')
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/izitoast/1.4.0/js/iziToast.min.js"></script>
 <script type="text/javascript">
     $(document).ready(function () {
@@ -170,34 +171,51 @@
         });
 
         // ✅ Handle DELETE Request
-        $(document).on('click', '.deleteBlood', function () {
-            let id = $(this).data('id');
+        $(document).on("click", ".delete-btn", function (e) {
+            e.preventDefault();
 
-            if (confirm('Are you sure you want to delete this record?')) {
-                $.ajax({
-                    url: '/dashboard/blood-group/' + id,
-                    type: 'POST',  // Always use POST
-                    data: {
-                        _token: $('meta[name="csrf-token"]').attr('content'),
-                        _method: 'DELETE' // Laravel recognizes _method for DELETE
-                    },
-                    success: function (response) {
-                        iziToast.success({
-                            title: 'Success',
-                            message: response.message,
-                            position: 'topRight'
-                        });
-                        setTimeout(() => location.reload(), 1000);
-                    },
-                    error: function () {
-                        iziToast.error({
-                            title: 'Error',
-                            message: 'Failed to delete!',
-                            position: 'topRight'
-                        });
-                    }
-                });
-            }
+            let deleteUrl = $(this).data("url");
+            let row = $(this).closest("tr"); // Adjust this for non-table elements
+
+            Swal.fire({
+                title: "Are you sure?",
+                text: "This action cannot be undone!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#d33",
+                cancelButtonColor: "#3085d6",
+                confirmButtonText: "Yes, delete it!"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        url: deleteUrl,
+                        type: "DELETE",
+                        data: {
+                            _token: $('meta[name="csrf-token"]').attr("content")
+                        },
+                        success: function (response) {
+                            iziToast.success({
+                                title: "Success",
+                                message: "Record deleted successfully!",
+                                position: "topRight"
+                            });
+
+                            // Fade out the deleted row smoothly
+                            row.fadeOut(500, function () {
+                                $(this).remove();
+                            });
+                        },
+                        error: function (xhr, status, error) {
+                            console.error(xhr.responseText); // Log error to console
+                            iziToast.error({
+                                title: "Error",
+                                message: "Something went wrong!",
+                                position: "topRight"
+                            });
+                        }
+                    });
+                }
+            });
         });
 
         $(document).on('change', '.bloodStatus', function () {

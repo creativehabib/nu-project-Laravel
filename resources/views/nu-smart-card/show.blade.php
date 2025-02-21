@@ -5,7 +5,10 @@
         <div class="col">
             <div class="card">
                 <div class="card-header">
-                    <h5 class="card-title mb-0">Nu Smart Data Edit</h5>
+                    <div class="flex-box justify-content-between">
+                        <h5 class="card-title mb-0">Nu Staff Info View</h5>
+                        <a class="btn btn-sm btn-info" href="{{ route('nu-smart-card.index') }}">Back</a>
+                    </div>
                 </div>
 
                 <div class="card-body">
@@ -29,7 +32,7 @@
                             </tr>
                             <tr>
                                 <th>Date of Birth</th>
-                                <td>{{ $nuSmartCard->birth_date }}</td>
+                                <td>{{ \App\Helpers\DateHelpers::dateFormat($nuSmartCard->birth_date) }}</td>
                             </tr>
                             <tr>
                                 <th>PRL Date</th>
@@ -53,11 +56,11 @@
                             </tr>
                             <tr>
                                 <th>Signature</th>
-                                <td><img src="{{ asset('uploads/signature/' .$nuSmartCard->signature) }}"></td>
+                                <td><img alt="" src="{{ asset('uploads/signature/' .$nuSmartCard->signature) }}"></td>
                             </tr>
                             <tr>
                                 <th>Signature</th>
-                                <td><img src="{{ asset('uploads/images/' .$nuSmartCard->image) }}"></td>
+                                <td><img alt="" src="{{ asset('uploads/images/' .$nuSmartCard->image) }}"></td>
                             </tr>
                         </table>
                     </div>

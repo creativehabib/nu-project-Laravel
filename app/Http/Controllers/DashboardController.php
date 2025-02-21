@@ -16,7 +16,7 @@ class DashboardController extends Controller
 {
     public function index()
     {
-        $data = NuSmartCard::query()->paginate(10);;
+        $data = NuSmartCard::query()->paginate(5);
         return view('nu-smart-card.index', compact('data'));
     }
 
@@ -26,7 +26,11 @@ class DashboardController extends Controller
         return view('nu-smart-card.create', compact('bloods'));
     }
 
-    public function store(StoreSmartCardRequest $request)
+    /**
+     * @param StoreSmartCardRequest $request
+     * @return JsonResponse
+     */
+    public function store(StoreSmartCardRequest $request): JsonResponse
     {
         try {
             $smartCard = (new NuSmartCard())->storeSmartCard($request);
@@ -52,7 +56,12 @@ class DashboardController extends Controller
         return view('nu-smart-card.edit',compact('data','bloods'));
     }
 
-    public function update(updateSmartCardRequest $request, NuSmartCard $nuSmartCard)
+    /**
+     * @param updateSmartCardRequest $request
+     * @param NuSmartCard $nuSmartCard
+     * @return JsonResponse
+     */
+    public function update(updateSmartCardRequest $request, NuSmartCard $nuSmartCard): JsonResponse
     {
         try {
             (new NuSmartCard())->updateSmartCard($request, $nuSmartCard);

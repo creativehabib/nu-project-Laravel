@@ -9,7 +9,10 @@
         <div class="col">
             <div class="card">
                 <div class="card-header">
-                    <h5 class="card-title mb-0">Nu Smart Data Edit</h5>
+                    <div class="flex-box justify-content-between">
+                        <h5 class="card-title">Nu Staff Info Edit</h5>
+                        <a class="btn btn-sm btn-info" href="{{ route('nu-smart-card.index') }}">Back</a>
+                    </div>
                 </div>
 
                 <div class="card-body">

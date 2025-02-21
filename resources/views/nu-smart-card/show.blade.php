@@ -60,7 +60,7 @@
                             </tr>
                             <tr>
                                 <th>Signature</th>
-                                <td><img alt="" src="{{ \App\Helpers\DateHelpers::  }}"></td>
+                                <td><img alt="" src="{{ asset('uploads/images/' .$nuSmartCard->image) }}"></td>
                             </tr>
                         </table>
                     </div>

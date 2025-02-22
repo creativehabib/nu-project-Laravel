@@ -136,18 +136,18 @@ class DashboardController extends Controller
         <table class="items table" width="100%" style="font-size: 9pt; border-collapse: collapse; " cellpadding="8">
             <thead>
                 <tr>
-                    <td>ক্রমিক নং</td>
-                    <td width="20%">ফাইল নং</td>
-                    <td>ফাইলের নাম</td>
-                    <td>বিষয়</td>
-                    <td>আসার তারিখ</td>
-                    <td>আসার দপ্তর</td>
-                    <td width="8%">মার্ক ও তারিখ</td>
-                    <td>যাওয়ার দপ্তর</td>
-                    <td>যাওয়ার তারিখ</td>
-                    <td>আইন উপদেষ্টার কাছে যাওয়ার তারিখ</td>
-                    <td>আইন উপদেষ্টার কাছ থেকে আসার তারিখ</td>
-                    <td>মন্তব্য</td>
+                    <td>No</td>
+                    <td>Name</td>
+                    <td>Department</td>
+                    <td>Designation</td>
+                    <td>PF No</td>
+                    <td>PRL Date</td>
+                    <td>Blood Group</td>
+                    <td>Mobile No</td>
+                    <td>Present Address</td>
+                    <td>Emergency No</td>
+                    <td>Image</td>
+                    <td>Signature</td>
                 </tr>
             </thead>
         <tbody>
@@ -161,11 +161,12 @@ class DashboardController extends Controller
             $html .= '<td>'.$row['designation'].'</td>';
             $html .= '<td>'.$row['pf_number'].'</td>';
             $html .= '<td>'.$row['prl_date'].'</td>';
-            $html .= '<td>'.$row['blood_group'].'</td>';
+            $html .= '<td>'.$row->blood->name.'</td>';
             $html .= '<td>'.$row['mobile_number'].'</td>';
             $html .= '<td>'.$row['present_address'].'</td>';
-            $html .= '<td>'.$row['birth_date'].'</td>';
-            $html .= '<td>'.$row['image'].'</td>';
+            $html .= '<td>'.$row['emergency_contact'].'</td>';
+            $html .= '<td><img src="uploads/images/'.$row['image'].'" alt="" style="width: 50px; object-fit: cover"></td>';
+            $html .= '<td style="vertical-align: center;align-items: center;"><img src="uploads/signature/'.$row['signature'].'" alt="" style="width: 50px; object-fit: cover"></td>';
             $html .= '</tr>';
         };
 
@@ -199,6 +200,7 @@ class DashboardController extends Controller
             'margin_bottom' => 25,
             'margin_header' => 10,
             'margin_footer' => 10,
+            'format' => 'Legal',
             'orientation' => 'L'
         ]);
 

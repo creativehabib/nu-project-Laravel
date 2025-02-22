@@ -83,7 +83,7 @@ class DashboardController extends Controller
 
 
     public function getPdfData(){
-        $data = NuSmartCard::latest()->get();
+        $data = NuSmartCard::all();
         date_default_timezone_set("Asia/Dhaka");
         $html = '
         <!doctype html>

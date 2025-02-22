@@ -9,7 +9,7 @@
         <div class="card-header">
             <div class="flex-box justify-content-between">
                 <h5 class="card-title">College Inspection Staff List</h5>
-                <a class="btn btn-sm btn-info" target="_blank" href="{{ route('view-pdf') }}"><i class="bx bxs-file-pdf fs-4"></i></a>
+                <a class="btn btn-sm btn-red" target="_blank" href="{{ route('view-pdf') }}">PDF Download</a>
                 <a class="btn btn-sm btn-info" href="{{ route('nu-smart-card.create') }}">Add New</a>
             </div>
         </div>

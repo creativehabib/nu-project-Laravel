@@ -165,8 +165,8 @@ class DashboardController extends Controller
             $html .= '<td>'.$row['mobile_number'].'</td>';
             $html .= '<td>'.$row['present_address'].'</td>';
             $html .= '<td>'.$row['emergency_contact'].'</td>';
-            $html .= '<td><img src="uploads/images/'.$row['image'].'" alt="" style="width: 50px; object-fit: cover"></td>';
-            $html .= '<td style="vertical-align: center;align-items: center;"><img src="uploads/signature/'.$row['signature'].'" alt="" style="width: 50px; object-fit: cover"></td>';
+            $html .= '<td><img src="uploads/images/'.$row['image'].'" alt="" style="width: 75px; object-fit: cover"></td>';
+            $html .= '<td><img src="uploads/signature/'.$row['signature'].'" alt="" style="width: 75px; object-fit: cover"></td>';
             $html .= '</tr>';
         };
 
@@ -194,6 +194,8 @@ class DashboardController extends Controller
         //require_once $path . '/vendor/autoload.php';
 
         $mpdf = new \Mpdf\Mpdf([
+            'default_font' => 'nikosh',
+            'mode' => 'utf-8',
             'margin_left' => 10,
             'margin_right' => 10,
             'margin_top' => 30,

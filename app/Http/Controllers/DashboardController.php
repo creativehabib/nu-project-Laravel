@@ -296,7 +296,7 @@ class DashboardController extends Controller
                 </tr>
                 <tr>
                     <th>PRL Date</th>
-                    <td>'. \App\Helpers\DateHelpers::dateFormat($data->prl_date).'</td>
+                    <td>'. $data->prl_date.'</td>
                 </tr>
                 <tr>
                     <th>Mobile Number</th>

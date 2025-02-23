@@ -97,7 +97,7 @@ class DashboardController extends Controller
         table.items {
             border: 0.1mm solid #323639;
         }
-        td { vertical-align: top; }
+        td, th { align-items: center; }
         .items td {
             border-left: 0.1mm solid #323639;
             border-right: 0.1mm solid #323639;
@@ -189,9 +189,6 @@ class DashboardController extends Controller
         </htmlpagefooter>
         </body>
         </html>';
-
-        //$path = (getenv('MPDF_ROOT')) ? getenv('MPDF_ROOT') : __DIR__;
-        //require_once $path . '/vendor/autoload.php';
 
         $mpdf = new \Mpdf\Mpdf([
             'default_font' => 'nikosh',

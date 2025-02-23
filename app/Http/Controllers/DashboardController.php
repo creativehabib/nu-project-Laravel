@@ -90,7 +90,7 @@ class DashboardController extends Controller
         <meta charset="UTF-8">
         <head>
         <style>
-        body {font-family: nikosh;
+        body {
             font-size: 10pt;
         }
         p {	margin: 0pt; }
@@ -119,8 +119,8 @@ class DashboardController extends Controller
         <table width="100%" style="text-align:center;">
         <tr>
         <td width="50%" style="color:#323639; ">
-        <span style="font-weight: bold; font-size: 16pt;">জাতীয় বিশ্ববিদ্যালয়</span>
-        <br /><span style="font-size:14px;">বাংলাদেশ</span><br /><span style="font-size:14px">কলেজ পরিদর্শন দপ্তর</span> <br/>
+        <span style="font-weight: bold; font-size: 20pt;">জাতীয় বিশ্ববিদ্যালয়</span>
+        <br /><span style="font-size:14pt;">বাংলাদেশ</span><br /><span style="font-size:14pt">কলেজ পরিদর্শন দপ্তর</span> <br/>
         </td>
 
         </tr></table>
@@ -200,8 +200,8 @@ class DashboardController extends Controller
             'margin_right' => 10,
             'margin_top' => 30,
             'margin_bottom' => 25,
-            'margin_header' => 10,
-            'margin_footer' => 10,
+            'margin_header' => 5,
+            'margin_footer' => 5,
             'format' => 'Legal',
             'orientation' => 'L'
         ]);
@@ -211,6 +211,158 @@ class DashboardController extends Controller
         $mpdf->SetAuthor("NU");
         $mpdf->SetDisplayMode('fullpage');
 
+        $mpdf->WriteHTML($html);
+
+        $mpdf->Output();
+    }
+
+    // single pdf
+    public function getSinglePdfData($id)
+    {
+        // get single data
+        $data = NuSmartCard::query()->with('blood')->findOrFail($id);
+        date_default_timezone_set("Asia/Dhaka");
+        $html = '
+        <!doctype html>
+        <meta charset="UTF-8">
+        <head>
+        <style>
+        body {
+            font-size: 10pt;
+        }
+        table.items {
+            border: 0.1mm solid #323639;
+        }
+        th, td { padding: 9pt }
+        .items th{
+            text-align: left;
+        }
+        .items td {
+            border-left: 0.1mm solid #323639;
+            border-right: 0.1mm solid #323639;
+        }
+        table thead td { background-color: #EEEEEE;
+            border: 0.1mm solid #323639;
+            font-variant: small-caps;
+        }
+        table tr {
+            border: 0.1mm solid #323639;
+        }
+
+        </style>
+        </head>
+        <body>
+        <!--mpdf
+        <htmlpageheader name="myheader">
+        <table width="100%" style="text-align:center;">
+        <tr>
+        <td width="50%" style="color:#323639; ">
+        <span style="font-weight: bold; font-size: 20pt;">জাতীয় বিশ্ববিদ্যালয়</span>
+        <br /><span style="font-size:14pt;">বাংলাদেশ</span><br /><span style="font-size:14pt">কলেজ পরিদর্শন দপ্তর</span> <br/>
+        </td>
+
+        </tr></table>
+        </htmlpageheader>
+        <htmlpagefooter name="myfooter">
+        <div style="font-size: 9pt;">
+        Page {PAGENO} of {nb}
+        </div>
+        </htmlpagefooter>
+        <sethtmlpageheader name="myheader" value="on" show-this-page="1" />
+        <sethtmlpagefooter name="myFooter1" value="on" />
+        mpdf-->
+        <h4 style="text-align: center; color: #2f3944;">Smart ID Card Information</h4>
+        <table class="items table" width="100%" style="font-size: 9pt; border-collapse: collapse; " cellpadding="8">
+        <!-- ITEMS HERE -->';
+        $html .= '<tr>
+                    <th>Name</th>
+                    <td>'.$data->name.'</td>
+                </tr>
+                <tr>
+                    <th>Department</th>
+                    <td>'.$data->department.'</td>
+                </tr>
+                <tr>
+                    <th>Designation</th>
+                    <td>'.$data->designation.'</td>
+                </tr>
+                <tr>
+                    <th>PF No</th>
+                    <td>'.$data->pf_number.'</td>
+                </tr>
+                <tr>
+                    <th>Date of Birth</th>
+                    <td>'. \App\Helpers\DateHelpers::dateFormat($data->birth_date) .'</td>
+                </tr>
+                <tr>
+                    <th>PRL Date</th>
+                    <td>'. \App\Helpers\DateHelpers::dateFormat($data->prl_date).'</td>
+                </tr>
+                <tr>
+                    <th>Mobile Number</th>
+                    <td>'. $data->mobile_number .'</td>
+                </tr>
+                <tr>
+                    <th>Blood Group</th>
+                    <td>'. $data->blood->name .'</td>
+                </tr>
+                <tr>
+                    <th>Present Address</th>
+                    <td>'.$data->present_address .'</td>
+                </tr>
+                <tr>
+                    <th>Emergency Contact</th>
+                    <td>'. $data->emergency_contact .'</td>
+                </tr>
+                <tr>
+                    <th>Image</th>
+                    <td><img src="uploads/images/'.$data->image.'" style="width: 75px; object-fit: cover" alt=""></td>
+                </tr>
+                <tr>
+                    <th>Signature</th>
+                    <td><img src="uploads/signature/'.$data->signature.'" style="width: 75px; object-fit: cover" alt=""></td>
+                </tr>
+                ';
+
+        $html .='
+
+        <!-- END ITEMS HERE -->
+        </table>
+            <htmlpagefooter name="myFooter1">
+                <div style="border-top: .25px solid #323639;">
+                    <table width="100%">
+                        <tr>
+                            <td width="33%">Date: {DATE j-m-Y} Time: {DATE h:i:sa}</td>
+                            <td width="33%" style="text-align: right; ">Print by: '.Auth::user()->name.'</td>
+                        </tr>
+                    </table>
+                </div>
+            </htmlpagefooter>
+        </body>
+        </html>';
+
+
+        $mpdf = new \Mpdf\Mpdf([
+            'default_font' => 'nikosh',
+            'mode' => 'utf-8',
+            'margin_left' => 25,
+            'margin_right' => 25,
+            'margin_top' => 35,
+            'margin_bottom' => 25,
+            'margin_header' => 5,
+            'margin_footer' => 5,
+            'format' => 'A4',
+            'orientation' => 'P'
+        ]);
+
+        $mpdf->SetProtection(array('print'));
+        $mpdf->SetTitle("National University. - Data file");
+        $mpdf->SetAuthor("NU");
+        $mpdf->SetDisplayMode('fullpage');
+        $mpdf->SetWatermarkText("College Inspection");
+        $mpdf->showWatermarkText = true;
+        $mpdf->watermark_font = 'DejaVuSansCondensed';
+        $mpdf->watermarkTextAlpha = 0.1;
         $mpdf->WriteHTML($html);
 
         $mpdf->Output();

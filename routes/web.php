@@ -11,6 +11,7 @@ require __DIR__ . '/auth.php';
 Route::group(['prefix' => '/dashboard', 'middleware' => 'auth'], function () {
     Route::resource('nu-smart-card', DashboardController::class);
     Route::get('view-pdf', [DashboardController::class, 'getPdfData'])->name('view-pdf');
+    Route::get('single-pdf/{id}', [DashboardController::class, 'getSinglePdfData'])->name('single-pdf');
 
     // Blood Group
     Route::resource('blood-group', BloodGroupController::class);

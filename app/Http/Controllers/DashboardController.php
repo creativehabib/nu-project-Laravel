@@ -39,7 +39,8 @@ class DashboardController extends Controller
                 'message' => 'Data submitted successfully!',
             ]);
         } catch (\Throwable $th) {
-            return response()->json(['success' => false,'message'=> 'Data not submitted successfully!'], 500);
+            logger($th);
+            return response()->json(['success' => false, 'error' => $th->getMessage()], 500);
         }
     }
 
@@ -67,7 +68,7 @@ class DashboardController extends Controller
             (new NuSmartCard())->updateSmartCard($request, $nuSmartCard);
             return response()->json(['success' => true, 'message' => 'Data updated successfully!']);
         } catch (\Throwable $throwable){
-            return response()->json(['success' => false,'message'=> 'Data not updated successfully!'], 500);
+            return response()->json(['success' => false,'error'=> $throwable->getMessage()], 500);
         }
     }
 

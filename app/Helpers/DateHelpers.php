@@ -11,9 +11,9 @@ class DateHelpers
      * @param $birthDate
      * @return string
      */
-    public static function calculatePRLDate($birthDate): string
+    public static function calculatePRLDate($birthDate, $years): string
     {
-        return Carbon::parse($birthDate)->addYears(60)->format('d/m/Y'); // Returns DD/MM/YYYY
+        return Carbon::parse($birthDate)->addYears($years)->toDateString();
     }
     public static function deleteFile(?string $fileName, string $uploadPath): void
     {

@@ -49,7 +49,7 @@ class NuSmartCard extends Model
             'designation'       => $request->input('designation'),
             'pf_number'         => $request->input('pf_number'),
             'birth_date'        => $request->input('birth_date'),
-            'prl_date'          => DateHelpers::calculatePRLDate($request->input('birth_date')),
+            'prl_date'          => DateHelpers::calculatePRLDate($request->input('birth_date'), 60),
             'mobile_number'     => $request->input('mobile_number'),
             'blood_id'          => $request->input('blood_id'),
             'present_address'   => $request->input('present_address'),

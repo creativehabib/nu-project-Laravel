@@ -160,7 +160,7 @@ class DashboardController extends Controller
             $html .= '<td>'.$row['department'].'</td>';
             $html .= '<td>'.$row['designation'].'</td>';
             $html .= '<td>'.$row['pf_number'].'</td>';
-            $html .= '<td>'.$row['prl_date'].'</td>';
+            $html .= '<td>'. \App\Helpers\DateHelpers::dateFormat($row['prl_date'], 'd/m/Y').'</td>';
             $html .= '<td>'.$row->blood->name.'</td>';
             $html .= '<td>'.$row['mobile_number'].'</td>';
             $html .= '<td>'.$row['present_address'].'</td>';
@@ -293,7 +293,7 @@ class DashboardController extends Controller
                 </tr>
                 <tr>
                     <th>PRL Date</th>
-                    <td>'. $data->prl_date.'</td>
+                    <td>'.  \App\Helpers\DateHelpers::dateFormat($data->prl_date, 'd/m/Y').'</td>
                 </tr>
                 <tr>
                     <th>Mobile Number</th>

@@ -36,7 +36,7 @@
                             </tr>
                             <tr>
                                 <th>PRL Date</th>
-                                <td>{{ $nuSmartCard->prl_date }}</td>
+                                <td>{{ \App\Helpers\DateHelpers::dateFormat($nuSmartCard->prl_date, 'd/m/Y') }}</td>
                             </tr>
                             <tr>
                                 <th>Mobile Number</th>

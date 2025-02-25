@@ -8,6 +8,7 @@ use App\Models\BloodGroup;
 use App\Models\NuSmartCard;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 
 class DashboardController extends Controller
 {
@@ -204,13 +205,13 @@ class DashboardController extends Controller
         ]);
 
         $mpdf->SetProtection(array('print'));
-        $mpdf->SetTitle("National University. - Data file");
+        $mpdf->SetTitle("National University. - Nu Smart Card Staff List");
         $mpdf->SetAuthor("NU");
         $mpdf->SetDisplayMode('fullpage');
 
         $mpdf->WriteHTML($html);
 
-        $mpdf->Output();
+        $mpdf->Output(Str::random(16).'.pdf', 'D');
     }
 
     // single pdf
@@ -354,7 +355,7 @@ class DashboardController extends Controller
         ]);
 
         $mpdf->SetProtection(array('print'));
-        $mpdf->SetTitle("National University. - Data file");
+        $mpdf->SetTitle($data->name. ' - '."National University");
         $mpdf->SetAuthor("NU");
         $mpdf->SetDisplayMode('fullpage');
         $mpdf->SetWatermarkText("College Inspection");
@@ -363,7 +364,7 @@ class DashboardController extends Controller
         $mpdf->watermarkTextAlpha = 0.1;
         $mpdf->WriteHTML($html);
 
-        $mpdf->Output();
+        $mpdf->Output(Str::slug($data->name).'.pdf','D');
     }
 
 }

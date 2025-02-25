@@ -156,7 +156,7 @@
                               <!-- item-->
                               <h6 class="dropdown-header">Welcome!</h6>
 
-                              <a class="dropdown-item" href="#">
+                              <a class="dropdown-item" href="{{ route('profile.edit',Auth::user()->id) }}">
                                    <iconify-icon icon="solar:user-outline"
                                         class="align-middle me-2 fs-18"></iconify-icon><span class="align-middle">My
                                         Account</span>

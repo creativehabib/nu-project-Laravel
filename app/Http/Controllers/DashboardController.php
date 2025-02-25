@@ -91,8 +91,9 @@ class DashboardController extends Controller
         <style>
         body {
             font-size: 10pt;
+            color: #191e23;
         }
-        p {	margin: 0pt; }
+        p {	margin: 0; }
         table.items {
             border: 0.1mm solid #323639;
         }
@@ -224,7 +225,9 @@ class DashboardController extends Controller
         <head>
         <style>
         body {
+            font-family: sans-serif,nikosh;
             font-size: 10pt;
+            color: #1a1e25;
         }
         table.items {
             border: 0.1mm solid #323639;
@@ -339,13 +342,12 @@ class DashboardController extends Controller
 
 
         $mpdf = new \Mpdf\Mpdf([
-            'default_font' => 'nikosh',
             'mode' => 'utf-8',
             'margin_left' => 25,
             'margin_right' => 25,
-            'margin_top' => 35,
+            'margin_top' => 45,
             'margin_bottom' => 25,
-            'margin_header' => 5,
+            'margin_header' => 10,
             'margin_footer' => 5,
             'format' => 'A4',
             'orientation' => 'P'

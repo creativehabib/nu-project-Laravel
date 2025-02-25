@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Rules\Phone;
 use Illuminate\Foundation\Http\FormRequest;
 
 class StoreSmartCardRequest extends FormRequest
@@ -25,11 +26,11 @@ class StoreSmartCardRequest extends FormRequest
             'name'              => ['required', 'string'],
             'department'        => ['required', 'string'],
             'designation'       => ['required', 'string'],
-            'pf_number'         => 'required|string|max:255',
-            'mobile_number'     => 'required|string|max:255',
+            'pf_number'         => 'required|numeric|unique:nu_smart_cards,pf_number',
+            'mobile_number'     => ['required','numeric',new Phone(),'unique:nu_smart_cards,mobile_number'],
             'birth_date'        => 'required|date',
             'blood_id'          => 'required',
-            'emergency_contact' => 'required|string|max:255',
+            'emergency_contact' => ['required','numeric', new Phone(),'unique:nu_smart_cards,emergency_contact'],
             'present_address'   => 'required|string',
             'image'             => 'required|image|mimes:jpeg,png,jpg,gif,svg,webp|max:2048',
             'signature'         => 'required|image|mimes:jpeg,png,jpg,gif,svg,webp|max:2048'

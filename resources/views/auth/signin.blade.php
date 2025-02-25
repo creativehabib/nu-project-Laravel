@@ -36,14 +36,14 @@ class="authentication-bg"
 
                             <div class="mb-3">
                                 <label for="email" class="form-label">Email Address</label>
-                                <input type="email" class="form-control" id="email" name="email" value="user@demo.com" placeholder="Enter your email">
+                                <input type="email" class="form-control" id="email" value="{{ old('email')}}" name="email" placeholder="Enter your email">
                             </div>
                             <div class="mb-3">
                                 <div class="d-flex justify-content-between align-items-center">
                                     <label for="password" class="form-label">Password</label>
-                                    <a href="{{ route ('second' , ['auth','password']) }}" class="text-decoration-none small text-muted">Forgot password?</a>
+                                    <a href="{{ route ('login') }}" class="text-decoration-none small text-muted">Forgot password?</a>
                                 </div>
-                                <input type="password" class="form-control" id="password" name="password" value="password" placeholder="Enter your password">
+                                <input type="password" class="form-control" id="password" name="password" placeholder="Enter your password">
                             </div>
                             <div class="form-check mb-3">
                                 <input type="checkbox" class="form-check-input" id="remember-me">

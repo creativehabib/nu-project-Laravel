@@ -19,12 +19,12 @@
                                 <td>{{ $nuSmartCard->name }}</td>
                             </tr>
                             <tr>
-                                <th>Department</th>
-                                <td>{{ $nuSmartCard->department }}</td>
-                            </tr>
-                            <tr>
                                 <th>Designation</th>
                                 <td>{{ $nuSmartCard->designation }}</td>
+                            </tr>
+                            <tr>
+                                <th>Department</th>
+                                <td>{{ $nuSmartCard->department }}</td>
                             </tr>
                             <tr>
                                 <th>PF No</th>

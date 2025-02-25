@@ -139,8 +139,8 @@ class DashboardController extends Controller
                 <tr>
                     <td>No</td>
                     <td>Name</td>
-                    <td>Department</td>
                     <td>Designation</td>
+                    <td>Department</td>
                     <td>PF No</td>
                     <td>PRL Date</td>
                     <td>Blood Group</td>
@@ -158,8 +158,8 @@ class DashboardController extends Controller
             $html .= '<tr>';
             $html .= '<td>'.++$i.'</td>';
             $html .= '<td>'.$row['name'].'</td>';
-            $html .= '<td>'.$row['department'].'</td>';
             $html .= '<td>'.$row['designation'].'</td>';
+            $html .= '<td>'.$row['department'].'</td>';
             $html .= '<td>'.$row['pf_number'].'</td>';
             $html .= '<td>'. \App\Helpers\DateHelpers::dateFormat($row['prl_date'], 'd/m/Y').'</td>';
             $html .= '<td>'.$row->blood->name.'</td>';
@@ -277,12 +277,12 @@ class DashboardController extends Controller
                     <td>'.$data->name.'</td>
                 </tr>
                 <tr>
-                    <th>Department</th>
-                    <td>'.$data->department.'</td>
-                </tr>
-                <tr>
                     <th>Designation</th>
                     <td>'.$data->designation.'</td>
+                </tr>
+                <tr>
+                    <th>Department</th>
+                    <td>'.$data->department.'</td>
                 </tr>
                 <tr>
                     <th>PF No</th>

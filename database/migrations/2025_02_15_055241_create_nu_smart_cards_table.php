@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('department')->nullable();
             $table->string('designation')->nullable();
-            $table->string('pf_number')->nullable()->unique();
+            $table->string('pf_number')->nullable();
             $table->date('birth_date')->nullable();
             $table->string('prl_date')->nullable();
             $table->string('mobile_number')->nullable();

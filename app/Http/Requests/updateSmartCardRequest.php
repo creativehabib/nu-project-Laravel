@@ -2,7 +2,10 @@
 
 namespace App\Http\Requests;
 
+use App\Rules\Phone;
+use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class updateSmartCardRequest extends FormRequest
 {
@@ -17,12 +20,22 @@ class updateSmartCardRequest extends FormRequest
     /**
      * Get the validation rules that apply to the request.
      *
-     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
+     * @return array<string, ValidationRule|array|string>
      */
     public function rules(): array
     {
         return [
-            //
+            'name'              => ['required', 'string'],
+            'department'        => ['required', 'string'],
+            'designation'       => ['required', 'string'],
+            'pf_number'         => ['required', 'numeric', Rule::unique('nu_smart_cards', 'pf_number')->ignore($this->nu_smart_card->id)],
+            'mobile_number'     => ['required','numeric',new Phone(), Rule::unique('nu_smart_cards', 'mobile_number')->ignore($this->nu_smart_card->id)],
+            'birth_date'        => 'required|date',
+            'blood_id'          => 'required',
+            'emergency_contact' => ['required','numeric',new Phone(), Rule::unique('nu_smart_cards', 'emergency_contact')->ignore($this->nu_smart_card->id)],
+            'present_address'   => 'required|string',
+            'image'             => ['nullable', 'image', 'mimes:jpeg,png,jpg,webp', 'max:2048'],
+            'signature'         => ['nullable', 'image', 'mimes:jpeg,png,jpg,webp', 'max:2048'],
         ];
     }
 }

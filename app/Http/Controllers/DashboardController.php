@@ -7,10 +7,7 @@ use App\Http\Requests\updateSmartCardRequest;
 use App\Models\BloodGroup;
 use App\Models\NuSmartCard;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Storage;
-use Intervention\Image\Facades\Image;
 
 class DashboardController extends Controller
 {
@@ -68,6 +65,7 @@ class DashboardController extends Controller
             (new NuSmartCard())->updateSmartCard($request, $nuSmartCard);
             return response()->json(['success' => true, 'message' => 'Data updated successfully!']);
         } catch (\Throwable $throwable){
+            logger($throwable);
             return response()->json(['success' => false,'error'=> $throwable->getMessage()], 500);
         }
     }

@@ -64,7 +64,7 @@
                                 </div>
 
                                 <div class="mb-3">
-                                    <label for="birth_date" class="form-label">Date of Birth</label>
+                                    <label for="birth_date" class="form-label">Date of Birth (mm/dd/yyyy)</label>
                                     <input type="date" id="birth_date" name="birth_date" value="{{$data->birth_date}}" class="form-control">
                                     <span class="text-red small" id="birth_date-error"></span>
                                 </div>

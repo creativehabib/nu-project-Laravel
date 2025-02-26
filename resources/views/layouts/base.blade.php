@@ -7,7 +7,7 @@
     @include('layouts.partials/head-css')
 </head>
 
-<body @yield('body-attribuet')>
+<body @yield('body-attribute')>
 
     @yield('content')
 

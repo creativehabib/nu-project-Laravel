@@ -2,12 +2,17 @@
 
 use App\Http\Controllers\BloodGroupController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\FrontendController;
 use App\Http\Controllers\NuSmartCardController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RoutingController;
 use Illuminate\Support\Facades\Route;
 
 require __DIR__ . '/auth.php';
+
+// Frontend
+Route::get('/', [FrontEndController::class, 'index'])->name('home');
+
 
 Route::group(['prefix' => '/dashboard', 'middleware' => 'auth'], function () {
 

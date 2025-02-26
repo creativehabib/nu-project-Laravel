@@ -46,7 +46,7 @@ class="authentication-bg"
                                 </div>
                             </div>
                             <div class="d-grid">
-                                <button class="btn btn-dark btn-lg fw-medium" type="submit">Sign In</button>
+                                <button class="btn btn-secondary btn-lg fw-medium" type="submit">Sign In</button>
                             </div>
                         </form>
                     </div>

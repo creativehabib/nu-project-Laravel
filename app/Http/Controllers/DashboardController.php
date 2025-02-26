@@ -347,7 +347,7 @@ class DashboardController extends Controller
             'margin_right' => 25,
             'margin_top' => 35,
             'margin_bottom' => 25,
-            'margin_header' => 5,
+            'margin_header' => 10,
             'margin_footer' => 5,
             'format' => 'A4',
             'orientation' => 'P'

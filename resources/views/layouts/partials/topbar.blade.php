@@ -156,7 +156,7 @@
                               <!-- item-->
                               <h6 class="dropdown-header">Welcome!</h6>
 
-                              <a class="dropdown-item" href="#">
+                              <a class="dropdown-item" href="{{ route('profile.edit',Auth::user()->id) }}">
                                    <iconify-icon icon="solar:user-outline"
                                         class="align-middle me-2 fs-18"></iconify-icon><span class="align-middle">My
                                         Account</span>
@@ -180,11 +180,12 @@
 
                               <div class="dropdown-divider my-1"></div>
 
-                              <a class="dropdown-item text-danger" href="{{ route ('second' , ['auth','signin']) }}">
-                                   <iconify-icon icon="solar:logout-3-outline"
-                                        class="align-middle me-2 fs-18"></iconify-icon><span
-                                        class="align-middle">Logout</span>
-                              </a>
+                             <form action="{{ route('logout') }}" method="POST" style="display: inline;">
+                                 @csrf
+                                 <button type="submit" class="dropdown-item text-danger"><iconify-icon icon="solar:logout-3-outline"
+                                                                                                       class="align-middle me-2 fs-18"></iconify-icon><span
+                                         class="align-middle">Logout</span></button>
+                             </form>
                          </div>
                     </div>
                </div>

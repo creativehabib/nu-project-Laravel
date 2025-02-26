@@ -7,10 +7,8 @@ use App\Http\Requests\updateSmartCardRequest;
 use App\Models\BloodGroup;
 use App\Models\NuSmartCard;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Storage;
-use Intervention\Image\Facades\Image;
+use Illuminate\Support\Str;
 
 class DashboardController extends Controller
 {
@@ -68,6 +66,7 @@ class DashboardController extends Controller
             (new NuSmartCard())->updateSmartCard($request, $nuSmartCard);
             return response()->json(['success' => true, 'message' => 'Data updated successfully!']);
         } catch (\Throwable $throwable){
+            logger($throwable);
             return response()->json(['success' => false,'error'=> $throwable->getMessage()], 500);
         }
     }
@@ -93,8 +92,9 @@ class DashboardController extends Controller
         <style>
         body {
             font-size: 10pt;
+            color: #191e23;
         }
-        p {	margin: 0pt; }
+        p {	margin: 0; }
         table.items {
             border: 0.1mm solid #323639;
         }
@@ -205,13 +205,13 @@ class DashboardController extends Controller
         ]);
 
         $mpdf->SetProtection(array('print'));
-        $mpdf->SetTitle("National University. - Data file");
+        $mpdf->SetTitle("National University. - Nu Smart Card Staff List");
         $mpdf->SetAuthor("NU");
         $mpdf->SetDisplayMode('fullpage');
 
         $mpdf->WriteHTML($html);
 
-        $mpdf->Output();
+        $mpdf->Output(Str::random(16).'.pdf', 'D');
     }
 
     // single pdf
@@ -226,7 +226,9 @@ class DashboardController extends Controller
         <head>
         <style>
         body {
+            font-family: sans-serif,nikosh;
             font-size: 10pt;
+            color: #1a1e25;
         }
         table.items {
             border: 0.1mm solid #323639;
@@ -341,11 +343,10 @@ class DashboardController extends Controller
 
 
         $mpdf = new \Mpdf\Mpdf([
-            'default_font' => 'nikosh',
             'mode' => 'utf-8',
             'margin_left' => 25,
             'margin_right' => 25,
-            'margin_top' => 35,
+            'margin_top' => 45,
             'margin_bottom' => 25,
             'margin_header' => 10,
             'margin_footer' => 5,
@@ -354,7 +355,7 @@ class DashboardController extends Controller
         ]);
 
         $mpdf->SetProtection(array('print'));
-        $mpdf->SetTitle("National University. - Data file");
+        $mpdf->SetTitle($data->name. ' - '."National University");
         $mpdf->SetAuthor("NU");
         $mpdf->SetDisplayMode('fullpage');
         $mpdf->SetWatermarkText("College Inspection");
@@ -363,7 +364,7 @@ class DashboardController extends Controller
         $mpdf->watermarkTextAlpha = 0.1;
         $mpdf->WriteHTML($html);
 
-        $mpdf->Output();
+        $mpdf->Output(Str::slug($data->name).'.pdf','D');
     }
 
 }

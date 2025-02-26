@@ -2,13 +2,23 @@
 
 use App\Http\Controllers\BloodGroupController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\FrontendController;
 use App\Http\Controllers\NuSmartCardController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RoutingController;
 use Illuminate\Support\Facades\Route;
 
 require __DIR__ . '/auth.php';
 
+// Frontend
+Route::get('/', [FrontEndController::class, 'index'])->name('home');
+
+
 Route::group(['prefix' => '/dashboard', 'middleware' => 'auth'], function () {
+
+    // profile
+    Route::resource('profile', ProfileController::class);
+
     Route::resource('nu-smart-card', DashboardController::class);
     Route::get('view-pdf', [DashboardController::class, 'getPdfData'])->name('view-pdf');
     Route::get('single-pdf/{id}', [DashboardController::class, 'getSinglePdfData'])->name('single-pdf');
@@ -21,6 +31,7 @@ Route::group(['prefix' => '/dashboard', 'middleware' => 'auth'], function () {
     Route::get('{first}/{second}/{third}', [RoutingController::class, 'thirdLevel'])->name('third');
     Route::get('{first}/{second}', [RoutingController::class, 'secondLevel'])->name('second');
     Route::get('{any}', [RoutingController::class, 'root'])->name('any');
+
 });
 
 // frontend route

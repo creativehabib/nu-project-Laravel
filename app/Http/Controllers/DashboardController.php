@@ -363,8 +363,9 @@ class DashboardController extends Controller
         $mpdf->watermark_font = 'DejaVuSansCondensed';
         $mpdf->watermarkTextAlpha = 0.1;
         $mpdf->WriteHTML($html);
-
-        $mpdf->Output(Str::slug($data->name).'.pdf','D');
+        ob_clean();
+        flush();
+        $mpdf->Output(Str::slug($data->name).'.pdf','I');
     }
 
 }

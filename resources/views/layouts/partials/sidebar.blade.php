@@ -50,6 +50,22 @@
                       </ul>
                   </div>
               </li>
+              <li class="nav-item">
+                  <a class="nav-link menu-arrow" href="#appearances" data-bs-toggle="collapse" role="button"
+                     aria-expanded="false" aria-controls="appearances">
+                         <span class="nav-icon">
+                              <iconify-icon icon="mingcute:user-3-line"></iconify-icon>
+                         </span>
+                      <span class="nav-text"> Appearances </span>
+                  </a>
+                  <div class="collapse" id="appearances">
+                      <ul class="nav sub-navbar-nav">
+                          <li class="sub-nav-item">
+                              <a class="sub-nav-link" href="{{ route ('manage-menus') }}">Menus</a>
+                          </li>
+                      </ul>
+                  </div>
+              </li>
                <li class="nav-item">
                     <a class="nav-link menu-arrow" href="#sidebarAuthentication" data-bs-toggle="collapse" role="button"
                          aria-expanded="false" aria-controls="sidebarAuthentication">

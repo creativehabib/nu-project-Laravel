@@ -2,7 +2,7 @@
 
 @section('content')
 
-@include('layouts.partial/.page-title', ['title' => 'Base UI', 'subtitle' => 'List Group'])
+    @include('layouts.partials/page-title', ['title' => 'Base UI', 'subtitle' => 'List Group'])
 
 <div class="row">
     <div class="col-lg-6">

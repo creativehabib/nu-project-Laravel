@@ -3,6 +3,7 @@
 use App\Http\Controllers\BloodGroupController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\FrontendController;
+use App\Http\Controllers\MenuController;
 use App\Http\Controllers\NuSmartCardController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RoutingController;
@@ -26,6 +27,11 @@ Route::group(['prefix' => '/dashboard', 'middleware' => 'auth'], function () {
     // Blood Group
     Route::resource('blood-group', BloodGroupController::class);
     Route::post('/blood-group/{id}/update-status', [BloodGroupController::class, 'updateStatus'])->name('blood-group.update-status');
+
+    // Menu route
+    Route::get('manage-menus',[MenuController::class, 'index'])->name('manage-menus');
+    Route::post('create-menu',[MenuController::class, 'store'])->name('create-menu');
+
 
     Route::get('', [RoutingController::class, 'index'])->name('root');
     Route::get('{first}/{second}/{third}', [RoutingController::class, 'thirdLevel'])->name('third');

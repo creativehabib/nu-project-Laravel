@@ -16,7 +16,7 @@ class NuSmartCard extends Model
 
     protected $fillable = [
         'name', 'department', 'designation', 'pf_number',
-        'birth_date', 'prl_date', 'mobile_number', 'blood_id',
+        'birth_date', 'prl_date', 'mobile_number', 'blood_id', 'order_position',
         'present_address', 'emergency_contact', 'image', 'signature'
     ];
 
@@ -52,6 +52,7 @@ class NuSmartCard extends Model
             'prl_date'          => DateHelpers::calculatePRLDate($request->input('birth_date'), 60),
             'mobile_number'     => $request->input('mobile_number'),
             'blood_id'          => $request->input('blood_id'),
+            'order_position'    => $request->input('order_position'),
             'present_address'   => $request->input('present_address'),
             'emergency_contact' => $request->input('emergency_contact'),
         ];

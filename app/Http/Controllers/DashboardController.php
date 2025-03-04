@@ -14,7 +14,7 @@ class DashboardController extends Controller
 {
     public function index()
     {
-        $data = NuSmartCard::query()->paginate(5);
+        $data = NuSmartCard::query()->orderBy('order_position', 'asc')->paginate(5);
         return view('nu-smart-card.index', compact('data'));
     }
 
@@ -83,7 +83,7 @@ class DashboardController extends Controller
 
 
     public function getPdfData(){
-        $data = NuSmartCard::all();
+        $data = NuSmartCard::query()->with('blood')->orderBy('order_position','asc')->get();
         date_default_timezone_set("Asia/Dhaka");
         $html = '
         <!doctype html>

@@ -83,6 +83,12 @@
                                 </div>
 
                                 <div class="mb-3">
+                                    <label for="order_position" class="form-label">Order Position</label>
+                                    <input type="text" id="order_position" name="order_position" placeholder="Enter your position" class="form-control">
+                                    <span class="text-red small" id="order_position-error"></span>
+                                </div>
+
+                                <div class="mb-3">
                                     <label for="signature" class="form-label">Upload Signature</label>
                                     <input type="file" id="signature" name="signature" class="form-control">
                                     <span class="text-red small" id="signature-error"></span>

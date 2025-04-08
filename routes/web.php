@@ -13,8 +13,11 @@ require __DIR__ . '/auth.php';
 
 // Frontend
 Route::get('/', [FrontEndController::class, 'index'])->name('home');
-Route::get('/apply_internal', [FrontEndController::class, 'apply_internal'])->name('apply_internal');
-Route::get('/apply', [FrontEndController::class, 'apply'])->name('apply');
+Route::prefix('jobs')->group(function () {
+    Route::get('/apply_internal', [FrontEndController::class, 'apply_internal'])->name('apply_internal');
+    Route::get('/apply', [FrontEndController::class, 'apply'])->name('apply');
+    
+});
 
 
 Route::group(['prefix' => '/dashboard', 'middleware' => 'auth'], function () {

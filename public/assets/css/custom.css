@@ -13,3 +13,31 @@
 .editmode{
     background: #f3f2f2 !important;
 }
+
+fieldset {
+    padding: 0px 25px 10px 25px !important;
+    background: none repeat scroll 0 0  transparent;
+    border: 1px solid #dadada !important;
+    border-radius: 5px;
+    -moz-border-radius: 5px;
+    font-size: 10px !important;
+    font-weight: bold;
+    margin: 10px 0 0;
+}
+legend {
+    background: none repeat scroll 0 0 #eee;
+    padding: 4px !important;
+    text-align: left;
+    border: 1px solid #CCCCCC !important;
+    border-radius: 5px;
+    font-size: 16px !important;
+    float: none !important;
+    width: auto !important;
+}
+
+#photo-preview input.signa_up {
+    padding: 0 !important;
+    margin: 0 !important;
+    height: 30px !important;
+    background: #F2F4B0 !important;
+}

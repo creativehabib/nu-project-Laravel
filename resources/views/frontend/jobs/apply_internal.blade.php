@@ -29,7 +29,7 @@
             <div class="col-md-12">
                 <div class="header">
                     <div class="text-center">
-                        <img src="http://jobs.nu.ac.bd/apply_internal/img/logo_nu_banner.png" alt="Logo" class="img-fluid" />
+                        <img src="{{ asset('assets/images/logo_nu_banner.png')}}" alt="Logo" class="img-fluid" />
                     </div>
                     <nav class="navbar navbar-expand-lg navbar-light bg-light">
                         <div class="container">

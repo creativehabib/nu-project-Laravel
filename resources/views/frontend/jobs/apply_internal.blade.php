@@ -171,7 +171,7 @@
                                 <div class="col-sm-4">
                                     <select class="form-select editmode text-black" id="date_of_birth" name="date_of_birth" required>
                                         <option value="" disabled selected>Year</option>
-                                        @for ($i = 1950; $i <= date('Y'); $i++)
+                                        @for ($i = 1950; $i <= 2007; $i++)
                                             <option value="{{ $i }}">{{ $i }}</option>
                                         @endfor
                                     </select>

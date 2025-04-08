@@ -61,4 +61,57 @@ class FrontendController extends Controller
     {
         //
     }
+
+    public function apply_internal()
+    {
+        return view('frontend.jobs.apply_internal');
+    }
+    public function apply()
+    {
+        return view('frontend.apply');
+    }
+    public function apply_internal_store(Request $request)
+    {
+        // Handle the form submission for internal application
+        // Validate and process the request data as needed
+        // Redirect or return a response
+    }
+    public function apply_store(Request $request)
+    {
+        // Handle the form submission for external application
+        // Validate and process the request data as needed
+        // Redirect or return a response
+    }
+    public function apply_internal_view()
+    {
+        return view('frontend.apply_internal_view');
+    }
+    public function apply_view()
+    {
+        return view('frontend.apply_view');
+    }
+    public function apply_internal_view_pdf()
+    {
+        return view('frontend.apply_internal_view_pdf');
+    }
+    public function apply_view_pdf()
+    {
+        return view('frontend.apply_view_pdf');
+    }
+    public function apply_internal_view_pdf_single()
+    {
+        return view('frontend.apply_internal_view_pdf_single');
+    }
+    public function apply_view_pdf_single()
+    {
+        return view('frontend.apply_view_pdf_single');
+    }
+    public function apply_internal_view_pdf_single_print()
+    {
+        return view('frontend.apply_internal_view_pdf_single_print');
+    }
+    public function apply_view_pdf_single_print()
+    {
+        return view('frontend.apply_view_pdf_single_print');
+    }
 }

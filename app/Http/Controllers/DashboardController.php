@@ -111,6 +111,7 @@ class DashboardController extends Controller
             $rowsXml .= '<w:tc><w:p><w:r><w:t>' . htmlspecialchars($row->designation?->name ?? '') . '</w:t></w:r></w:p></w:tc>';
             $rowsXml .= '<w:tc><w:p><w:r><w:t>' . htmlspecialchars($row->department?->name ?? '') . '</w:t></w:r></w:p></w:tc>';
             $rowsXml .= '<w:tc><w:p><w:r><w:t>' . htmlspecialchars($row->pf_number) . '</w:t></w:r></w:p></w:tc>';
+            $rowsXml .= '<w:tc><w:p><w:r><w:t>' . htmlspecialchars($row->id_card_number) . '</w:t></w:r></w:p></w:tc>';
             $rowsXml .= '</w:tr>';
         }
 
@@ -123,6 +124,7 @@ class DashboardController extends Controller
             .'<w:tc><w:p><w:r><w:t>Designation</w:t></w:r></w:p></w:tc>'
             .'<w:tc><w:p><w:r><w:t>Department</w:t></w:r></w:p></w:tc>'
             .'<w:tc><w:p><w:r><w:t>PF No</w:t></w:r></w:p></w:tc>'
+            .'<w:tc><w:p><w:r><w:t>ID Card No</w:t></w:r></w:p></w:tc>'
             .'</w:tr>'
             .$rowsXml
             .'</w:tbl>'

@@ -7,10 +7,17 @@
 
     <div class="card">
         <div class="card-header">
-            <div class="flex-box justify-content-between">
+            <div class="flex-box justify-content-between align-items-center">
                 <h5 class="card-title">College Inspection Staff List</h5>
-                <a class="btn btn-sm btn-red" target="_blank" href="{{ route('view-pdf') }}">PDF Download</a>
-                <a class="btn btn-sm btn-info" href="{{ route('nu-smart-card.create') }}">Add New</a>
+                <div class="d-flex align-items-center">
+                    <form method="GET" action="{{ route('nu-smart-card.index') }}" class="d-flex me-2">
+                        <input type="text" name="search" value="{{ request('search') }}" class="form-control form-control-sm" placeholder="Search...">
+                        <button class="btn btn-primary btn-sm ms-2" type="submit">Search</button>
+                    </form>
+                    <a class="btn btn-sm btn-success me-2" href="{{ route('export-word') }}">Word Export</a>
+                    <a class="btn btn-sm btn-red me-2" target="_blank" href="{{ route('view-pdf') }}">PDF Download</a>
+                    <a class="btn btn-sm btn-info" href="{{ route('nu-smart-card.create') }}">Add New</a>
+                </div>
             </div>
         </div>
 

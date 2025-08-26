@@ -9,15 +9,27 @@ use App\Models\NuSmartCard;
 use App\Models\Department;
 use App\Models\Designation;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use Illuminate\Http\Response;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
 class DashboardController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $data = NuSmartCard::query()->orderBy('order_position', 'asc')->paginate(5);
+        $query = NuSmartCard::query()->orderBy('order_position', 'asc');
+
+        if ($search = $request->get('search')) {
+            $query->where(function ($q) use ($search) {
+                $q->where('name', 'like', "%{$search}%")
+                  ->orWhere('pf_number', 'like', "%{$search}%");
+            });
+        }
+
+        $data = $query->paginate(5)->withQueryString();
+
         return view('nu-smart-card.index', compact('data'));
     }
 
@@ -88,19 +100,57 @@ class DashboardController extends Controller
         return response()->json(['success' => true, 'message' => 'Data deleted successfully!']);
     }
 
-    public function exportWord(): Response
+    public function exportWord(): BinaryFileResponse
     {
-        $data = NuSmartCard::with(['designation','department','blood'])->get();
-        $html = '<table border="1"><tr><th>Name</th><th>Designation</th><th>Department</th><th>PF No</th></tr>';
-        foreach($data as $row){
-            $html .= '<tr><td>'.$row->name.'</td><td>'.($row->designation->name ?? '').'</td><td>'.($row->department->name ?? '').'</td><td>'.$row->pf_number.'</td></tr>';
+        $data = NuSmartCard::with(['designation', 'department', 'blood'])->get();
+
+        $rowsXml = '';
+        foreach ($data as $row) {
+            $rowsXml .= '<w:tr>';
+            $rowsXml .= '<w:tc><w:p><w:r><w:t>' . htmlspecialchars($row->name) . '</w:t></w:r></w:p></w:tc>';
+            $rowsXml .= '<w:tc><w:p><w:r><w:t>' . htmlspecialchars($row->designation?->name ?? '') . '</w:t></w:r></w:p></w:tc>';
+            $rowsXml .= '<w:tc><w:p><w:r><w:t>' . htmlspecialchars($row->department?->name ?? '') . '</w:t></w:r></w:p></w:tc>';
+            $rowsXml .= '<w:tc><w:p><w:r><w:t>' . htmlspecialchars($row->pf_number) . '</w:t></w:r></w:p></w:tc>';
+            $rowsXml .= '</w:tr>';
         }
-        $html .= '</table>';
-        $headers = [
-            'Content-Type' => 'application/msword',
-            'Content-Disposition' => 'attachment; filename="smart-cards.doc"'
-        ];
-        return response($html, 200, $headers);
+
+        $documentXml = '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>'
+            .'<w:document xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main">'
+            .'<w:body>'
+            .'<w:tbl>'
+            .'<w:tr>'
+            .'<w:tc><w:p><w:r><w:t>Name</w:t></w:r></w:p></w:tc>'
+            .'<w:tc><w:p><w:r><w:t>Designation</w:t></w:r></w:p></w:tc>'
+            .'<w:tc><w:p><w:r><w:t>Department</w:t></w:r></w:p></w:tc>'
+            .'<w:tc><w:p><w:r><w:t>PF No</w:t></w:r></w:p></w:tc>'
+            .'</w:tr>'
+            .$rowsXml
+            .'</w:tbl>'
+            .'<w:sectPr><w:pgSz w:w="12240" w:h="15840"/><w:pgMar w:top="1440" w:right="1440" w:bottom="1440" w:left="1440"/></w:sectPr>'
+            .'</w:body>'
+            .'</w:document>';
+
+        $contentTypesXml = '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>'
+            .'<Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types">'
+            .'<Default Extension="rels" ContentType="application/vnd.openxmlformats-package.relationships+xml"/>'
+            .'<Default Extension="xml" ContentType="application/xml"/>'
+            .'<Override PartName="/word/document.xml" ContentType="application/vnd.openxmlformats-officedocument.wordprocessingml.document.main+xml"/>'
+            .'</Types>';
+
+        $relsXml = '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>'
+            .'<Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships">'
+            .'<Relationship Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument" Target="word/document.xml" Id="R1"/>'
+            .'</Relationships>';
+
+        $fileName = tempnam(sys_get_temp_dir(), 'docx');
+        $zip = new \ZipArchive();
+        $zip->open($fileName, \ZipArchive::CREATE);
+        $zip->addFromString('[Content_Types].xml', $contentTypesXml);
+        $zip->addFromString('_rels/.rels', $relsXml);
+        $zip->addFromString('word/document.xml', $documentXml);
+        $zip->close();
+
+        return response()->download($fileName, 'smart-cards.docx')->deleteFileAfterSend(true);
     }
 
 

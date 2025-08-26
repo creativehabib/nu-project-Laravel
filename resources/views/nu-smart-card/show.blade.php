@@ -31,6 +31,10 @@
                                 <td>{{ $nuSmartCard->pf_number }}</td>
                             </tr>
                             <tr>
+                                <th>ID Card Number</th>
+                                <td>{{ $nuSmartCard->id_card_number }}</td>
+                            </tr>
+                            <tr>
                                 <th>Date of Birth</th>
                                 <td>{{ \App\Helpers\DateHelpers::dateFormat($nuSmartCard->birth_date) }}</td>
                             </tr>
@@ -59,7 +63,7 @@
                                 <td><img alt="" src="{{ asset('uploads/signature/' .$nuSmartCard->signature) }}"></td>
                             </tr>
                             <tr>
-                                <th>Signature</th>
+                                <th>Image</th>
                                 <td><img alt="" src="{{ asset('uploads/images/' .$nuSmartCard->image) }}"></td>
                             </tr>
                         </table>

@@ -27,13 +27,14 @@ class StoreSmartCardRequest extends FormRequest
             'department'        => ['required', 'string'],
             'designation'       => ['required', 'string'],
             'pf_number'         => 'required|numeric|unique:nu_smart_cards,pf_number',
+            'id_card_number'    => 'required|numeric|unique:nu_smart_cards,id_card_number',
             'mobile_number'     => ['required','numeric',new Phone(),'unique:nu_smart_cards,mobile_number'],
             'birth_date'        => 'required|date',
             'blood_id'          => 'required',
             'emergency_contact' => ['required','numeric', new Phone(),'unique:nu_smart_cards,emergency_contact'],
             'present_address'   => 'required|string',
-            'image'             => 'required|image|mimes:jpeg,png,jpg,webp|max:2048',
-            'signature'         => 'required|image|mimes:jpeg,png,jpg,webp|max:2048'
+            'image'             => 'required|image|mimes:jpeg,png,jpg,webp|max:2048|dimensions:width=531,height=649',
+            'signature'         => 'required|image|mimes:jpeg,png,jpg,webp|max:2048|dimensions:width=300,height=80'
         ];
     }
 }

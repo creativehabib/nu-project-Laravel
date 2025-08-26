@@ -41,12 +41,18 @@
                                 </div>
 
                                 <div class="mb-3">
+                                    <label for="id_card_number" class="form-label">ID Card Number</label>
+                                    <input type="text" id="id_card_number" name="id_card_number" placeholder="Enter ID card number" class="form-control">
+                                    <span class="text-red small" id="id_card_number-error"></span>
+                                </div>
+
+                                <div class="mb-3">
                                     <label for="present_address" class="form-label">Present Address</label>
                                     <textarea class="form-control" name="present_address" placeholder="Enter your present address" id="present_address" rows="5"></textarea>
                                     <span class="text-red small" id="present_address-error"></span>
                                 </div>
                                 <div class="mb-3">
-                                    <label for="image" class="form-label">Image</label>
+                                    <label for="image" class="form-label">Image (45mm x 55mm)</label>
                                     <input type="file" id="image" name="image" class="form-control">
                                     <span class="text-red small" id="image-error"></span>
                                     <img src="" id="profilePreview" alt="" class="w-25 img-thumbnail img-fluid">
@@ -164,7 +170,7 @@
             }
 
             profileInput.addEventListener("change", function () {
-                handleImageSelection(this, 472 / 590);
+                handleImageSelection(this, 45 / 55);
             });
 
             signatureInput.addEventListener("change", function () {
@@ -173,8 +179,8 @@
 
             document.getElementById("cropImage").addEventListener("click", function () {
                 if (cropper) {
-                    let width = activeInput === profileInput ? 472 : 300;
-                    let height = activeInput === profileInput ? 590 : 80;
+                    let width = activeInput === profileInput ? 531 : 300;
+                    let height = activeInput === profileInput ? 649 : 80;
                     const canvas = cropper.getCroppedCanvas({ width: width, height: height });
 
                     canvas.toBlob(blob => {

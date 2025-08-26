@@ -33,8 +33,8 @@ class StoreSmartCardRequest extends FormRequest
             'blood_id'          => 'required',
             'emergency_contact' => ['required','numeric', new Phone(),'unique:nu_smart_cards,emergency_contact'],
             'present_address'   => 'required|string',
-            'image'             => 'required|image|mimes:jpeg,png,jpg,webp|max:2048|dimensions:width=531,height=649',
-            'signature'         => 'required|image|mimes:jpeg,png,jpg,webp|max:2048|dimensions:width=300,height=80'
+            'image'             => 'required|image|mimes:jpeg,png,jpg,webp|max:2048|dimensions:width=810,height=990',
+            'signature'         => 'required|image|mimes:jpeg,png,jpg,webp|max:2048|dimensions:width=600,height=160'
         ];
     }
 }

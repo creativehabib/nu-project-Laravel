@@ -145,8 +145,8 @@
         cropperModal.id = "cropperModal";
         cropperModal.className = "fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 hidden";
         cropperModal.innerHTML = `
-            <div class="bg-white p-4 rounded-lg shadow-md">
-                <img id="cropperPreview" class="max-w-3xl h-auto" />
+            <div class="bg-white p-6 rounded-lg shadow-md max-w-4xl w-full">
+                <img id="cropperPreview" class="w-full h-auto" />
                 <div class="flex justify-end mt-4">
                     <button id="cropImage" class="bg-green-500 text-white p-2 rounded-md mr-2">Crop</button>
                     <button id="cancelCrop" class="bg-red-500 text-white p-2 rounded-md">Cancel</button>
@@ -180,11 +180,11 @@
         }
 
         profileInput.addEventListener("change", function () {
-            handleImageSelection(this, 45 / 55, 531, 649);
+            handleImageSelection(this, 45 / 55, 810, 990);
         });
 
         signatureInput.addEventListener("change", function () {
-            handleImageSelection(this, 300 / 80, 300, 80);
+            handleImageSelection(this, 300 / 80, 600, 160);
         });
 
         document.getElementById("cancelCrop").addEventListener("click", function () {
@@ -195,8 +195,8 @@
 
         document.getElementById("cropImage").addEventListener("click", function () {
             if (cropper) {
-                const width = activeInput === profileInput ? 531 : 300;
-                const height = activeInput === profileInput ? 649 : 80;
+                const width = activeInput === profileInput ? 810 : 600;
+                const height = activeInput === profileInput ? 990 : 160;
                 const canvas = cropper.getCroppedCanvas({
                     width: width,
                     height: height,

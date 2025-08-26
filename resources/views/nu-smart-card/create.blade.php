@@ -113,7 +113,7 @@
 
     <!-- Fullscreen Bootstrap Modal for Image Cropping -->
     <div class="modal fade" id="cropperModal" tabindex="-1" aria-labelledby="cropperModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-xl">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">Crop Image</h5>
@@ -121,7 +121,7 @@
                 </div>
                 <div class="modal-body p-0 d-flex justify-content-center align-items-center">
                     <div class="w-auto h-auto d-flex justify-content-center align-items-center">
-                        <img id="cropperPreview" class="object-fit-fill"/>
+                        <img id="cropperPreview" class="img-fluid"/>
                     </div>
                 </div>
                 <div class="modal-footer d-flex justify-content-center">
@@ -179,8 +179,8 @@
 
             document.getElementById("cropImage").addEventListener("click", function () {
                 if (cropper) {
-                    let width = activeInput === profileInput ? 531 : 300;
-                    let height = activeInput === profileInput ? 649 : 80;
+                    let width = activeInput === profileInput ? 810 : 600;
+                    let height = activeInput === profileInput ? 990 : 160;
                     const canvas = cropper.getCroppedCanvas({ width: width, height: height });
 
                     canvas.toBlob(blob => {

@@ -86,8 +86,18 @@ class NuSmartCard extends Model
         }
         // Generate new image/file name
         $extension = $file->getClientOriginalExtension();
-        $fileName = time() . '_' . Str::slug(pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME)).'.'.$extension;
-        $file->move($uploadPath, $fileName); // Move file to destination
+        $fileName = time() . '_' . Str::slug(pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME)) . '.' . $extension;
+
+        // Determine the absolute destination path inside the public directory
+        $destination = public_path($uploadPath);
+
+        // Ensure the destination directory exists before moving the file
+        if (!File::exists($destination)) {
+            File::makeDirectory($destination, 0755, true);
+        }
+
+        $file->move($destination, $fileName); // Move file to destination
+
         return $fileName;
     }
 

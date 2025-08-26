@@ -65,34 +65,37 @@
             </form>
         </div>
     </div>
-    <script>
-        $(function () {
-            var createUrl = "{{ route('departments.store') }}";
-            $('#departmentModal').on('show.bs.modal', function (event) {
-                var button = $(event.relatedTarget);
-                var url = button.data('url');
-                var name = button.data('name');
-                var modal = $(this);
-                var form = modal.find('form');
-                if (url) {
-                    modal.find('.modal-title').text('Edit Department');
-                    form.attr('action', url);
-                    form.append('<input type="hidden" name="_method" value="PUT">');
-                    form.find('input[name="name"]').val(name);
-                } else {
-                    modal.find('.modal-title').text('Add Department');
-                    form.attr('action', createUrl);
-                    form.find('input[name="_method"]').remove();
-                    form.find('input[name="name"]').val('');
-                }
-            });
+@endsection
 
-            $('#department-search').on('keyup', function () {
-                var value = $(this).val().toLowerCase();
-                $('#department-table tbody tr').filter(function () {
-                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
-                });
+@section('scripts')
+<script>
+    $(function () {
+        var createUrl = "{{ route('departments.store') }}";
+        $('#departmentModal').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget);
+            var url = button.data('url');
+            var name = button.data('name');
+            var modal = $(this);
+            var form = modal.find('form');
+            if (url) {
+                modal.find('.modal-title').text('Edit Department');
+                form.attr('action', url);
+                form.append('<input type="hidden" name="_method" value="PUT">');
+                form.find('input[name="name"]').val(name);
+            } else {
+                modal.find('.modal-title').text('Add Department');
+                form.attr('action', createUrl);
+                form.find('input[name="_method"]').remove();
+                form.find('input[name="name"]').val('');
+            }
+        });
+
+        $('#department-search').on('keyup', function () {
+            var value = $(this).val().toLowerCase();
+            $('#department-table tbody tr').filter(function () {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
             });
         });
-    </script>
+    });
+</script>
 @endsection

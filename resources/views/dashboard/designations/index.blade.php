@@ -65,34 +65,37 @@
             </form>
         </div>
     </div>
-    <script>
-        $(function () {
-            var createUrl = "{{ route('designations.store') }}";
-            $('#designationModal').on('show.bs.modal', function (event) {
-                var button = $(event.relatedTarget);
-                var url = button.data('url');
-                var name = button.data('name');
-                var modal = $(this);
-                var form = modal.find('form');
-                if (url) {
-                    modal.find('.modal-title').text('Edit Designation');
-                    form.attr('action', url);
-                    form.append('<input type="hidden" name="_method" value="PUT">');
-                    form.find('input[name="name"]').val(name);
-                } else {
-                    modal.find('.modal-title').text('Add Designation');
-                    form.attr('action', createUrl);
-                    form.find('input[name="_method"]').remove();
-                    form.find('input[name="name"]').val('');
-                }
-            });
+@endsection
 
-            $('#designation-search').on('keyup', function () {
-                var value = $(this).val().toLowerCase();
-                $('#designation-table tbody tr').filter(function () {
-                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
-                });
+@section('scripts')
+<script>
+    $(function () {
+        var createUrl = "{{ route('designations.store') }}";
+        $('#designationModal').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget);
+            var url = button.data('url');
+            var name = button.data('name');
+            var modal = $(this);
+            var form = modal.find('form');
+            if (url) {
+                modal.find('.modal-title').text('Edit Designation');
+                form.attr('action', url);
+                form.append('<input type="hidden" name="_method" value="PUT">');
+                form.find('input[name="name"]').val(name);
+            } else {
+                modal.find('.modal-title').text('Add Designation');
+                form.attr('action', createUrl);
+                form.find('input[name="_method"]').remove();
+                form.find('input[name="name"]').val('');
+            }
+        });
+
+        $('#designation-search').on('keyup', function () {
+            var value = $(this).val().toLowerCase();
+            $('#designation-table tbody tr').filter(function () {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
             });
         });
-    </script>
+    });
+</script>
 @endsection

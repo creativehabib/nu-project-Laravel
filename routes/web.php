@@ -28,6 +28,7 @@ Route::group(['prefix' => '/dashboard', 'middleware' => 'auth'], function () {
     Route::resource('profile', ProfileController::class);
 
     Route::resource('nu-smart-card', DashboardController::class);
+    Route::get('nu-smart-card/live-search', [DashboardController::class, 'liveSearch'])->name('nu-smart-card.live-search');
     Route::get('view-pdf', [DashboardController::class, 'getPdfData'])->name('view-pdf');
     Route::get('single-pdf/{id}', [DashboardController::class, 'getSinglePdfData'])->name('single-pdf');
     Route::get('export-word', [DashboardController::class, 'exportWord'])->name('export-word');

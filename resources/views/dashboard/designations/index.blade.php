@@ -29,7 +29,7 @@
                                 <td class="text-center">
                                     <div class="d-flex justify-content-center gap-2">
                                         <button type="button" class="btn btn-sm btn-warning" data-bs-toggle="modal" data-bs-target="#designationModal" data-url="{{ route('designations.update', $designation) }}" data-name="{{ $designation->name }}">Edit</button>
-                                        <form method="POST" action="{{ route('designations.destroy', $designation) }}">
+                                        <form method="POST" action="{{ route('designations.destroy', $designation) }}" class="delete-form">
                                             @csrf
                                             @method('DELETE')
                                             <button class="btn btn-sm btn-danger">Delete</button>

@@ -5,6 +5,8 @@
 
 @yield('css')
 
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/izitoast/dist/css/iziToast.min.css">
+
 @vite([ 'resources/scss/icons.scss', 'resources/scss/style.scss'])
 
 @vite([ 'resources/js/config.js'])

@@ -152,11 +152,17 @@
         let croppedProfileBlob = null;
         let croppedSignatureBlob = null;
 
-        $('#live-search').on('keyup', function(){
-            let q = $(this).val();
-            if(q.length < 2){ $('#search-results').empty(); return; }
-            $.get('/nu-smart-card/search', {q:q}, function(data){
-                let html = data.map(item => `<li>${item.name} - ${(item.designation ? item.designation.name : '')}</li>`).join('');
+        $('#live-search').on('keyup', function () {
+            const q = $(this).val();
+            if (q.length < 2) {
+                $('#search-results').empty();
+                return;
+            }
+
+            $.get('/nu-smart-card/search', { q: q }, function (data) {
+                const html = data.length
+                    ? data.map(item => `<li>${item.name} - ${item.pf_number || ''} - ${item.id_card_number || ''}</li>`).join('')
+                    : '<li class="text-gray-500">No results found</li>';
                 $('#search-results').html(html);
             });
         });

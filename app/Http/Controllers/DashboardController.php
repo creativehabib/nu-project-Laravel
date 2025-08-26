@@ -8,6 +8,7 @@ use App\Models\BloodGroup;
 use App\Models\NuSmartCard;
 use App\Models\Department;
 use App\Models\Designation;
+use App\Helpers\DateHelpers;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -102,29 +103,80 @@ class DashboardController extends Controller
 
     public function exportWord(): BinaryFileResponse
     {
-        $data = NuSmartCard::with(['designation', 'department', 'blood'])->get();
+        $data = NuSmartCard::with(['designation', 'department', 'blood'])->orderBy('order_position', 'asc')->get();
+
+        $cell = fn(string $value): string => '<w:tc><w:p><w:r><w:t>' . htmlspecialchars($value) . '</w:t></w:r></w:p></w:tc>';
 
         $rowsXml = '';
-        foreach ($data as $row) {
+        $relsXmlEntries = '';
+        $imageFiles = [];
+        $contentTypeImages = [];
+        $imageCounter = 1;
+        $docPrId = 1;
+
+        foreach ($data as $index => $row) {
             $rowsXml .= '<w:tr>';
-            $rowsXml .= '<w:tc><w:p><w:r><w:t>' . htmlspecialchars($row->name) . '</w:t></w:r></w:p></w:tc>';
-            $rowsXml .= '<w:tc><w:p><w:r><w:t>' . htmlspecialchars($row->designation?->name ?? '') . '</w:t></w:r></w:p></w:tc>';
-            $rowsXml .= '<w:tc><w:p><w:r><w:t>' . htmlspecialchars($row->department?->name ?? '') . '</w:t></w:r></w:p></w:tc>';
-            $rowsXml .= '<w:tc><w:p><w:r><w:t>' . htmlspecialchars($row->pf_number) . '</w:t></w:r></w:p></w:tc>';
-            $rowsXml .= '<w:tc><w:p><w:r><w:t>' . htmlspecialchars($row->id_card_number) . '</w:t></w:r></w:p></w:tc>';
+            $rowsXml .= $cell((string)($index + 1));
+            $rowsXml .= $cell($row->name);
+            $rowsXml .= $cell($row->designation?->name ?? '');
+            $rowsXml .= $cell($row->department?->name ?? '');
+            $rowsXml .= $cell($row->pf_number);
+            $rowsXml .= $cell($row->id_card_number);
+            $rowsXml .= $cell(DateHelpers::dateFormat($row->prl_date, 'd/m/Y'));
+            $rowsXml .= $cell($row->blood?->name ?? '');
+            $rowsXml .= $cell($row->mobile_number);
+            $rowsXml .= $cell($row->present_address);
+            $rowsXml .= $cell($row->emergency_contact);
+
+            $imageFields = [
+                ['file' => $row->image, 'path' => NuSmartCard::IMAGE_UPLOAD_PATH],
+                ['file' => $row->signature, 'path' => NuSmartCard::SIGNATURE_UPLOAD_PATH],
+            ];
+
+            foreach ($imageFields as $field) {
+                $filePath = $field['file'] ? public_path($field['path'] . $field['file']) : null;
+                if ($filePath && file_exists($filePath)) {
+                    $ext = strtolower(pathinfo($filePath, PATHINFO_EXTENSION));
+                    $contentTypeImages[$ext] = $ext === 'png' ? 'image/png' : 'image/jpeg';
+                    $relId = 'rId' . $imageCounter;
+                    $imageName = 'image' . $imageCounter . '.' . $ext;
+                    $relsXmlEntries .= '<Relationship Id="' . $relId . '" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/image" Target="media/' . $imageName . '"/>';
+                    $imageFiles[] = ['path' => $filePath, 'name' => 'word/media/' . $imageName];
+
+                    $size = 714375; // 75px in EMUs
+                    $rowsXml .= '<w:tc><w:p><w:r><w:drawing><wp:inline distT="0" distB="0" distL="0" distR="0"><wp:extent cx="' . $size . '" cy="' . $size . '"/><wp:effectExtent l="0" t="0" r="0" b="0"/><wp:docPr id="' . $docPrId . '" name="Image' . $imageCounter . '"/><wp:cNvGraphicFramePr/><a:graphic xmlns:a="http://schemas.openxmlformats.org/drawingml/2006/main"><a:graphicData uri="http://schemas.openxmlformats.org/drawingml/2006/picture"><pic:pic xmlns:pic="http://schemas.openxmlformats.org/drawingml/2006/picture"><pic:nvPicPr><pic:cNvPr id="0" name="Image"/><pic:cNvPicPr/></pic:nvPicPr><pic:blipFill><a:blip r:embed="' . $relId . '"/><a:stretch><a:fillRect/></a:stretch></pic:blipFill><pic:spPr><a:xfrm><a:off x="0" y="0"/><a:ext cx="' . $size . '" cy="' . $size . '"/></a:xfrm><a:prstGeom prst="rect"><a:avLst/></a:prstGeom></pic:spPr></pic:pic></a:graphicData></a:graphic></wp:inline></w:drawing></w:r></w:p></w:tc>';
+                    $imageCounter++;
+                    $docPrId++;
+                } else {
+                    $rowsXml .= '<w:tc/>';
+                }
+            }
+
             $rowsXml .= '</w:tr>';
         }
 
         $documentXml = '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>'
-            .'<w:document xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main">'
+            .'<w:document xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main"'
+            .' xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships"'
+            .' xmlns:wp="http://schemas.openxmlformats.org/drawingml/2006/wordprocessingDrawing"'
+            .' xmlns:a="http://schemas.openxmlformats.org/drawingml/2006/main"'
+            .' xmlns:pic="http://schemas.openxmlformats.org/drawingml/2006/picture">'
             .'<w:body>'
             .'<w:tbl>'
             .'<w:tr>'
+            .'<w:tc><w:p><w:r><w:t>No</w:t></w:r></w:p></w:tc>'
             .'<w:tc><w:p><w:r><w:t>Name</w:t></w:r></w:p></w:tc>'
             .'<w:tc><w:p><w:r><w:t>Designation</w:t></w:r></w:p></w:tc>'
             .'<w:tc><w:p><w:r><w:t>Department</w:t></w:r></w:p></w:tc>'
             .'<w:tc><w:p><w:r><w:t>PF No</w:t></w:r></w:p></w:tc>'
             .'<w:tc><w:p><w:r><w:t>ID Card No</w:t></w:r></w:p></w:tc>'
+            .'<w:tc><w:p><w:r><w:t>PRL Date</w:t></w:r></w:p></w:tc>'
+            .'<w:tc><w:p><w:r><w:t>Blood Group</w:t></w:r></w:p></w:tc>'
+            .'<w:tc><w:p><w:r><w:t>Mobile No</w:t></w:r></w:p></w:tc>'
+            .'<w:tc><w:p><w:r><w:t>Present Address</w:t></w:r></w:p></w:tc>'
+            .'<w:tc><w:p><w:r><w:t>Emergency No</w:t></w:r></w:p></w:tc>'
+            .'<w:tc><w:p><w:r><w:t>Image</w:t></w:r></w:p></w:tc>'
+            .'<w:tc><w:p><w:r><w:t>Signature</w:t></w:r></w:p></w:tc>'
             .'</w:tr>'
             .$rowsXml
             .'</w:tbl>'
@@ -135,13 +187,21 @@ class DashboardController extends Controller
         $contentTypesXml = '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>'
             .'<Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types">'
             .'<Default Extension="rels" ContentType="application/vnd.openxmlformats-package.relationships+xml"/>'
-            .'<Default Extension="xml" ContentType="application/xml"/>'
-            .'<Override PartName="/word/document.xml" ContentType="application/vnd.openxmlformats-officedocument.wordprocessingml.document.main+xml"/>'
+            .'<Default Extension="xml" ContentType="application/xml"/>';
+        foreach ($contentTypeImages as $ext => $type) {
+            $contentTypesXml .= '<Default Extension="' . $ext . '" ContentType="' . $type . '"/>';
+        }
+        $contentTypesXml .= '<Override PartName="/word/document.xml" ContentType="application/vnd.openxmlformats-officedocument.wordprocessingml.document.main+xml"/>'
             .'</Types>';
 
         $relsXml = '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>'
             .'<Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships">'
             .'<Relationship Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument" Target="word/document.xml" Id="R1"/>'
+            .'</Relationships>';
+
+        $documentRelsXml = '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>'
+            .'<Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships">'
+            .$relsXmlEntries
             .'</Relationships>';
 
         $fileName = tempnam(sys_get_temp_dir(), 'docx');
@@ -150,6 +210,10 @@ class DashboardController extends Controller
         $zip->addFromString('[Content_Types].xml', $contentTypesXml);
         $zip->addFromString('_rels/.rels', $relsXml);
         $zip->addFromString('word/document.xml', $documentXml);
+        $zip->addFromString('word/_rels/document.xml.rels', $documentRelsXml);
+        foreach ($imageFiles as $img) {
+            $zip->addFile($img['path'], $img['name']);
+        }
         $zip->close();
 
         return response()->download($fileName, 'smart-cards.docx')->deleteFileAfterSend(true);

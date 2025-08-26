@@ -10,10 +10,7 @@
             <div class="flex-box justify-content-between align-items-center">
                 <h5 class="card-title">College Inspection Staff List</h5>
                 <div class="d-flex align-items-center">
-                    <form method="GET" action="{{ route('nu-smart-card.index') }}" class="d-flex me-2">
-                        <input type="text" name="search" value="{{ request('search') }}" class="form-control form-control-sm" placeholder="Search...">
-                        <button class="btn btn-primary btn-sm ms-2" type="submit">Search</button>
-                    </form>
+                    <input type="text" id="search" class="form-control form-control-sm me-2" placeholder="Search...">
                     <a class="btn btn-sm btn-success me-2" href="{{ route('export-word') }}">Word Export</a>
                     <a class="btn btn-sm btn-red me-2" target="_blank" href="{{ route('view-pdf') }}">PDF Download</a>
                     <a class="btn btn-sm btn-info" href="{{ route('nu-smart-card.create') }}">Add New</a>
@@ -34,27 +31,8 @@
                         <th width="300" scope="col" class="text-center">Action</th>
                     </tr>
                     </thead>
-                    <tbody>
-                        @forelse($data as $nu)
-                            <tr>
-                                <th scope="row">{{ $data->firstItem()+$loop->index }}</th>
-                                <td>{{ $nu->name }}</td>
-                                <td>{{ $nu->designation?->name }}</td>
-                                <td>{{ $nu->created_at->toDateString() }}</td>
-                                <td><img class="img-thumbnail img-fluid rounded mx-auto d-block w-25" alt="image" src="{!! asset('uploads/images/' . $nu->image)  !!}"> </td>
-                                <td class="text-center">
-                                    <a href="{{ route('single-pdf', $nu->id) }}" class="btn btn-red btn-sm" target="_blank"><i class="bx bxs-file-pdf fs-4"></i></a>
-                                    <a href="{{ route('nu-smart-card.show', $nu->id) }}" class="btn btn-primary btn-sm"><i class="bx bx-show fs-4"></i></a>
-                                    <a href="{{ route('nu-smart-card.edit', $nu->id) }}" class="btn btn-sm btn-green"><i class="bx bx-edit fs-4"></i></a>
-                                    <button data-url="{{ route('nu-smart-card.destroy', $nu->id) }}" class="btn btn-danger delete-btn btn-sm"><i class="bx bx-trash fs-4"></i></button>
-                                </td>
-                            </tr>
-                        @empty
-                            <tr>
-                                <td colspan="6" class="text-center">No Data Found</td>
-                            </tr>
-                        @endforelse
-
+                    <tbody id="nu-smart-card-table">
+                        @include('nu-smart-card.partials.table-rows', ['data' => $data])
                     </tbody>
                 </table>
                 {{ $data->links('pagination::bootstrap-5') }}
@@ -67,6 +45,20 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://cdn.jsdelivr.net/npm/izitoast/dist/js/iziToast.min.js"></script>
     <script type="text/javascript">
+        $(document).ready(function(){
+            $('#search').on('keyup', function(){
+                let q = $(this).val();
+                if(q.length === 0){
+                    window.location.reload();
+                    return;
+                }
+                $.get("{{ route('nu-smart-card.live-search') }}", { q: q }, function(data){
+                    $('#nu-smart-card-table').html(data.html);
+                    $('.pagination').hide();
+                });
+            });
+        });
+
         $(document).on("click", ".delete-btn", function (e) {
             e.preventDefault();
 

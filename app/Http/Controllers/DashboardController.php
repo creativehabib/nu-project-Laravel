@@ -100,6 +100,22 @@ class DashboardController extends Controller
         return response()->json(['success' => true, 'message' => 'Data deleted successfully!']);
     }
 
+    public function liveSearch(Request $request): JsonResponse
+    {
+        $term = $request->get('q');
+        $results = NuSmartCard::with('designation')
+            ->where(function ($q) use ($term) {
+                $q->where('name', 'like', "%{$term}%")
+                  ->orWhere('pf_number', 'like', "%{$term}%");
+            })
+            ->orderBy('order_position', 'asc')
+            ->get();
+
+        $html = view('nu-smart-card.partials.table-rows', ['data' => $results])->render();
+
+        return response()->json(['html' => $html]);
+    }
+
     public function exportWord(): BinaryFileResponse
     {
         $data = NuSmartCard::with(['designation', 'department', 'blood'])->get();

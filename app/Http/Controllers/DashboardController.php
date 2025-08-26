@@ -228,7 +228,10 @@ class DashboardController extends Controller
         $zip->addFromString('word/document.xml', $documentXml);
         $zip->addFromString('word/_rels/document.xml.rels', $documentRelsXml);
         foreach ($imageFiles as $img) {
-            $zip->addFile($img['path'], $img['name']);
+            // Use addFromString to ensure the image binary is properly added to the archive
+            if (is_readable($img['path'])) {
+                $zip->addFromString($img['name'], file_get_contents($img['path']));
+            }
         }
         $zip->close();
 

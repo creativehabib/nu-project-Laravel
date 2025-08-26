@@ -34,15 +34,25 @@
                                 </div>
 
                                 <div class="mb-3">
-                                    <label for="department" class="form-label">Department</label>
-                                    <input type="text" id="department" name="department" class="form-control" placeholder="Department">
-                                    <span class="text-red small" id="department-error"></span>
+                                    <label for="department_id" class="form-label">Department</label>
+                                    <select id="department_id" name="department_id" class="form-select">
+                                        <option value="">Select Department</option>
+                                        @foreach($departments as $department)
+                                            <option value="{{ $department->id }}">{{ $department->name }}</option>
+                                        @endforeach
+                                    </select>
+                                    <span class="text-red small" id="department_id-error"></span>
                                 </div>
 
                                 <div class="mb-3">
-                                    <label for="designation" class="form-label">Designation</label>
-                                    <input type="text" id="designation" name="designation" placeholder="Designation" class="form-control">
-                                    <span class="text-red small" id="designation-error"></span>
+                                    <label for="designation_id" class="form-label">Designation</label>
+                                    <select id="designation_id" name="designation_id" class="form-select">
+                                        <option value="">Select Designation</option>
+                                        @foreach($designations as $designation)
+                                            <option value="{{ $designation->id }}">{{ $designation->name }}</option>
+                                        @endforeach
+                                    </select>
+                                    <span class="text-red small" id="designation_id-error"></span>
                                 </div>
 
                                 <div class="mb-3">

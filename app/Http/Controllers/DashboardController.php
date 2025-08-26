@@ -6,9 +6,12 @@ use App\Http\Requests\StoreSmartCardRequest;
 use App\Http\Requests\updateSmartCardRequest;
 use App\Models\BloodGroup;
 use App\Models\NuSmartCard;
+use App\Models\Department;
+use App\Models\Designation;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
+use Illuminate\Http\Response;
 
 class DashboardController extends Controller
 {
@@ -21,7 +24,9 @@ class DashboardController extends Controller
     public function create()
     {
         $bloods = BloodGroup::all();
-        return view('nu-smart-card.create', compact('bloods'));
+        $departments = Department::all();
+        $designations = Designation::all();
+        return view('nu-smart-card.create', compact('bloods','departments','designations'));
     }
 
     /**
@@ -51,8 +56,10 @@ class DashboardController extends Controller
     public function edit($id)
     {
         $bloods = BloodGroup::where('status', 1)->get();
+        $departments = Department::all();
+        $designations = Designation::all();
         $data = NuSmartCard::query()->findOrFail($id);
-        return view('nu-smart-card.edit',compact('data','bloods'));
+        return view('nu-smart-card.edit',compact('data','bloods','departments','designations'));
     }
 
     /**
@@ -79,6 +86,21 @@ class DashboardController extends Controller
     {
         (new NuSmartCard())->deleteSmartCard($nuSmartCard);
         return response()->json(['success' => true, 'message' => 'Data deleted successfully!']);
+    }
+
+    public function exportWord(): Response
+    {
+        $data = NuSmartCard::with(['designation','department','blood'])->get();
+        $html = '<table border="1"><tr><th>Name</th><th>Designation</th><th>Department</th><th>PF No</th></tr>';
+        foreach($data as $row){
+            $html .= '<tr><td>'.$row->name.'</td><td>'.($row->designation->name ?? '').'</td><td>'.($row->department->name ?? '').'</td><td>'.$row->pf_number.'</td></tr>';
+        }
+        $html .= '</table>';
+        $headers = [
+            'Content-Type' => 'application/msword',
+            'Content-Disposition' => 'attachment; filename="smart-cards.doc"'
+        ];
+        return response($html, 200, $headers);
     }
 
 
@@ -158,8 +180,8 @@ class DashboardController extends Controller
             $html .= '<tr>';
             $html .= '<td>'.++$i.'</td>';
             $html .= '<td>'.$row['name'].'</td>';
-            $html .= '<td>'.$row['designation'].'</td>';
-            $html .= '<td>'.$row['department'].'</td>';
+            $html .= '<td>'.($row->designation->name ?? '').'</td>';
+            $html .= '<td>'.($row->department->name ?? '').'</td>';
             $html .= '<td>'.$row['pf_number'].'</td>';
             $html .= '<td>'. \App\Helpers\DateHelpers::dateFormat($row['prl_date'], 'd/m/Y').'</td>';
             $html .= '<td>'.$row->blood->name.'</td>';

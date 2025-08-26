@@ -32,7 +32,7 @@
                             <tr>
                                 <th scope="row">{{ $data->firstItem()+$loop->index }}</th>
                                 <td>{{ $nu->name }}</td>
-                                <td>{{ $nu->designation }}</td>
+                                <td>{{ $nu->designation?->name }}</td>
                                 <td>{{ $nu->created_at->toDateString() }}</td>
                                 <td><img class="img-thumbnail img-fluid rounded mx-auto d-block w-25" alt="image" src="{!! asset('uploads/images/' . $nu->image)  !!}"> </td>
                                 <td class="text-center">

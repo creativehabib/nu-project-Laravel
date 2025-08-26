@@ -20,11 +20,11 @@
                             </tr>
                             <tr>
                                 <th>Designation</th>
-                                <td>{{ $nuSmartCard->designation }}</td>
+                                <td>{{ $nuSmartCard->designation?->name }}</td>
                             </tr>
                             <tr>
                                 <th>Department</th>
-                                <td>{{ $nuSmartCard->department }}</td>
+                                <td>{{ $nuSmartCard->department?->name }}</td>
                             </tr>
                             <tr>
                                 <th>PF No</th>

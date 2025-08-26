@@ -201,11 +201,11 @@
         }
 
         profileInput.addEventListener("change", function () {
-            handleImageSelection(this, 45 / 55, 810, 990);
+            handleImageSelection(this, 45 / 55, 531, 649);
         });
 
         signatureInput.addEventListener("change", function () {
-            handleImageSelection(this, 300 / 80, 600, 160);
+            handleImageSelection(this, 300 / 80, 300, 80);
         });
 
         document.getElementById("cancelCrop").addEventListener("click", function () {
@@ -216,8 +216,8 @@
 
         document.getElementById("cropImage").addEventListener("click", function () {
             if (cropper) {
-                const width = activeInput === profileInput ? 810 : 600;
-                const height = activeInput === profileInput ? 990 : 160;
+                const width = activeInput === profileInput ? 531 : 300;
+                const height = activeInput === profileInput ? 649 : 80;
                 const canvas = cropper.getCroppedCanvas({
                     width: width,
                     height: height,

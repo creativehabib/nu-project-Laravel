@@ -19,6 +19,8 @@
 
             <div class="container-fluid">
 
+                @include('layouts.partials.alerts')
+
                 @yield('content')
 
             </div>

@@ -43,7 +43,7 @@ class NuSmartCardController extends Controller
         }
 
         // Fetch the record from the database
-        $data = NuSmartCard::find($submittedId);
+        $data = NuSmartCard::with(['blood', 'department', 'designation'])->find($submittedId);
 
         if (!$data) {
             return redirect()->route('nu-smart-card.store_data')->with('error', 'Record not found!');

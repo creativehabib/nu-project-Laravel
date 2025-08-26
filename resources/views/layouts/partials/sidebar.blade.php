@@ -47,6 +47,12 @@
                           <li class="sub-nav-item">
                               <a class="sub-nav-link" href="{{ route ('blood-group.index') }}">Blood Group</a>
                           </li>
+                          <li class="sub-nav-item">
+                              <a class="sub-nav-link" href="{{ route('departments.index') }}">Department</a>
+                          </li>
+                          <li class="sub-nav-item">
+                              <a class="sub-nav-link" href="{{ route('designations.index') }}">Designation</a>
+                          </li>
                       </ul>
                   </div>
               </li>

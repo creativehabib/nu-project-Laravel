@@ -240,7 +240,7 @@ class DashboardController extends Controller
     public function getSinglePdfData($id)
     {
         // get single data
-        $data = NuSmartCard::query()->with('blood')->findOrFail($id);
+        $data = NuSmartCard::query()->with(['blood', 'department', 'designation'])->findOrFail($id);
         date_default_timezone_set("Asia/Dhaka");
         $html = '
         <!doctype html>
@@ -302,11 +302,11 @@ class DashboardController extends Controller
                 </tr>
                 <tr>
                     <th>Designation</th>
-                    <td>'.$data->designation.'</td>
+                    <td>'.($data->designation->name ?? '').'</td>
                 </tr>
                 <tr>
                     <th>Department</th>
-                    <td>'.$data->department.'</td>
+                    <td>'.($data->department->name ?? '').'</td>
                 </tr>
                 <tr>
                     <th>PF No</th>

@@ -24,11 +24,11 @@
             </tr>
             <tr class="border-b border-gray-300 dark:border-gray-700">
                 <th class="p-2 w-50">Department:</th>
-                <td class="p-2">{{ $data->department }}</td>
+                <td class="p-2">{{ $data->department?->name }}</td>
             </tr>
             <tr class="border-b border-gray-300 dark:border-gray-700">
                 <th class="p-2 w-50">Designation:</th>
-                <td class="p-2">{{ $data->designation }}</td>
+                <td class="p-2">{{ $data->designation?->name }}</td>
             </tr>
             <tr class="border-b border-gray-300 dark:border-gray-700">
                 <th class="p-2 w-50">PF Number:</th>

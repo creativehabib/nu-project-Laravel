@@ -36,8 +36,8 @@ class updateSmartCardRequest extends FormRequest
             'order_position'    => 'nullable|numeric',
             'emergency_contact' => ['required','numeric',new Phone(), Rule::unique('nu_smart_cards', 'emergency_contact')->ignore($this->nu_smart_card->id)],
             'present_address'   => 'required|string',
-            'image'             => ['nullable', 'image', 'mimes:jpeg,png,jpg,webp', 'max:2048', 'dimensions:width=810,height=990'],
-            'signature'         => ['nullable', 'image', 'mimes:jpeg,png,jpg,webp', 'max:2048', 'dimensions:width=600,height=160'],
+            'image'             => ['nullable', 'image', 'mimes:jpeg,png,jpg,webp', 'max:2048', 'dimensions:width=531,height=649'],
+            'signature'         => ['nullable', 'image', 'mimes:jpeg,png,jpg,webp', 'max:2048', 'dimensions:width=300,height=80'],
         ];
     }
 }

@@ -208,8 +208,8 @@
 
             document.getElementById("cropImage").addEventListener("click", function () {
                 if (cropper) {
-                    let width = activeInput === profileInput ? 810 : 600;
-                    let height = activeInput === profileInput ? 990 : 160;
+                    let width = activeInput === profileInput ? 531 : 300;
+                    let height = activeInput === profileInput ? 649 : 80;
                     const canvas = cropper.getCroppedCanvas({ width: width, height: height });
 
                     canvas.toBlob(blob => {

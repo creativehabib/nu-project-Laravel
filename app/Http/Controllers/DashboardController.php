@@ -315,11 +315,11 @@ class DashboardController extends Controller
             $html .= '<tr>';
             $html .= '<td>'.++$i.'</td>';
             $html .= '<td>'.$row['name'].'</td>';
-            $html .= '<td>'.($row->designation->name ?? '').'</td>';
-            $html .= '<td>'.($row->department->name ?? '').'</td>';
+            $html .= '<td>'.($row->designation?->name ?? '').'</td>';
+            $html .= '<td>'.($row->department?->name ?? '').'</td>';
             $html .= '<td>'.$row['pf_number'].'</td>';
             $html .= '<td>'. \App\Helpers\DateHelpers::dateFormat($row['prl_date'], 'd/m/Y').'</td>';
-            $html .= '<td>'.$row->blood->name.'</td>';
+            $html .= '<td>'.($row->blood?->name ?? '').'</td>';
             $html .= '<td>'.$row['mobile_number'].'</td>';
             $html .= '<td>'.$row['present_address'].'</td>';
             $html .= '<td>'.$row['emergency_contact'].'</td>';

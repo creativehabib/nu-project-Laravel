@@ -33,6 +33,10 @@
             <main class="p-4">
                 <div class="grid gap-6 lg:grid-cols-1 lg:gap-8">
                     <div class="flex flex-col col-span-1 p-6 bg-white dark:bg-gray-900 rounded-lg shadow-md">
+                        <div class="mb-4">
+                            <input type="text" id="live-search" placeholder="Search Smart Card" class="w-full p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400 dark:bg-gray-800 dark:text-white">
+                            <ul id="search-results" class="mt-2"></ul>
+                        </div>
                         <form class="flex flex-col gap-4" id="ajax-form" enctype="multipart/form-data">
                             <div class="flex flex-col text-gray-700 dark:text-gray-200">
                                 <label class="mb-2 text-sm font-medium">Name</label>
@@ -42,16 +46,23 @@
                             <div class="grid grid-cols-2 gap-3">
                                 <div class="flex flex-col text-gray-700 dark:text-gray-200">
                                     <label class="mb-2 text-sm font-medium">Department</label>
-                                    <select name="department" class="p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400 dark:bg-gray-800 dark:text-white">
+                                    <select name="department_id" class="p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400 dark:bg-gray-800 dark:text-white">
                                         <option value="">Select Department</option>
-                                        <option value="College Inspection">College Inspection</option>
+                                        @foreach($departments as $department)
+                                            <option value="{{ $department->id }}">{{ $department->name }}</option>
+                                        @endforeach
                                     </select>
-                                    <span class="text-red-500 text-sm mt-1" id="department-error"></span>
+                                    <span class="text-red-500 text-sm mt-1" id="department_id-error"></span>
                                 </div>
                                 <div class="flex flex-col text-gray-700 dark:text-gray-200">
                                     <label class="mb-2 text-sm font-medium">Designation</label>
-                                    <input type="text" name="designation" placeholder="Enter your designation" class="p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400 dark:bg-gray-800 dark:text-white">
-                                    <span class="text-red-500 text-sm mt-1" id="designation-error"></span>
+                                    <select name="designation_id" class="p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400 dark:bg-gray-800 dark:text-white">
+                                        <option value="">Select Designation</option>
+                                        @foreach($designations as $designation)
+                                            <option value="{{ $designation->id }}">{{ $designation->name }}</option>
+                                        @endforeach
+                                    </select>
+                                    <span class="text-red-500 text-sm mt-1" id="designation_id-error"></span>
                                 </div>
                             </div>
 
@@ -140,6 +151,15 @@
         let cropper, activeInput;
         let croppedProfileBlob = null;
         let croppedSignatureBlob = null;
+
+        $('#live-search').on('keyup', function(){
+            let q = $(this).val();
+            if(q.length < 2){ $('#search-results').empty(); return; }
+            $.get('/nu-smart-card/search', {q:q}, function(data){
+                let html = data.map(item => `<li>${item.name} - ${(item.designation ? item.designation.name : '')}</li>`).join('');
+                $('#search-results').html(html);
+            });
+        });
 
         // ✅ Cropper Modal Setup
         const cropperModal = document.createElement("div");

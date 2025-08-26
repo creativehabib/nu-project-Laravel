@@ -26,8 +26,8 @@ class updateSmartCardRequest extends FormRequest
     {
         return [
             'name'              => ['required', 'string'],
-            'department'        => ['required', 'string'],
-            'designation'       => ['required', 'string'],
+            'department_id'     => ['required', 'integer', 'exists:departments,id'],
+            'designation_id'    => ['required', 'integer', 'exists:designations,id'],
             'pf_number'         => ['required', 'numeric', Rule::unique('nu_smart_cards', 'pf_number')->ignore($this->nu_smart_card->id)],
             'id_card_number'    => ['required', 'numeric', Rule::unique('nu_smart_cards', 'id_card_number')->ignore($this->nu_smart_card->id)],
             'mobile_number'     => ['required','numeric',new Phone(), Rule::unique('nu_smart_cards', 'mobile_number')->ignore($this->nu_smart_card->id)],

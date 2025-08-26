@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreSmartCardRequest;
 use App\Models\BloodGroup;
 use App\Models\NuSmartCard;
+use App\Models\Department;
+use App\Models\Designation;
 use Carbon\Carbon;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
@@ -23,7 +25,9 @@ class NuSmartCardController extends Controller
     public function index()
     {
         $bloods = BloodGroup::where('status', 1)->get();
-        return view('frontend.nuSmartCard.index', compact('bloods'));
+        $departments = Department::all();
+        $designations = Designation::all();
+        return view('frontend.nuSmartCard.index', compact('bloods', 'departments', 'designations'));
     }
 
     /**
@@ -117,5 +121,15 @@ class NuSmartCardController extends Controller
     public function destroy(NuSmartCard $nuSmartCard)
     {
         //
+    }
+    public function search(Request $request): JsonResponse
+    {
+        $term = $request->get('q');
+        $results = NuSmartCard::with(["department", "designation"])
+            ->where("name", "like", "%" . $term . "%")
+            ->orWhere("pf_number", "like", "%" . $term . "%")
+            ->limit(10)
+            ->get();
+        return response()->json($results);
     }
 }

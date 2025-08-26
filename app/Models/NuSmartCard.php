@@ -15,7 +15,7 @@ class NuSmartCard extends Model
     public const SIGNATURE_UPLOAD_PATH = 'uploads/signature/';
 
     protected $fillable = [
-        'name', 'department', 'designation', 'pf_number', 'id_card_number',
+        'name', 'department_id', 'designation_id', 'pf_number', 'id_card_number',
         'birth_date', 'prl_date', 'mobile_number', 'blood_id', 'order_position',
         'present_address', 'emergency_contact', 'image', 'signature'
     ];
@@ -45,8 +45,8 @@ class NuSmartCard extends Model
 
         $data = [
             'name'              => $request->input('name'),
-            'department'        => $request->input('department'),
-            'designation'       => $request->input('designation'),
+            'department_id'     => $request->input('department_id'),
+            'designation_id'    => $request->input('designation_id'),
             'pf_number'         => $request->input('pf_number'),
             'id_card_number'    => $request->input('id_card_number'),
             'birth_date'        => $request->input('birth_date'),
@@ -108,5 +108,14 @@ class NuSmartCard extends Model
     public function blood(): BelongsTo
     {
         return $this->belongsTo('App\Models\BloodGroup', 'blood_id');
+    }
+    public function department(): BelongsTo
+    {
+        return $this->belongsTo(Department::class);
+    }
+
+    public function designation(): BelongsTo
+    {
+        return $this->belongsTo(Designation::class);
     }
 }

@@ -17,8 +17,9 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" ></script>
     <style type="text/css">
         #cropperModal img {
-            max-width: 90vw;  /* Ensure the image fits within the viewport width */
-            max-height: 70vh; /* Ensure it fits within the viewport height */
+            width: 90vw;           /* Expand image to larger viewport width */
+            max-width: 90vw;
+            max-height: 85vh;     /* Allow a taller crop area */
             display: block;
             margin: auto;
         }
@@ -145,7 +146,7 @@
         cropperModal.id = "cropperModal";
         cropperModal.className = "fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 hidden";
         cropperModal.innerHTML = `
-            <div class="bg-white p-6 rounded-lg shadow-md max-w-4xl w-full">
+            <div class="bg-white p-6 rounded-lg shadow-md w-full" style="max-width:90vw;">
                 <img id="cropperPreview" class="w-full h-auto" />
                 <div class="flex justify-end mt-4">
                     <button id="cropImage" class="bg-green-500 text-white p-2 rounded-md mr-2">Crop</button>

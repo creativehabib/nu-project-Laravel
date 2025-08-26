@@ -3,6 +3,17 @@
 @section('css')
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/izitoast/dist/css/iziToast.min.css">
+    <style>
+        #cropperModal .modal-dialog {
+            max-width: 90vw;
+        }
+
+        #cropperModal img {
+            width: 90vw;
+            max-width: 90vw;
+            max-height: 85vh;
+        }
+    </style>
 @endsection
 @section('content')
     <div class="row row-cols-lg-1 gx-3">

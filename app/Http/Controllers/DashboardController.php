@@ -121,7 +121,7 @@ class DashboardController extends Controller
     {
         $data = NuSmartCard::with(['designation', 'department', 'blood'])->orderBy('order_position', 'asc')->get();
 
-        $cell = fn(string $value): string => '<w:tc><w:p><w:r><w:t>' . htmlspecialchars($value) . '</w:t></w:r></w:p></w:tc>';
+        $cell = fn(?string $value): string => '<w:tc><w:p><w:r><w:t>' . htmlspecialchars($value ?? '') . '</w:t></w:r></w:p></w:tc>';
 
         $rowsXml = '';
         $relsXmlEntries = '';

@@ -125,11 +125,16 @@ class NuSmartCardController extends Controller
     public function search(Request $request): JsonResponse
     {
         $term = $request->get('q');
-        $results = NuSmartCard::with(["department", "designation"])
-            ->where("name", "like", "%" . $term . "%")
-            ->orWhere("pf_number", "like", "%" . $term . "%")
+
+        $results = NuSmartCard::with(['department', 'designation'])
+            ->where(function ($query) use ($term) {
+                $query->where('name', 'like', "%{$term}%")
+                      ->orWhere('pf_number', 'like', "%{$term}%")
+                      ->orWhere('id_card_number', 'like', "%{$term}%");
+            })
             ->limit(10)
             ->get();
+
         return response()->json($results);
     }
 }

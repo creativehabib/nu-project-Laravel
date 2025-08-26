@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Department;
+use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
@@ -31,7 +32,11 @@ class DepartmentController extends Controller
 
     public function destroy(Department $department): RedirectResponse
     {
-        $department->delete();
-        return back()->with('success', 'Department deleted successfully');
+        try {
+            $department->delete();
+            return back()->with('success', 'Department deleted successfully');
+        } catch (QueryException $e) {
+            return back()->with('error', 'Department cannot be deleted because it is associated with an existing smart card.');
+        }
     }
 }

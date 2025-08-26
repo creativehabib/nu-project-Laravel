@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Designation;
+use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
@@ -31,7 +32,11 @@ class DesignationController extends Controller
 
     public function destroy(Designation $designation): RedirectResponse
     {
-        $designation->delete();
-        return back()->with('success', 'Designation deleted successfully');
+        try {
+            $designation->delete();
+            return back()->with('success', 'Designation deleted successfully');
+        } catch (QueryException $e) {
+            return back()->with('error', 'Designation cannot be deleted because it is associated with an existing smart card.');
+        }
     }
 }

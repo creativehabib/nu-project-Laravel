@@ -9,8 +9,14 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('nu_smart_cards', function (Blueprint $table) {
-            $table->foreignId('department_id')->nullable()->constrained('departments');
-            $table->foreignId('designation_id')->nullable()->constrained('designations');
+            $table->foreignId('department_id')
+                ->nullable()
+                ->constrained('departments')
+                ->nullOnDelete();
+            $table->foreignId('designation_id')
+                ->nullable()
+                ->constrained('designations')
+                ->nullOnDelete();
             $table->dropColumn(['department', 'designation']);
         });
     }

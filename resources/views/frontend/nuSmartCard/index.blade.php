@@ -54,11 +54,16 @@
                                 </div>
                             </div>
 
-                            <div class="grid grid-cols-2 gap-3">
+                            <div class="grid grid-cols-3 gap-3">
                                 <div class="flex flex-col text-gray-700 dark:text-gray-200">
                                     <label class="mb-2 text-sm font-medium">PF No.</label>
                                     <input type="text" name="pf_number" placeholder="PF No." class="p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400 dark:bg-gray-800 dark:text-white">
                                     <span class="text-red-500 text-sm mt-1" id="pf_number-error"></span>
+                                </div>
+                                <div class="flex flex-col text-gray-700 dark:text-gray-200">
+                                    <label class="mb-2 text-sm font-medium">ID Card Number</label>
+                                    <input type="text" name="id_card_number" placeholder="ID Card Number" class="p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400 dark:bg-gray-800 dark:text-white">
+                                    <span class="text-red-500 text-sm mt-1" id="id_card_number-error"></span>
                                 </div>
                                 <div class="flex flex-col text-gray-700 dark:text-gray-200">
                                     <label class="mb-2 text-sm font-medium">Date of Birth</label>
@@ -104,7 +109,7 @@
                                     <img id="signaturePreview" class="mt-2 w-32 h-auto hidden"/>
                                 </div>
                                 <div class="flex flex-col">
-                                    <label class="mb-2 text-sm font-medium">Image PP Size (472 x 590)</label>
+                                    <label class="mb-2 text-sm font-medium">Image PP Size (45mm x 55mm)</label>
                                     <input type="file" name="image" placeholder="Upload passport size photo" class="p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400 dark:bg-gray-800 dark:text-white">
                                     <span class="text-red-500 text-sm mt-1" id="image-error"></span>
                                     <img id="profilePreview" class="mt-2 w-32 h-auto hidden" />
@@ -175,7 +180,7 @@
         }
 
         profileInput.addEventListener("change", function () {
-            handleImageSelection(this, 472 / 590, 472, 590);
+            handleImageSelection(this, 45 / 55, 531, 649);
         });
 
         signatureInput.addEventListener("change", function () {
@@ -190,8 +195,8 @@
 
         document.getElementById("cropImage").addEventListener("click", function () {
             if (cropper) {
-                const width = activeInput === profileInput ? 472 : 300;
-                const height = activeInput === profileInput ? 590 : 80;
+                const width = activeInput === profileInput ? 531 : 300;
+                const height = activeInput === profileInput ? 649 : 80;
                 const canvas = cropper.getCroppedCanvas({
                     width: width,
                     height: height,

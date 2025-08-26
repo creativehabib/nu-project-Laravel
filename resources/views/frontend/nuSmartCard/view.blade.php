@@ -35,6 +35,10 @@
                 <td class="p-2">{{ $data->pf_number }}</td>
             </tr>
             <tr class="border-b border-gray-300 dark:border-gray-700">
+                <th class="p-2 w-50">ID Card Number:</th>
+                <td class="p-2">{{ $data->id_card_number }}</td>
+            </tr>
+            <tr class="border-b border-gray-300 dark:border-gray-700">
                 <th class="p-2 w-50">Birth Date:</th>
                 <td class="p-2">{{ $data->birth_date }}</td>
             </tr>

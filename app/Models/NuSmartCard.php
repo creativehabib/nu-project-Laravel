@@ -15,7 +15,7 @@ class NuSmartCard extends Model
     public const SIGNATURE_UPLOAD_PATH = 'uploads/signature/';
 
     protected $fillable = [
-        'name', 'department', 'designation', 'pf_number',
+        'name', 'department', 'designation', 'pf_number', 'id_card_number',
         'birth_date', 'prl_date', 'mobile_number', 'blood_id', 'order_position',
         'present_address', 'emergency_contact', 'image', 'signature'
     ];
@@ -48,6 +48,7 @@ class NuSmartCard extends Model
             'department'        => $request->input('department'),
             'designation'       => $request->input('designation'),
             'pf_number'         => $request->input('pf_number'),
+            'id_card_number'    => $request->input('id_card_number'),
             'birth_date'        => $request->input('birth_date'),
             'prl_date'          => DateHelpers::calculatePRLDate($request->input('birth_date'), 60),
             'mobile_number'     => $request->input('mobile_number'),

@@ -153,11 +153,12 @@ class DashboardController extends Controller
                 $filePath = $field['file'] ? public_path($field['path'] . $field['file']) : null;
                 if ($filePath && file_exists($filePath)) {
                     $ext = strtolower(pathinfo($filePath, PATHINFO_EXTENSION));
-                    $contentTypeImages[$ext] = $ext === 'png' ? 'image/png' : 'image/jpeg';
+                    $mime = mime_content_type($filePath) ?: ($ext === 'png' ? 'image/png' : 'image/jpeg');
+                    $contentTypeImages[$ext] = $mime;
                     $relId = 'rId' . $imageCounter;
                     $imageName = 'image' . $imageCounter . '.' . $ext;
                     $relsXmlEntries .= '<Relationship Id="' . $relId . '" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/image" Target="media/' . $imageName . '"/>';
-                    $imageFiles[] = ['path' => $filePath, 'name' => 'word/media/' . $imageName];
+                    $imageFiles[] = ['path' => $filePath, 'zip' => 'word/media/' . $imageName];
 
                     $size = 714375; // 75px in EMUs
                     $rowsXml .= '<w:tc><w:p><w:r><w:drawing><wp:inline distT="0" distB="0" distL="0" distR="0"><wp:extent cx="' . $size . '" cy="' . $size . '"/><wp:effectExtent l="0" t="0" r="0" b="0"/><wp:docPr id="' . $docPrId . '" name="Image' . $imageCounter . '"/><wp:cNvGraphicFramePr/><a:graphic xmlns:a="http://schemas.openxmlformats.org/drawingml/2006/main"><a:graphicData uri="http://schemas.openxmlformats.org/drawingml/2006/picture"><pic:pic xmlns:pic="http://schemas.openxmlformats.org/drawingml/2006/picture"><pic:nvPicPr><pic:cNvPr id="0" name="Image"/><pic:cNvPicPr/></pic:nvPicPr><pic:blipFill><a:blip r:embed="' . $relId . '"/><a:stretch><a:fillRect/></a:stretch></pic:blipFill><pic:spPr><a:xfrm><a:off x="0" y="0"/><a:ext cx="' . $size . '" cy="' . $size . '"/></a:xfrm><a:prstGeom prst="rect"><a:avLst/></a:prstGeom></pic:spPr></pic:pic></a:graphicData></a:graphic></wp:inline></w:drawing></w:r></w:p></w:tc>';
@@ -228,9 +229,8 @@ class DashboardController extends Controller
         $zip->addFromString('word/document.xml', $documentXml);
         $zip->addFromString('word/_rels/document.xml.rels', $documentRelsXml);
         foreach ($imageFiles as $img) {
-            // Use addFromString to ensure the image binary is properly added to the archive
-            if (is_readable($img['path'])) {
-                $zip->addFromString($img['name'], file_get_contents($img['path']));
+            if (file_exists($img['path'])) {
+                $zip->addFile($img['path'], $img['zip']);
             }
         }
         $zip->close();

@@ -10,7 +10,7 @@
         <div class="card-header">
             <div class="flex-box justify-content-between">
                 <h5 class="card-title">Blood Group List</h5>
-                <button type="button" class="btn btn-sm btn-info" data-bs-toggle="modal" data-bs-target="#bloodModal">Add New</button>
+                <button type="button" class="btn btn-sm btn-info addBlood">Add New</button>
             </div>
         </div>
 
@@ -37,7 +37,7 @@
                             <td class="text-center"><input class="form-check-input bloodStatus" type="checkbox" role="switch" data-id="{{ $blood->id }}" {{ $blood->status ? 'checked' : '' }}></td>
 
                             <td class="text-center">
-                                <button class="btn btn-sm btn-green editBlood" data-bs-toggle="modal" data-bs-target="#bloodModal" data-id="{{ $blood->id }}"><i class="bx bx-edit fs-4"></i></button>
+                                <button class="btn btn-sm btn-green editBlood" data-id="{{ $blood->id }}"><i class="bx bx-edit fs-4"></i></button>
                                 <button class="btn btn-danger btn-sm delete-btn" data-url="{{ route('blood-group.destroy', $blood->id) }}"><i class="bx bx-trash fs-4"></i></button>
                             </td>
                         </tr>
@@ -91,7 +91,7 @@
 <script type="text/javascript">
     $(document).ready(function () {
         // ✅ Open Modal for Creating New Entry
-        $(document).on('click', '[data-bs-target="#bloodModal"]', function () {
+        $(document).on('click', '.addBlood', function () {
             $('#bloodModalLabel').text('Add Blood');
             $('#saveBlood').text('Save');
             $('#bloodId').val('');

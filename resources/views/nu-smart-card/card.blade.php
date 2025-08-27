@@ -175,8 +175,10 @@
       <img src="https://api.qrserver.com/v1/create-qr-code/?size=50x50&data={{ urlencode($nuSmartCard->id_card_number) }}" alt="QR" class="qr">
 
       <div class="sig">
-        <img src="{{ asset('images/logo-sm.png') }}" alt="Registrar" class="sig-img">
-        <div>Registrar</div>
+        @if($idCardSettings?->authority_logo)
+          <img src="{{ asset('storage/' . $idCardSettings->authority_logo) }}" alt="{{ $idCardSettings->authority_name ?? 'Registrar' }}" class="sig-img">
+        @endif
+        <div>{{ $idCardSettings->authority_name ?? 'Registrar' }}</div>
       </div>
     </div>
     </div>

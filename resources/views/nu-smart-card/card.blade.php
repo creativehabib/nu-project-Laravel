@@ -79,7 +79,7 @@
       display:flex;
       flex-direction:column;
       align-items:center;
-      margin-bottom: 30px;
+      flex:1;
     }
     .photo{
       width:2.45cm;height:2.75cm;border:1px solid var(--border);border-radius:8px;
@@ -99,6 +99,7 @@
       display:flex;
       justify-content:space-between;
       align-items:center;
+      margin-top:auto;
     }
     .qr{
       width:50px;

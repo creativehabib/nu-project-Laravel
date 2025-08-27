@@ -544,9 +544,10 @@ class DashboardController extends Controller
         }
 
         $idCardSettings = IdCardSetting::first();
-        $html = view('nu-smart-card.all_mastercard_pdf', compact('nuSmartCards', 'idCardSettings'))->render();
 
-        if (!is_string($html) || trim($html) === '') {
+        // Ensure the rendered HTML is a non-empty string before passing to mPDF
+        $html = (string) view('nu-smart-card.all_mastercard_pdf', compact('nuSmartCards', 'idCardSettings'))->render();
+        if ($html === '') {
             return back()->with('error', 'Unable to generate PDF for ID cards.');
         }
 

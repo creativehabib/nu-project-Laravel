@@ -48,6 +48,10 @@
                     @endif
                 </div>
                 <div class="mb-3">
+                    <label class="form-label">ছবির ব্যাকগ্রাউন্ড রঙ</label>
+                    <input type="color" name="photo_background_color" class="form-control form-control-color" value="{{ $settings->photo_background_color ?? '#f3f4f6' }}">
+                </div>
+                <div class="mb-3">
                     <label class="form-label">ব্যাক সাইড ফুটার</label>
                     <textarea name="back_footer" class="form-control" rows="3">{{ $settings->back_footer }}</textarea>
                 </div>

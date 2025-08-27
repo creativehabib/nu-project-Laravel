@@ -16,6 +16,7 @@ class IdCardSetting extends Model
         'authority_name',
         'authority_signature',
         'back_footer',
+        'photo_background_color',
     ];
 }
 

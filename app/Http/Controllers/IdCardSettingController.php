@@ -32,6 +32,7 @@ class IdCardSettingController extends Controller
         $settings->organization_logo_height    = $request->organization_logo_height;
         $settings->authority_name              = $request->authority_name;
         $settings->back_footer                 = $request->back_footer;
+        $settings->photo_background_color      = $request->photo_background_color;
 
         if ($request->hasFile('organization_logo')) {
             $path = $request->organization_logo->store('logos', 'public');

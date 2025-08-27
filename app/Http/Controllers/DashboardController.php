@@ -535,7 +535,7 @@ class DashboardController extends Controller
 
     public function downloadAllMastercard()
     {
-        $nuSmartCards = NuSmartCard::with(['designation','department','blood'])
+        $nuSmartCards = NuSmartCard::with(['designation', 'department', 'blood'])
             ->orderBy('order_position', 'asc')
             ->get();
 
@@ -544,10 +544,13 @@ class DashboardController extends Controller
         }
 
         $idCardSettings = IdCardSetting::first();
+        if (!$idCardSettings) {
+            return back()->with('error', 'ID card settings are missing.');
+        }
 
-        // Ensure the rendered HTML is a non-empty string before passing to mPDF
-        $html = (string) view('nu-smart-card.all_mastercard_pdf', compact('nuSmartCards', 'idCardSettings'))->render();
-        if ($html === '') {
+        // Render the view and ensure we have a valid, non-empty string before passing to mPDF
+        $html = view('nu-smart-card.all_mastercard_pdf', compact('nuSmartCards', 'idCardSettings'))->render();
+        if (!is_string($html) || trim($html) === '') {
             return back()->with('error', 'Unable to generate PDF for ID cards.');
         }
 

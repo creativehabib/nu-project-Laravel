@@ -83,7 +83,7 @@
       flex:1;
     }
     .photo-wrapper{
-      width:2.5cm;height:2.8cm;
+      width:{{ $idCardSettings->photo_width ?? 2.5 }}cm;height:{{ $idCardSettings->photo_height ?? 2.8 }}cm;
       border:1px solid var(--border);
       border-radius:8px;
       overflow:hidden;

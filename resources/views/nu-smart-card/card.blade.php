@@ -76,6 +76,7 @@
     /* Front body */
     .front-body{
       padding:10px;
+      padding-top:0px;
       display:flex;
       flex-direction:column;
       align-items:center;

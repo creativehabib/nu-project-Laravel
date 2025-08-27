@@ -70,9 +70,17 @@
                               <a class="sub-nav-link" href="{{ route ('manage-menus') }}">Menus</a>
                           </li>
                       </ul>
-                  </div>
+              </div>
               </li>
-               <li class="nav-item">
+              <li class="nav-item">
+                  <a class="nav-link" href="{{ route('settings.index') }}">
+                       <span class="nav-icon">
+                            <iconify-icon icon="mingcute:settings-3-line"></iconify-icon>
+                       </span>
+                       <span class="nav-text"> Settings </span>
+                  </a>
+              </li>
+              <li class="nav-item">
                     <a class="nav-link menu-arrow" href="#sidebarAuthentication" data-bs-toggle="collapse" role="button"
                          aria-expanded="false" aria-controls="sidebarAuthentication">
                          <span class="nav-icon">

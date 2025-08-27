@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>ID Card 5.5cm x 8.5cm</title>
+  <style>
+    @page { size: A4; margin: 1cm; }
+    :root{
+      --nu-green:#2f7d32;
+      --nu-blue:#2c7fb8;
+      --text:#111827;
+      --muted:#4b5563;
+      --border:#e5e7eb;
+    }
+    *{ box-sizing:border-box; }
+    .back-body {
+        padding: 10px;
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+        font-size: 11px;
+        flex: 1;
+        padding-left: 30px !important;
+    }
+    .sheet{
+      display:grid;
+      grid-template-columns: 5.5cm 5.5cm;
+      gap: 20px;
+    }
+    .card{
+      width:5.5cm;
+      height:8.5cm;
+      background:#fff;
+      border-radius:14px;
+      border:1px solid var(--border);
+      box-shadow: 0 6px 18px rgba(0,0,0,.08);
+      overflow:hidden;
+      position:relative;
+      display:flex;
+      flex-direction:column;
+    }
+    /* Header */
+    .front-header{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      padding:6px 10px;
+      border-bottom:1px solid var(--border);
+    }
+    .logo {
+      width: 28px;
+      height: 28px;
+      border-radius: 6px;
+      overflow: hidden;
+      flex-shrink: 0;
+      border: 1px solid #eee;
+      padding: 2px;
+    }
+    .logo img{
+      width:100%;
+      height:100%;
+      object-fit:contain;
+    }
+    .org{line-height:1.05;}
+    .org .bn {
+      font-size: 13px;
+      font-weight: 700;
+    }
+    .org .en {
+      font-size: 9px;
+      color: var(--muted);
+      letter-spacing: 0.2px;
+    }
+
+    .push-down {
+      margin-top: 14px; 
+    }
+    /* Front body */
+    .front-body{
+      padding:10px;
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      margin-bottom: 30px;
+    }
+    .photo{
+      width:2.45cm;height:2.75cm;border:1px solid var(--border);border-radius:8px;
+      display:grid;place-items:center;background:#f3f4f6;
+      margin-bottom:8px;font-size:10px;color:var(--muted);
+      overflow:hidden;
+    }
+    .photo img{width:100%;height:100%;object-fit:cover;}
+    .meta{text-align:center;}
+    .meta h2{margin:4px 0;font-size:14px;font-weight:800;}
+    .meta .role{font-size:11px;color:var(--muted);}
+    .meta .dept{font-size:11px;}
+    /* Footer */
+    .footer{
+      border-top:1px dashed var(--border);
+      padding:6px 8px;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+    }
+    .qr{
+      width:50px;
+      height:50px;
+      object-fit:contain;
+      border:1px solid var(--border);
+      border-radius:4px;
+    }
+    .signs{
+      display:flex;
+      justify-content:space-between;
+      gap:20px;
+      flex:1;
+      margin-left:10px;
+    }
+    .sig{text-align:center;font-size:10px;color:var(--muted);}
+    .sig-img{width:70px;height:auto;object-fit:contain;}
+    /* Back */
+    .back-body{
+      padding:10px;display:flex;flex-direction:column;gap:6px;font-size:10.5px;flex:1;
+    }
+    .kv{display:grid;grid-template-columns:2.2cm 1fr;gap:4px;}
+    .kv .k{color:var(--muted);}
+    .barcode{
+      font-family:monospace;letter-spacing:2px;color:#111;opacity:.7;font-size:12px;
+      writing-mode:vertical-rl;transform:rotate(180deg);position:absolute;left:8px;top:30%;
+    }
+    .note {
+        font-size: 10px;
+        border-top: 1px dashed var(--border);
+        padding: 6px;
+        margin-top: auto;
+        text-align: center;
+    }
+    @media print{
+      body{background:#fff;padding:0;}
+      .sheet{gap:0;grid-template-columns:5.5cm 5.5cm;justify-content:space-between;padding:0 1cm;}
+      .card{box-shadow:none;margin:0;}
+    }
+  </style>
+</head>
+<body>
+  <div class="sheet">
+    <!-- FRONT -->
+    <div class="card">
+      <div class="front-header">
+        <div class="logo">
+          <img src="https://upload.wikimedia.org/wikipedia/en/thumb/5/58/National_University%2C_Bangladesh_crest.svg/1200px-National_University%2C_Bangladesh_crest.svg.png" alt="NU Logo">
+        </div>
+        <div class="org">
+          <div class="bn">জাতীয় বিশ্ববিদ্যালয়</div>
+          <div class="en">National University Bangladesh</div>
+        </div>
+      </div>
+      <div class="front-body">
+        <div class="photo">
+          <img src="{{ asset('uploads/images/' . $nuSmartCard->image) }}" alt="{{ $nuSmartCard->name }}">
+        </div>
+        <div class="meta">
+          <h2>{{ $nuSmartCard->name }}</h2>
+          <div class="role">{{ $nuSmartCard->designation?->name }}</div>
+          <div class="dept">{{ $nuSmartCard->department?->name }}</div>
+        </div>
+      </div>
+      <div class="footer">
+      <div class="sig">
+        <img src="{{ asset('uploads/signature/' . $nuSmartCard->signature) }}" alt="Card Holder" class="sig-img">
+        <div>Card Holder</div>
+      </div>
+
+      <img src="https://api.qrserver.com/v1/create-qr-code/?size=50x50&data={{ urlencode($nuSmartCard->id_card_number) }}" alt="QR" class="qr">
+
+      <div class="sig">
+        <img src="{{ asset('images/logo-sm.png') }}" alt="Registrar" class="sig-img">
+        <div>Registrar</div>
+      </div>
+    </div>
+    </div>
+    <!-- BACK -->
+    <div class="card">
+      <div class="front-header">
+        <div class="logo">
+          <img src="https://upload.wikimedia.org/wikipedia/en/thumb/5/58/National_University%2C_Bangladesh_crest.svg/1200px-National_University%2C_Bangladesh_crest.svg.png" alt="NU Logo">
+        </div>
+        <div class="org">
+          <div class="bn">জাতীয় বিশ্ববিদ্যালয়</div>
+          <div class="en">National University Bangladesh</div>
+        </div>
+      </div>
+      <div class="back-body">
+        <div class="kv"><div class="k">P.F. No.</div><div>: {{ $nuSmartCard->pf_number }}</div></div>
+        <div class="kv"><div class="k">Mobile No.</div><div>: {{ $nuSmartCard->mobile_number }}</div></div>
+        <div class="kv"><div class="k">Blood Group</div><div>: {{ $nuSmartCard->blood?->name }}</div></div>
+        <div class="kv"><div class="k">Address</div><div>: {{ $nuSmartCard->present_address }}</div></div>
+        <div class="kv push-down"><div class="k">Emergency Contact</div><div>: {{ $nuSmartCard->emergency_contact }}</div></div>
+        <div class="kv"><div class="k">Valid Up to</div><div>: {{ \App\Helpers\DateHelpers::dateFormat($nuSmartCard->prl_date, 'd-m-Y') }}</div></div>
+        <div class="note">If found, please return to the Registrar, National University, Gazipur-1704, Bangladesh</div>
+      </div>
+      <div class="barcode">{{ $nuSmartCard->id_card_number }}</div>
+    </div>
+  </div>
+</body>
+</html>

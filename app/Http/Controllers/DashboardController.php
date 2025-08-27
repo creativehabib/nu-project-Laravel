@@ -66,6 +66,12 @@ class DashboardController extends Controller
         return view('nu-smart-card.show',compact('nuSmartCard'));
     }
 
+    public function card($id)
+    {
+        $nuSmartCard = NuSmartCard::with(['designation', 'department', 'blood'])->findOrFail($id);
+        return view('nu-smart-card.card', compact('nuSmartCard'));
+    }
+
     public function edit($id)
     {
         $bloods = BloodGroup::where('status', 1)->get();

@@ -8,6 +8,7 @@ use App\Http\Controllers\NuSmartCardController;
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\DesignationController;
 use App\Http\Controllers\IdCardSettingController;
+use App\Http\Controllers\SettingController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RoutingController;
 use Illuminate\Support\Facades\Route;
@@ -41,6 +42,7 @@ Route::group(['prefix' => '/dashboard', 'middleware' => 'auth'], function () {
 
     Route::resource('departments', DepartmentController::class);
     Route::resource('designations', DesignationController::class);
+    Route::resource('settings', SettingController::class)->only(['index', 'store']);
 
     // Menu route
     Route::get('manage-menus',[MenuController::class, 'index'])->name('manage-menus');

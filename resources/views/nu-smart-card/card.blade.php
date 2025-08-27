@@ -92,7 +92,12 @@
       display:grid;
       place-items:center;
     }
-    .photo-wrapper img{width:100%;height:100%;object-fit:cover;}
+    .photo-wrapper img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      background-color:inherit;
+    }
     .meta{text-align:center;}
     .meta h2{margin:4px 0;font-size:14px;font-weight:800;}
     .meta .role{font-size:11px;color:var(--muted);}

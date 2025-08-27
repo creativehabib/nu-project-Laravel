@@ -25,17 +25,22 @@ class IdCardSettingController extends Controller
     {
         $settings = IdCardSetting::first() ?? new IdCardSetting();
 
-        $settings->organization_name = $request->organization_name;
-        $settings->authority_name    = $request->authority_name;
+        $settings->organization_name           = $request->organization_name;
+        $settings->organization_name_en        = $request->organization_name_en;
+        $settings->organization_name_font_size = $request->organization_name_font_size;
+        $settings->organization_logo_width     = $request->organization_logo_width;
+        $settings->organization_logo_height    = $request->organization_logo_height;
+        $settings->authority_name              = $request->authority_name;
+        $settings->back_footer                 = $request->back_footer;
 
         if ($request->hasFile('organization_logo')) {
             $path = $request->organization_logo->store('logos', 'public');
             $settings->organization_logo = $path;
         }
 
-        if ($request->hasFile('authority_logo')) {
-            $path = $request->authority_logo->store('logos', 'public');
-            $settings->authority_logo = $path;
+        if ($request->hasFile('authority_signature')) {
+            $path = $request->authority_signature->store('signatures', 'public');
+            $settings->authority_signature = $path;
         }
 
         $settings->save();

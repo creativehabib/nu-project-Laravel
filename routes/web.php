@@ -33,6 +33,7 @@ Route::group(['prefix' => '/dashboard', 'middleware' => 'auth'], function () {
     Route::resource('nu-smart-card', DashboardController::class);
     Route::get('nu-smart-card/{id}/card', [DashboardController::class, 'card'])->name('nu-smart-card.card');
     Route::get('view-pdf', [DashboardController::class, 'getPdfData'])->name('view-pdf');
+    Route::get('all-mastercard-download', [DashboardController::class, 'downloadAllMastercard'])->name('nu-smart-card.all-mastercard');
     Route::get('single-pdf/{id}', [DashboardController::class, 'getSinglePdfData'])->name('single-pdf');
     Route::get('export-word', [DashboardController::class, 'exportWord'])->name('export-word');
 

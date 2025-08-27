@@ -8,6 +8,7 @@ use App\Models\BloodGroup;
 use App\Models\NuSmartCard;
 use App\Models\Department;
 use App\Models\Designation;
+use App\Models\IdCardSetting;
 use App\Helpers\DateHelpers;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -69,7 +70,8 @@ class DashboardController extends Controller
     public function card($id)
     {
         $nuSmartCard = NuSmartCard::with(['designation', 'department', 'blood'])->findOrFail($id);
-        return view('nu-smart-card.card', compact('nuSmartCard'));
+        $idCardSettings = IdCardSetting::first();
+        return view('nu-smart-card.card', compact('nuSmartCard', 'idCardSettings'));
     }
 
     public function edit($id)

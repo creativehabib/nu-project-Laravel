@@ -15,7 +15,7 @@ class IdCardSettingController extends Controller
     public function edit()
     {
         $settings = IdCardSetting::first() ?? new IdCardSetting();
-        return view('id_card.settings', compact('settings'));
+        return view('dashboard.id-card.settings', compact('settings'));
     }
 
     /**

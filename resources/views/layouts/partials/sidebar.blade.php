@@ -53,6 +53,9 @@
                           <li class="sub-nav-item">
                               <a class="sub-nav-link" href="{{ route('designations.index') }}">Designation</a>
                           </li>
+                          <li class="sub-nav-item">
+                              <a class="sub-nav-link" href="{{ route('id-card.settings') }}">ID Card Settings</a>
+                          </li>
                       </ul>
                   </div>
               </li>

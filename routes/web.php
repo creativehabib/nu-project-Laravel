@@ -44,6 +44,9 @@ Route::group(['prefix' => '/dashboard', 'middleware' => 'auth'], function () {
     Route::resource('designations', DesignationController::class);
     Route::resource('settings', SettingController::class)->only(['index', 'store']);
 
+    Route::get('id-card/settings', [IdCardSettingController::class, 'edit'])->name('id-card.settings');
+    Route::post('id-card/settings', [IdCardSettingController::class, 'update'])->name('id-card.settings.update');
+
     // Menu route
     Route::get('manage-menus',[MenuController::class, 'index'])->name('manage-menus');
     Route::post('create-menu',[MenuController::class, 'store'])->name('create-menu');
@@ -63,8 +66,6 @@ Route::post('/nu-smart-card', [NuSmartCardController::class, 'store_data'])->nam
 Route::get('/nu-smart-card/search', [NuSmartCardController::class, 'search'])->name('nu-smart-card.search');
 Route::get('/view-data', [NuSmartCardController::class, 'viewData'])->name('view-data');
 
-Route::get('/id-card/settings', [IdCardSettingController::class, 'edit']);
-Route::post('/id-card/settings', [IdCardSettingController::class, 'update']);
 Route::get('/id-card/{user}', [IdCardSettingController::class, 'show']);
 
 

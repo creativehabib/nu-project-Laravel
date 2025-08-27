@@ -93,7 +93,7 @@
     .photo-wrapper img {
         width: 50%;
         height: {{ $idCardSettings->photo_height ?? 3.5 }}cm;
-        object-fit: cover;
+        object-fit: contain;
         border-bottom: 1px solid var(--border);
         transform: translate(50%);
     }

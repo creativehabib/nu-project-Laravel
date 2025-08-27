@@ -533,4 +533,23 @@ class DashboardController extends Controller
         $mpdf->Output(Str::slug($data->name).'.pdf','I');
     }
 
+    public function downloadAllMastercard()
+    {
+        $nuSmartCards = NuSmartCard::with(['designation','department','blood'])->orderBy('order_position','asc')->get();
+        $idCardSettings = IdCardSetting::first();
+        $html = view('nu-smart-card.all_mastercard_pdf', compact('nuSmartCards','idCardSettings'))->render();
+        $mpdf = new \Mpdf\Mpdf([
+            'default_font' => 'nikosh',
+            'mode' => 'utf-8',
+            'margin_left' => 5,
+            'margin_right' => 5,
+            'margin_top' => 5,
+            'margin_bottom' => 5,
+            'format' => 'Legal',
+            'orientation' => 'L',
+        ]);
+        $mpdf->WriteHTML($html);
+        return $mpdf->Output('all-id-cards.pdf','D');
+    }
+
 }

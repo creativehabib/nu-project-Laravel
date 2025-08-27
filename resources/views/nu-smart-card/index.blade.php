@@ -13,6 +13,7 @@
                     <input type="text" id="search" class="form-control form-control-sm me-2" placeholder="Search...">
                     <a class="btn btn-sm btn-success me-2" href="{{ route('export-word') }}">Word Export</a>
                     <a class="btn btn-sm btn-red me-2" target="_blank" href="{{ route('view-pdf') }}">PDF Download</a>
+                    <a class="btn btn-sm btn-red me-2" target="_blank" href="{{ route('nu-smart-card.all-mastercard') }}">All Mastercard Download</a>
                     <a class="btn btn-sm btn-info" href="{{ route('nu-smart-card.create') }}">Add New</a>
                 </div>
             </div>

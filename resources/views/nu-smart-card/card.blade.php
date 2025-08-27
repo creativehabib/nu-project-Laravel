@@ -83,7 +83,7 @@
     }
     .photo{
       width:2.45cm;height:2.75cm;border:1px solid var(--border);border-radius:8px;
-      display:grid;place-items:center;background:#f3f4f6;
+      display:grid;place-items:center;background: {{ $idCardSettings->photo_background_color ?? '#f3f4f6' }};
       margin-bottom:8px;font-size:10px;color:var(--muted);
       overflow:hidden;
     }

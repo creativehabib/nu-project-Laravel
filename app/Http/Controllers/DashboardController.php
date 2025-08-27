@@ -535,9 +535,21 @@ class DashboardController extends Controller
 
     public function downloadAllMastercard()
     {
-        $nuSmartCards = NuSmartCard::with(['designation','department','blood'])->orderBy('order_position','asc')->get();
+        $nuSmartCards = NuSmartCard::with(['designation','department','blood'])
+            ->orderBy('order_position', 'asc')
+            ->get();
+
+        if ($nuSmartCards->isEmpty()) {
+            return back()->with('error', 'No smart cards available to download.');
+        }
+
         $idCardSettings = IdCardSetting::first();
-        $html = view('nu-smart-card.all_mastercard_pdf', compact('nuSmartCards','idCardSettings'))->render();
+        $html = view('nu-smart-card.all_mastercard_pdf', compact('nuSmartCards', 'idCardSettings'))->render();
+
+        if (!is_string($html) || trim($html) === '') {
+            return back()->with('error', 'Unable to generate PDF for ID cards.');
+        }
+
         $mpdf = new \Mpdf\Mpdf([
             'default_font' => 'nikosh',
             'mode' => 'utf-8',
@@ -549,7 +561,9 @@ class DashboardController extends Controller
             'orientation' => 'L',
         ]);
         $mpdf->WriteHTML($html);
-        return $mpdf->Output('all-id-cards.pdf','D');
+        ob_clean();
+        flush();
+        return $mpdf->Output('all-id-cards.pdf', 'D');
     }
 
 }

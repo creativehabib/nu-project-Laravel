@@ -49,8 +49,6 @@
       border-bottom:1px solid var(--border);
     }
     .logo {
-      width: 28px;
-      height: 28px;
       border-radius: 6px;
       overflow: hidden;
       flex-shrink: 0;
@@ -64,7 +62,6 @@
     }
     .org{line-height:1.05;}
     .org .bn {
-      font-size: 13px;
       font-weight: 700;
     }
     .org .en {
@@ -148,12 +145,14 @@
     <!-- FRONT -->
     <div class="card">
       <div class="front-header">
-        <div class="logo">
-          <img src="https://upload.wikimedia.org/wikipedia/en/thumb/5/58/National_University%2C_Bangladesh_crest.svg/1200px-National_University%2C_Bangladesh_crest.svg.png" alt="NU Logo">
+        <div class="logo" style="width: {{ $idCardSettings->organization_logo_width ?? 28 }}px; height: {{ $idCardSettings->organization_logo_height ?? 28 }}px;">
+          @if($idCardSettings?->organization_logo)
+            <img src="{{ asset('storage/' . $idCardSettings->organization_logo) }}" alt="{{ $idCardSettings->organization_name_en ?? $idCardSettings->organization_name }}">
+          @endif
         </div>
         <div class="org">
-          <div class="bn">জাতীয় বিশ্ববিদ্যালয়</div>
-          <div class="en">National University Bangladesh</div>
+          <div class="bn" style="font-size: {{ $idCardSettings->organization_name_font_size ?? 13 }}px;">{{ $idCardSettings->organization_name }}</div>
+          <div class="en">{{ $idCardSettings->organization_name_en }}</div>
         </div>
       </div>
       <div class="front-body">
@@ -175,8 +174,8 @@
       <img src="https://api.qrserver.com/v1/create-qr-code/?size=50x50&data={{ urlencode($nuSmartCard->id_card_number) }}" alt="QR" class="qr">
 
       <div class="sig">
-        @if($idCardSettings?->authority_logo)
-          <img src="{{ asset('storage/' . $idCardSettings->authority_logo) }}" alt="{{ $idCardSettings->authority_name ?? 'Registrar' }}" class="sig-img">
+        @if($idCardSettings?->authority_signature)
+          <img src="{{ asset('storage/' . $idCardSettings->authority_signature) }}" alt="{{ $idCardSettings->authority_name ?? 'Registrar' }}" class="sig-img">
         @endif
         <div>{{ $idCardSettings->authority_name ?? 'Registrar' }}</div>
       </div>
@@ -185,12 +184,14 @@
     <!-- BACK -->
     <div class="card">
       <div class="front-header">
-        <div class="logo">
-          <img src="https://upload.wikimedia.org/wikipedia/en/thumb/5/58/National_University%2C_Bangladesh_crest.svg/1200px-National_University%2C_Bangladesh_crest.svg.png" alt="NU Logo">
+        <div class="logo" style="width: {{ $idCardSettings->organization_logo_width ?? 28 }}px; height: {{ $idCardSettings->organization_logo_height ?? 28 }}px;">
+          @if($idCardSettings?->organization_logo)
+            <img src="{{ asset('storage/' . $idCardSettings->organization_logo) }}" alt="{{ $idCardSettings->organization_name_en ?? $idCardSettings->organization_name }}">
+          @endif
         </div>
         <div class="org">
-          <div class="bn">জাতীয় বিশ্ববিদ্যালয়</div>
-          <div class="en">National University Bangladesh</div>
+          <div class="bn" style="font-size: {{ $idCardSettings->organization_name_font_size ?? 13 }}px;">{{ $idCardSettings->organization_name }}</div>
+          <div class="en">{{ $idCardSettings->organization_name_en }}</div>
         </div>
       </div>
       <div class="back-body">
@@ -200,7 +201,7 @@
         <div class="kv"><div class="k">Address</div><div>: {{ $nuSmartCard->present_address }}</div></div>
         <div class="kv push-down"><div class="k">Emergency Contact</div><div>: {{ $nuSmartCard->emergency_contact }}</div></div>
         <div class="kv"><div class="k">Valid Up to</div><div>: {{ \App\Helpers\DateHelpers::dateFormat($nuSmartCard->prl_date, 'd-m-Y') }}</div></div>
-        <div class="note">If found, please return to the Registrar, National University, Gazipur-1704, Bangladesh</div>
+        <div class="note">{{ $idCardSettings->back_footer }}</div>
       </div>
       <div class="barcode">{{ $nuSmartCard->id_card_number }}</div>
     </div>

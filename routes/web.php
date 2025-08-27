@@ -7,6 +7,7 @@ use App\Http\Controllers\MenuController;
 use App\Http\Controllers\NuSmartCardController;
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\DesignationController;
+use App\Http\Controllers\IdCardSettingController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RoutingController;
 use Illuminate\Support\Facades\Route;
@@ -59,5 +60,9 @@ Route::get('/nu-smart-card', [NuSmartCardController::class, 'index']);
 Route::post('/nu-smart-card', [NuSmartCardController::class, 'store_data'])->name('nu-smart-card.store_data');
 Route::get('/nu-smart-card/search', [NuSmartCardController::class, 'search'])->name('nu-smart-card.search');
 Route::get('/view-data', [NuSmartCardController::class, 'viewData'])->name('view-data');
+
+Route::get('/id-card/settings', [IdCardSettingController::class, 'edit']);
+Route::post('/id-card/settings', [IdCardSettingController::class, 'update']);
+Route::get('/id-card/{user}', [IdCardSettingController::class, 'show']);
 
 

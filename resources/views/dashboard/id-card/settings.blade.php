@@ -53,7 +53,7 @@
                 </div>
                 <div class="mb-3 row">
                     <div class="col">
-                        <label class="form-label">ছবির প্রস্থ (cm)</label>
+                        <label class="form-label">ছবির প্রস্থ (px)</label>
                         <input type="number" step="0.1" name="photo_width" class="form-control" value="{{ $settings->photo_width }}">
                     </div>
                     <div class="col">

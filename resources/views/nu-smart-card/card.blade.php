@@ -71,33 +71,31 @@
     }
 
     .push-down {
-      margin-top: 14px; 
+      margin-top: 14px;
     }
     /* Front body */
     .front-body{
       padding:10px;
-      padding-top:0px;
+      padding-top:5px;
       display:flex;
       flex-direction:column;
       align-items:center;
       flex:1;
     }
-    .photo-wrapper{
-      width:{{ $idCardSettings->photo_width ?? 2.5 }}cm;height:{{ $idCardSettings->photo_height ?? 2.8 }}cm;
-      border:1px solid var(--border);
-      border-radius:8px;
-      overflow:hidden;
-      margin:8px auto;
-      box-shadow:0 2px 6px rgba(0,0,0,.1);
-      background: {{ $idCardSettings->photo_background_color ?? '#f3f4f6' }};
-      display:grid;
-      place-items:center;
+    .photo-wrapper {
+        width: 100%;
+        height: {{ $idCardSettings->photo_width ?? 100 }}px;
+        background-color: {{ $idCardSettings->photo_background_color ?? '#f3f4f6' }};
+        border-bottom: 1px solid var(--border);
+        overflow: hidden;
+        box-shadow: 0 2px 6px rgba(0,0,0,.1);
     }
-    .photo-wrapper img{
-      width:100%;
-      height:100%;
-      object-fit:cover;
-      background-color:inherit;
+    .photo-wrapper img {
+        width: 50%;
+        height: {{ $idCardSettings->photo_height ?? 3.5 }}cm;
+        object-fit: cover;
+        border-bottom: 1px solid var(--border);
+        transform: translate(50%);
     }
     .meta{text-align:center;}
     .meta h2{margin:4px 0;font-size:14px;font-weight:800;}

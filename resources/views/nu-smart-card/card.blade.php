@@ -81,13 +81,18 @@
       align-items:center;
       flex:1;
     }
-    .photo{
-      width:2.45cm;height:2.75cm;border:1px solid var(--border);border-radius:8px;
-      display:grid;place-items:center;background: {{ $idCardSettings->photo_background_color ?? '#f3f4f6' }};
-      margin-bottom:8px;font-size:10px;color:var(--muted);
+    .photo-wrapper{
+      width:2.5cm;height:2.8cm;
+      border:1px solid var(--border);
+      border-radius:8px;
       overflow:hidden;
+      margin:8px auto;
+      box-shadow:0 2px 6px rgba(0,0,0,.1);
+      background: {{ $idCardSettings->photo_background_color ?? '#f3f4f6' }};
+      display:grid;
+      place-items:center;
     }
-    .photo img{width:100%;height:100%;object-fit:cover;}
+    .photo-wrapper img{width:100%;height:100%;object-fit:cover;}
     .meta{text-align:center;}
     .meta h2{margin:4px 0;font-size:14px;font-weight:800;}
     .meta .role{font-size:11px;color:var(--muted);}
@@ -156,10 +161,10 @@
           <div class="en">{{ $idCardSettings->organization_name_en }}</div>
         </div>
       </div>
+      <div class="photo-wrapper">
+        <img src="{{ asset('uploads/images/' . $nuSmartCard->image) }}" alt="{{ $nuSmartCard->name }}">
+      </div>
       <div class="front-body">
-        <div class="photo">
-          <img src="{{ asset('uploads/images/' . $nuSmartCard->image) }}" alt="{{ $nuSmartCard->name }}">
-        </div>
         <div class="meta">
           <h2>{{ $nuSmartCard->name }}</h2>
           <div class="role">{{ $nuSmartCard->designation?->name }}</div>

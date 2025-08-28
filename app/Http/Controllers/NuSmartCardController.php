@@ -172,7 +172,7 @@ class NuSmartCardController extends Controller
     {
         $nuSmartCards = NuSmartCard::with(['designation', 'department', 'blood'])
             ->orderBy('order_position', 'asc')
-            ->get();
+            ->paginate(6);
         $idCardSettings = IdCardSetting::first();
         return view('nu-smart-card.all_cards', compact('nuSmartCards', 'idCardSettings'));
     }

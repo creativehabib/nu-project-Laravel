@@ -30,7 +30,7 @@
         }
         .card{
             width:5.5cm;
-            height:8.5cm;
+            height:8.7cm;
             background:#fff;
             border-radius:14px;
             border:1px solid var(--border);
@@ -39,6 +39,7 @@
             position:relative;
             display:flex;
             flex-direction:column;
+            padding-top: 14px;
         }
         .front-header{
             display:flex;
@@ -100,7 +101,7 @@
         .meta .dept{font-size:11px;}
         .footer{
             border-top:1px dashed var(--border);
-            padding:6px 8px;
+            padding: 6px 8px 12px;
             display:flex;
             justify-content:space-between;
             align-items:center;

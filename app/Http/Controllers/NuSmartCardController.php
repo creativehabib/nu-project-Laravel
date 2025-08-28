@@ -48,7 +48,7 @@ class NuSmartCardController extends Controller
         if (!$data) {
             return redirect()->route('nu-smart-card.store_data')->with('error', 'Record not found!');
         }
-        // Calculate PRL Date (60 years from birth date)
+        // Calculate PRL Date (60 years from birthdate)
         $birthDate = Carbon::parse($data->birth_date);
         $prlDate = $birthDate->addYears(60); // Add 60 years
 
@@ -68,7 +68,7 @@ class NuSmartCardController extends Controller
     }
 
     /**
-     * @param Request $request
+     * @param StoreSmartCardRequest $request
      * @return JsonResponse
      */
     public function store_data(StoreSmartCardRequest $request): JsonResponse

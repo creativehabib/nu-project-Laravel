@@ -14,6 +14,8 @@
       --border:#e5e7eb;
     }
     *{ box-sizing:border-box; }
+    .no-print{margin-bottom:10px;}
+    @media print{.no-print{display:none;}}
     .back-body {
         padding: 10px;
         display: flex;
@@ -148,6 +150,9 @@
 </head>
 <body>
 @php use SimpleSoftwareIO\QrCode\Facades\QrCode; @endphp
+<div class="no-print">
+  <button onclick="window.print()" style="padding:8px 12px;background:#4b5563;color:#fff;border:none;border-radius:4px;">Print</button>
+</div>
 <div class="sheet">
     <!-- FRONT -->
     <div class="card">

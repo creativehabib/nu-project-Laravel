@@ -28,17 +28,18 @@
       grid-template-columns: 5.5cm 5.5cm;
       gap: 20px;
     }
-    .card{
-      width:5.5cm;
-      height:8.5cm;
-      background:#fff;
-      border-radius:14px;
-      border:1px solid var(--border);
-      box-shadow: 0 6px 18px rgba(0,0,0,.08);
-      overflow:hidden;
-      position:relative;
-      display:flex;
-      flex-direction:column;
+    .card {
+        width: 5.5cm;
+        height: 8.7cm;
+        background: #fff;
+        border-radius: 14px;
+        border: 1px solid var(--border);
+        box-shadow: 0 6px 18px rgba(0,0,0,.08);
+        overflow: hidden;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        padding-top: 14px;
     }
     /* Header */
     .front-header{
@@ -102,13 +103,13 @@
     .meta .role{font-size:11px;color:var(--muted);}
     .meta .dept{font-size:11px;}
     /* Footer */
-    .footer{
-      border-top:1px dashed var(--border);
-      padding:6px 8px;
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      margin-top:auto;
+    .footer {
+        border-top: 1px dashed var(--border);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: auto;
+        padding: 6px 8px 12px;
     }
     .qr{
       width:50px;

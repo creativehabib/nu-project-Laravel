@@ -1,3 +1,4 @@
+@php use SimpleSoftwareIO\QrCode\Facades\QrCode; @endphp
 <div class="sheet">
     <!-- FRONT -->
     <div class="card">
@@ -22,12 +23,23 @@
                 <div class="dept">{{ $nuSmartCard->department?->name }}</div>
             </div>
         </div>
+        @php
+            $qrData = json_encode([
+                'name'        => $nuSmartCard->name,
+                'designation' => $nuSmartCard->designation?->name,
+                'mobile'      => $nuSmartCard->mobile_number,
+                'organization'=> $idCardSettings->organization_name ?? ''
+            ]);
+            $qrCode = base64_encode(
+                QrCode::format('png')->size(50)->errorCorrection('H')->generate($qrData)
+            );
+        @endphp
         <div class="footer">
             <div class="sig">
                 <img src="{{ asset('uploads/signature/' . $nuSmartCard->signature) }}" alt="Card Holder" class="sig-img">
                 <div>Card Holder</div>
             </div>
-            <img src="https://api.qrserver.com/v1/create-qr-code/?size=50x50&data={{ urlencode($nuSmartCard->id_card_number) }}" alt="QR" class="qr">
+            <img src="data:image/png;base64,{{ $qrCode }}" alt="QR" class="qr">
             <div class="sig">
                 @if($idCardSettings?->authority_signature)
                     <img src="{{ asset('storage/' . $idCardSettings->authority_signature) }}" alt="{{ $idCardSettings->authority_name ?? 'Registrar' }}" class="sig-img">

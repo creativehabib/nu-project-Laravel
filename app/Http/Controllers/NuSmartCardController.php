@@ -7,6 +7,7 @@ use App\Models\BloodGroup;
 use App\Models\NuSmartCard;
 use App\Models\Department;
 use App\Models\Designation;
+use App\Models\IdCardSetting;
 use Carbon\Carbon;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
@@ -136,5 +137,95 @@ class NuSmartCardController extends Controller
             ->get();
 
         return response()->json($results);
+    }
+
+    /**
+     * Show a form to search ID card by PF number.
+     */
+    public function pfForm(): View
+    {
+        return view('frontend.nuSmartCard.pf');
+    }
+
+    /**
+     * Display ID card for the submitted PF number.
+     */
+    public function pfShow(Request $request)
+    {
+        $data = $request->validate([
+            'pf_number' => 'required',
+        ]);
+
+        $nuSmartCard = NuSmartCard::with(['designation', 'department', 'blood'])
+            ->where('pf_number', $data['pf_number'])
+            ->firstOrFail();
+
+        $idCardSettings = IdCardSetting::first();
+
+        return view('nu-smart-card.card', compact('nuSmartCard', 'idCardSettings'));
+    }
+
+    /**
+     * Show all ID cards on a legal-sized page with print/download options.
+     */
+    public function allCards(): View
+    {
+        $nuSmartCards = NuSmartCard::with(['designation', 'department', 'blood'])
+            ->orderBy('order_position', 'asc')
+            ->get();
+        $idCardSettings = IdCardSetting::first();
+        return view('nu-smart-card.all_cards', compact('nuSmartCards', 'idCardSettings'));
+    }
+
+    /**
+     * Download all ID cards as a PDF in legal size.
+     */
+    public function downloadAllCardsPdf()
+    {
+        $nuSmartCards = NuSmartCard::with(['designation', 'department', 'blood'])
+            ->orderBy('order_position', 'asc')
+            ->get();
+
+        if ($nuSmartCards->isEmpty()) {
+            return back()->with('error', 'No smart cards available to download.');
+        }
+
+        $idCardSettings = IdCardSetting::first();
+        if (!$idCardSettings) {
+            return back()->with('error', 'ID card settings are missing.');
+        }
+
+        try {
+            $view = view('nu-smart-card.all_mastercard_pdf', compact('nuSmartCards', 'idCardSettings'));
+            $html = $view instanceof View ? $view->render() : (string) $view;
+        } catch (\Throwable $e) {
+            return back()->with('error', 'Unable to generate PDF for ID cards.');
+        }
+
+        $html = trim((string) $html);
+        if ($html === '') {
+            return back()->with('error', 'Unable to generate PDF for ID cards.');
+        }
+
+        $mpdf = new \Mpdf\Mpdf([
+            'default_font' => 'nikosh',
+            'mode' => 'utf-8',
+            'margin_left' => 5,
+            'margin_right' => 5,
+            'margin_top' => 5,
+            'margin_bottom' => 5,
+            'format' => 'Legal',
+            'orientation' => 'L',
+        ]);
+
+        try {
+            $mpdf->WriteHTML($html);
+        } catch (\Throwable $e) {
+            return back()->with('error', 'Unable to generate PDF for ID cards.');
+        }
+
+        ob_clean();
+        flush();
+        return $mpdf->Output('all-id-cards.pdf', 'D');
     }
 }

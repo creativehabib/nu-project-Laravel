@@ -550,12 +550,14 @@ class DashboardController extends Controller
 
         // Render the view safely and ensure we have a valid, non-empty string before passing to mPDF
         try {
-            $html = view('nu-smart-card.all_mastercard_pdf', compact('nuSmartCards', 'idCardSettings'))->render();
+            $view = view('nu-smart-card.all_mastercard_pdf', compact('nuSmartCards', 'idCardSettings'));
+            $html = $view instanceof \Illuminate\Contracts\View\View ? $view->render() : (string) $view;
         } catch (\Throwable $e) {
             return back()->with('error', 'Unable to generate PDF for ID cards.');
         }
 
-        if (!is_string($html) || trim($html) === '') {
+        $html = trim((string) $html);
+        if ($html === '') {
             return back()->with('error', 'Unable to generate PDF for ID cards.');
         }
 
@@ -569,7 +571,11 @@ class DashboardController extends Controller
             'format' => 'Legal',
             'orientation' => 'L',
         ]);
-        $mpdf->WriteHTML($html);
+        try {
+            $mpdf->WriteHTML($html);
+        } catch (\Throwable $e) {
+            return back()->with('error', 'Unable to generate PDF for ID cards.');
+        }
         ob_clean();
         flush();
         return $mpdf->Output('all-id-cards.pdf', 'D');

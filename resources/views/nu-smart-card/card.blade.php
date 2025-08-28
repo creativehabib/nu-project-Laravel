@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>ID Card 5.5cm x 8.5cm</title>
+  <title>ID Card 5.5cm x 8.7cm</title>
   <style>
     @page { size: A4; margin: 1cm; }
     :root{

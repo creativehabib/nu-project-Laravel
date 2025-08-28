@@ -66,6 +66,10 @@ Route::get('/nu-smart-card', [NuSmartCardController::class, 'index']);
 Route::post('/nu-smart-card', [NuSmartCardController::class, 'store_data'])->name('nu-smart-card.store_data');
 Route::get('/nu-smart-card/search', [NuSmartCardController::class, 'search'])->name('nu-smart-card.search');
 Route::get('/view-data', [NuSmartCardController::class, 'viewData'])->name('view-data');
+Route::get('/nu-smart-card/pf-search', [NuSmartCardController::class, 'pfForm'])->name('nu-smart-card.pf-form');
+Route::post('/nu-smart-card/pf-search', [NuSmartCardController::class, 'pfShow'])->name('nu-smart-card.pf-show');
+Route::get('/nu-smart-card/all-cards', [NuSmartCardController::class, 'allCards'])->name('nu-smart-card.all-cards');
+Route::get('/nu-smart-card/all-cards/pdf', [NuSmartCardController::class, 'downloadAllCardsPdf'])->name('nu-smart-card.all-cards.pdf');
 
 Route::get('/id-card/{user}', [IdCardSettingController::class, 'show']);
 

@@ -31,7 +31,7 @@
                 'organization'=> $idCardSettings->organization_name ?? ''
             ]);
             $qrCode = base64_encode(
-                QrCode::format('png')->size(50)->errorCorrection('H')->generate($qrData)
+                QrCode::format('svg')->size(50)->errorCorrection('H')->generate($qrData)
             );
         @endphp
         <div class="footer">
@@ -39,7 +39,7 @@
                 <img src="{{ asset('uploads/signature/' . $nuSmartCard->signature) }}" alt="Card Holder" class="sig-img">
                 <div>Card Holder</div>
             </div>
-            <img src="data:image/png;base64,{{ $qrCode }}" alt="QR" class="qr">
+            <img src="data:image/svg+xml;base64,{{ $qrCode }}" alt="QR" class="qr">
             <div class="sig">
                 @if($idCardSettings?->authority_signature)
                     <img src="{{ asset('storage/' . $idCardSettings->authority_signature) }}" alt="{{ $idCardSettings->authority_name ?? 'Registrar' }}" class="sig-img">

@@ -184,7 +184,7 @@
           'organization'=> $idCardSettings->organization_name ?? ''
         ]);
         $qrCode = base64_encode(
-          QrCode::format('png')->size(50)->errorCorrection('H')->generate($qrData)
+          QrCode::format('svg')->size(50)->errorCorrection('H')->generate($qrData)
         );
       @endphp
       <div class="footer">
@@ -193,7 +193,7 @@
         <div>Card Holder</div>
       </div>
 
-      <img src="data:image/png;base64,{{ $qrCode }}" alt="QR" class="qr">
+      <img src="data:image/svg+xml;base64,{{ $qrCode }}" alt="QR" class="qr">
 
       <div class="sig">
         @if($idCardSettings?->authority_signature)

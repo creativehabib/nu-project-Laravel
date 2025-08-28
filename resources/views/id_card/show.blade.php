@@ -9,7 +9,7 @@
     @endif
     <h3>{{ $user->name }}</h3>
 
-    <img src="data:image/png;base64,{{ base64_encode($qrCode) }}" class="qr-code">
+    <img src="data:image/svg+xml;base64,{{ base64_encode($qrCode) }}" class="qr-code">
 
     @if($settings?->authority_signature)
         <img src="{{ asset('storage/' . $settings->authority_signature) }}" class="authority-logo">

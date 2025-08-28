@@ -41,6 +41,9 @@
                               <a class="sub-nav-link" href="{{ route ('nu-smart-card.index') }}">All List</a>
                           </li>
                           <li class="sub-nav-item">
+                              <a class="sub-nav-link" href="{{ route('nu-smart-card.all-cards') }}">All ID Cards</a>
+                          </li>
+                          <li class="sub-nav-item">
                               <a class="sub-nav-link" href="{{ route ('blood-group.index') }}">Blood Group</a>
                           </li>
                           <li class="sub-nav-item">

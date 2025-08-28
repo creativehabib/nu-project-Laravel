@@ -42,24 +42,20 @@
         padding-top: 14px;
     }
     /* Header */
-    .front-header{
-      display:flex;
-      align-items:center;
-      gap:10px;
-      padding:6px 10px;
-      border-bottom:1px solid var(--border);
+    .front-header {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        padding: 6px 10px;
+        border-bottom: 1px solid var(--border);
+        justify-content: center;
     }
     .logo {
-      border-radius: 6px;
-      overflow: hidden;
-      flex-shrink: 0;
-      border: 1px solid #eee;
-      padding: 2px;
     }
     .logo img{
       width:100%;
       height:100%;
-      object-fit:contain;
+      object-fit:cover;
     }
     .org{line-height:1.05;}
     .org .bn {
@@ -76,9 +72,8 @@
     }
     /* Front body */
     .front-body{
-      padding:10px;
-      padding-top:5px;
-      display:flex;
+        padding: 5px 10px 10px;
+        display:flex;
       flex-direction:column;
       align-items:center;
       flex:1;
@@ -135,7 +130,7 @@
     .kv .k{color:var(--muted);}
     .barcode{
       font-family:monospace;letter-spacing:2px;color:#111;opacity:.7;font-size:12px;
-      writing-mode:vertical-rl;transform:rotate(180deg);position:absolute;left:8px;top:30%;
+      writing-mode:vertical-rl;position:absolute;left:8px;top:27%;
     }
     .note {
         font-size: 10px;

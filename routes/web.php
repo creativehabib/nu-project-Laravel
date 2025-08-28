@@ -30,14 +30,14 @@ Route::group(['prefix' => '/dashboard', 'middleware' => 'auth'], function () {
     Route::resource('profile', ProfileController::class);
 
     Route::get('nu-smart-card/live-search', [DashboardController::class, 'liveSearch'])->name('nu-smart-card.live-search');
+    Route::get('nu-smart-card/all-cards', [NuSmartCardController::class, 'allCards'])->name('nu-smart-card.all-cards');
+    Route::get('nu-smart-card/all-cards/pdf', [NuSmartCardController::class, 'downloadAllCardsPdf'])->name('nu-smart-card.all-cards.pdf');
     Route::resource('nu-smart-card', DashboardController::class);
     Route::get('nu-smart-card/{id}/card', [DashboardController::class, 'card'])->name('nu-smart-card.card');
     Route::get('view-pdf', [DashboardController::class, 'getPdfData'])->name('view-pdf');
     Route::get('all-mastercard-download', [DashboardController::class, 'downloadAllMastercard'])->name('nu-smart-card.all-mastercard');
     Route::get('single-pdf/{id}', [DashboardController::class, 'getSinglePdfData'])->name('single-pdf');
     Route::get('export-word', [DashboardController::class, 'exportWord'])->name('export-word');
-    Route::get('nu-smart-card/all-cards', [NuSmartCardController::class, 'allCards'])->name('nu-smart-card.all-cards');
-    Route::get('nu-smart-card/all-cards/pdf', [NuSmartCardController::class, 'downloadAllCardsPdf'])->name('nu-smart-card.all-cards.pdf');
 
     // Blood Group
     Route::resource('blood-group', BloodGroupController::class);

@@ -109,8 +109,8 @@
         padding: 6px 8px 12px;
     }
     .qr{
-      width:50px;
-      height:50px;
+      width:40px;
+      height:40px;
       object-fit:contain;
       border:1px solid var(--border);
       border-radius:4px;
@@ -185,7 +185,7 @@
           'organization'=> $idCardSettings->organization_name ?? ''
         ]);
         $qrCode = base64_encode(
-          QrCode::format('svg')->size(50)->errorCorrection('H')->generate($qrData)
+          QrCode::format('svg')->size(40)->errorCorrection('H')->generate($qrData)
         );
       @endphp
       <div class="footer">

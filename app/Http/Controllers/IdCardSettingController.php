@@ -57,14 +57,17 @@ class IdCardSettingController extends Controller
     public function show(NuSmartCard $nuSmartCard)
     {
         $settings = IdCardSetting::first();
-        $qrData = json_encode([
-            'name'        => $nuSmartCard->name,
-            'designation' => $nuSmartCard->designation?->name,
-            'mobile'      => $nuSmartCard->mobile_number,
-            'organization'=> $settings->organization_name_en ?? '',
-        ]);
-        $qrCode = QrCode::format('svg')
-            ->size(200)
+        $name = $nuSmartCard->name;
+        $designation = $nuSmartCard->designation?->name;
+        $mobile = $nuSmartCard->mobile_number;
+        $organization = $settings->organization_name_en ?? '';
+
+        $qrData = $name . "\n" .
+            $designation . "\n" .
+            $mobile . "\n" .
+            $organization;
+
+        $qrCode = QrCode::format('svg')->size(200)
             ->errorCorrection('H')
             ->generate($qrData);
 

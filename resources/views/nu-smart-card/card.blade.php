@@ -178,15 +178,14 @@
         </div>
       </div>
       @php
-        $qrData = json_encode([
-          'name'        => $nuSmartCard->name,
-          'designation' => $nuSmartCard->designation?->name,
-          'mobile'      => $nuSmartCard->mobile_number,
-          'organization'=> $idCardSettings->organization_name_en ?? 'Name here'
-        ]);
-        $qrCode = base64_encode(
-          QrCode::format('svg')->size(200)->errorCorrection('H')->generate($qrData)
-        );
+          $qrData = $nuSmartCard->name . "\n" .
+             ($nuSmartCard->designation?->name ?? '') . "\n" .
+             $nuSmartCard->mobile_number . "\n" .
+             ($idCardSettings->organization_name_en ?? '');
+
+         $qrCode = base64_encode(
+           QrCode::format('svg')->size(200)->errorCorrection('H')->generate($qrData)
+         );
       @endphp
       <div class="footer">
       <div class="sig">

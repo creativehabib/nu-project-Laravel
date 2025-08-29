@@ -166,6 +166,54 @@ class NuSmartCardController extends Controller
     }
 
     /**
+     * Generate a PDF of the ID card for the submitted PF number.
+     */
+    public function pfShowPdf(Request $request)
+    {
+        $data = $request->validate([
+            'pf_number' => 'required',
+        ]);
+
+        $nuSmartCard = NuSmartCard::with(['designation', 'department', 'blood'])
+            ->where('pf_number', $data['pf_number'])
+            ->firstOrFail();
+
+        $idCardSettings = IdCardSetting::first();
+
+        try {
+            $view = view('nu-smart-card.card_pdf', compact('nuSmartCard', 'idCardSettings'));
+            $html = $view instanceof View ? $view->render() : (string) $view;
+        } catch (\Throwable $e) {
+            return back()->with('error', 'Unable to generate PDF for the ID card.');
+        }
+
+        $html = trim((string) $html);
+        if ($html === '') {
+            return back()->with('error', 'Unable to generate PDF for the ID card.');
+        }
+
+        $mpdf = new \Mpdf\Mpdf([
+            'default_font' => 'nikosh',
+            'mode' => 'utf-8',
+            'margin_left' => 5,
+            'margin_right' => 5,
+            'margin_top' => 5,
+            'margin_bottom' => 5,
+            'format' => 'A4',
+        ]);
+
+        try {
+            $mpdf->WriteHTML($html);
+        } catch (\Throwable $e) {
+            return back()->with('error', 'Unable to generate PDF for the ID card.');
+        }
+
+        ob_clean();
+        flush();
+        return $mpdf->Output('id-card.pdf', 'I');
+    }
+
+    /**
      * Show all ID cards on a legal-sized page with print/download options.
      */
     public function allCards(): View

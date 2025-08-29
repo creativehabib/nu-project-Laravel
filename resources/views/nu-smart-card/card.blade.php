@@ -108,12 +108,12 @@
         margin-top: auto;
         padding: 6px 8px 12px;
     }
-    .qr{
-      width:40px;
-      height:40px;
-      object-fit:contain;
-      border:1px solid var(--border);
-      border-radius:4px;
+    .qr {
+        width: 50px;
+        object-fit: cover;
+        border: 1px solid var(--border);
+        border-radius: 4px;
+        padding: 2px;
     }
     .signs{
       display:flex;

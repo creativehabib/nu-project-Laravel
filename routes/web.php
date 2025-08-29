@@ -70,6 +70,7 @@ Route::get('/nu-smart-card/search', [NuSmartCardController::class, 'search'])->n
 Route::get('/view-data', [NuSmartCardController::class, 'viewData'])->name('view-data');
 Route::get('/nu-smart-card/pf-search', [NuSmartCardController::class, 'pfForm'])->name('nu-smart-card.pf-form');
 Route::post('/nu-smart-card/pf-search', [NuSmartCardController::class, 'pfShow'])->name('nu-smart-card.pf-show');
+Route::post('/nu-smart-card/pf-search/pdf', [NuSmartCardController::class, 'pfShowPdf'])->name('nu-smart-card.pf-show.pdf');
 
 Route::get('/id-card/{nuSmartCard}', [IdCardSettingController::class, 'show']);
 

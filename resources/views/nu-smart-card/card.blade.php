@@ -184,7 +184,7 @@
              ($idCardSettings->organization_name_en ?? '');
 
          $qrCode = base64_encode(
-           QrCode::format('svg')->size(200)->errorCorrection('H')->generate($qrData)
+           QrCode::format('svg')->size(400)->errorCorrection('H')->generate($qrData)
          );
       @endphp
       <div class="footer">

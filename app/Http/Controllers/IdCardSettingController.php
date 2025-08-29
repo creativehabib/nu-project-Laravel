@@ -67,7 +67,7 @@ class IdCardSettingController extends Controller
             $mobile . "\n" .
             $organization;
 
-        $qrCode = QrCode::format('svg')->size(200)
+        $qrCode = QrCode::format('svg')->size(400)
             ->errorCorrection('H')
             ->generate($qrData);
 

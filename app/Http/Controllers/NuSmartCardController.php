@@ -208,9 +208,13 @@ class NuSmartCardController extends Controller
             return back()->with('error', 'Unable to generate PDF for the ID card.');
         }
 
-        ob_clean();
-        flush();
-        return $mpdf->Output('id-card.pdf', 'I');
+        $pdfContent = $mpdf->Output('', 'S');
+
+        return response()->streamDownload(
+            fn () => print($pdfContent),
+            'id-card.pdf',
+            ['Content-Type' => 'application/pdf']
+        );
     }
 
     /**
@@ -272,8 +276,12 @@ class NuSmartCardController extends Controller
             return back()->with('error', 'Unable to generate PDF for ID cards.');
         }
 
-        ob_clean();
-        flush();
-        return $mpdf->Output('all-id-cards.pdf', 'D');
+        $pdfContent = $mpdf->Output('', 'S');
+
+        return response()->streamDownload(
+            fn () => print($pdfContent),
+            'all-id-cards.pdf',
+            ['Content-Type' => 'application/pdf']
+        );
     }
 }

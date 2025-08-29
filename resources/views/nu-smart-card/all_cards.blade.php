@@ -106,8 +106,8 @@
             margin-top:auto;
         }
         .qr{
-            width:50px;
-            height:50px;
+            width:40px;
+            height:40px;
             object-fit:contain;
             border:1px solid var(--border);
             border-radius:4px;

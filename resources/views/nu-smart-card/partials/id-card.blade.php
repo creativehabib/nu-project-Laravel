@@ -34,7 +34,7 @@
                 'organization'=> $idCardSettings->organization_name ?? ''
             ]);
             $qrCode = base64_encode(
-                QrCode::format('svg')->size(50)->errorCorrection('H')->generate($qrData)
+                QrCode::format('svg')->size(40)->errorCorrection('H')->generate($qrData)
             );
         @endphp
         <div class="footer">

@@ -62,7 +62,7 @@ class IdCardSettingController extends Controller
             'name'  => $user->name,
             'email' => $user->email,
         ]);
-        $qrCode = QrCode::format('svg')->size(200)->generate($qrData);
+        $qrCode = QrCode::format('svg')->size(40)->generate($qrData);
 
         return view('id_card.show', compact('settings', 'user', 'qrCode'));
     }

@@ -61,7 +61,7 @@ class IdCardSettingController extends Controller
             'name'        => $nuSmartCard->name,
             'designation' => $nuSmartCard->designation?->name,
             'mobile'      => $nuSmartCard->mobile_number,
-            'organization'=> $settings->organization_name ?? '',
+            'organization'=> $settings->organization_name_en ?? '',
         ]);
         $qrCode = QrCode::format('svg')
             ->size(200)

@@ -182,7 +182,7 @@
           'name'        => $nuSmartCard->name,
           'designation' => $nuSmartCard->designation?->name,
           'mobile'      => $nuSmartCard->mobile_number,
-          'organization'=> $idCardSettings->organization_name ?? ''
+          'organization'=> $idCardSettings->organization_name_en ?? 'Name here'
         ]);
         $qrCode = base64_encode(
           QrCode::format('svg')->size(40)->errorCorrection('H')->generate($qrData)

@@ -9,10 +9,10 @@
     @endif
     <h3>{{ $nuSmartCard->name }}</h3>
 
-    <img src="data:image/svg+xml;base64,{{ base64_encode($qrCode) }}" class="qr-code">
+    <img src="data:image/svg+xml;base64,{{ base64_encode($qrCode) }}" class="qr-code" alt="">
 
     @if($settings?->authority_signature)
-        <img src="{{ asset('storage/' . $settings->authority_signature) }}" class="authority-logo">
+        <img src="{{ asset('storage/' . $settings->authority_signature) }}" class="authority-logo" alt="">
     @endif
 </div>
 

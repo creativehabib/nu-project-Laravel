@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\IdCardSetting;
-use App\Models\User;
+use App\Models\NuSmartCard;
 use Illuminate\Http\Request;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
@@ -52,19 +52,20 @@ class IdCardSettingController extends Controller
     }
 
     /**
-     * Display an ID card for the given user with QR code.
+     * Display an ID card for the given NuSmartCard with QR code.
      */
-    public function show(User $user)
+    public function show(NuSmartCard $nuSmartCard)
     {
         $settings = IdCardSetting::first();
         $qrData = json_encode([
-            'id'    => $user->id,
-            'name'  => $user->name,
-            'email' => $user->email,
+            'name'        => $nuSmartCard->name,
+            'designation' => $nuSmartCard->designation?->name,
+            'mobile'      => $nuSmartCard->mobile_number,
+            'organization'=> $settings->organization_name ?? '',
         ]);
         $qrCode = QrCode::format('svg')->size(40)->generate($qrData);
 
-        return view('id_card.show', compact('settings', 'user', 'qrCode'));
+        return view('id_card.show', compact('settings', 'nuSmartCard', 'qrCode'));
     }
 }
 

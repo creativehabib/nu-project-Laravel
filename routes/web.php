@@ -71,6 +71,6 @@ Route::get('/view-data', [NuSmartCardController::class, 'viewData'])->name('view
 Route::get('/nu-smart-card/pf-search', [NuSmartCardController::class, 'pfForm'])->name('nu-smart-card.pf-form');
 Route::post('/nu-smart-card/pf-search', [NuSmartCardController::class, 'pfShow'])->name('nu-smart-card.pf-show');
 
-Route::get('/id-card/{user}', [IdCardSettingController::class, 'show']);
+Route::get('/id-card/{nuSmartCard}', [IdCardSettingController::class, 'show']);
 
 

@@ -7,7 +7,7 @@
     @if($settings?->organization_name_en)
         <h3>{{ $settings->organization_name_en }}</h3>
     @endif
-    <h3>{{ $user->name }}</h3>
+    <h3>{{ $nuSmartCard->name }}</h3>
 
     <img src="data:image/svg+xml;base64,{{ base64_encode($qrCode) }}" class="qr-code">
 

@@ -1,8 +1,6 @@
-<!DOCTYPE html>
-<html lang="bn">
-<head>
-    <meta charset="utf-8" />
-    <title>All ID Cards</title>
+@extends('layouts.vertical', ['subtitle' => 'Nu Smart Card'])
+
+@section('css')
     <style>
         @page { size: Legal; margin: 1cm; }
         :root{
@@ -139,19 +137,22 @@
         .no-print{margin-bottom:10px;}
         @media print{.no-print{display:none;}}
     </style>
-</head>
-<body>
-<div class="no-print">
-    <a href="{{ route('nu-smart-card.all-cards.pdf') }}" style="padding:8px 12px;background:#2563eb;color:#fff;border-radius:4px;text-decoration:none;">Download PDF</a>
-    <button onclick="window.print()" style="padding:8px 12px;background:#4b5563;color:#fff;border:none;border-radius:4px;">Print</button>
-    <div style="margin-top:10px;">
-        {{ $nuSmartCards->links('pagination::bootstrap-5') }}
+@endsection
+
+@section('content')
+    @include('layouts.partials/page-title', ['title' => 'Nu Module', 'subtitle' => 'All ID Cards'])
+
+    <div class="no-print">
+        <a href="{{ route('nu-smart-card.all-cards.pdf') }}" style="padding:8px 12px;background:#2563eb;color:#fff;border-radius:4px;text-decoration:none;">Download PDF</a>
+        <button onclick="window.print()" style="padding:8px 12px;background:#4b5563;color:#fff;border:none;border-radius:4px;">Print</button>
+        <div style="margin-top:10px;">
+            {{ $nuSmartCards->links('pagination::bootstrap-5') }}
+        </div>
     </div>
-</div>
-<div class="sheets">
-    @foreach($nuSmartCards as $nuSmartCard)
-        @include('nu-smart-card.partials.id-card', ['nuSmartCard' => $nuSmartCard, 'idCardSettings' => $idCardSettings])
-    @endforeach
-</div>
-</body>
-</html>
+    <div class="sheets">
+        @foreach($nuSmartCards as $nuSmartCard)
+            @include('nu-smart-card.partials.id-card', ['nuSmartCard' => $nuSmartCard, 'idCardSettings' => $idCardSettings])
+        @endforeach
+    </div>
+@endsection
+

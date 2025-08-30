@@ -1,4 +1,4 @@
-@extends('layouts.vertical', ['subtitle' => 'Nu Smart Card'])
+@extends('layouts.base', ['subtitle' => 'Nu Smart Card'])
 
 @section('css')
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.css">
@@ -16,16 +16,34 @@
     </style>
 @endsection
 @section('content')
-    <div class="row row-cols-lg-1 gx-3">
-        <div class="col">
-            <div class="card">
-                <div class="card-header">
-                    <h5 class="card-title mb-0">Nu Smart Data Add</h5>
-                </div>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container">
+            <a class="navbar-brand" href="{{ route('home') }}">National University</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="#services">Services</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#works">Our Work</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ route('nu-smart-card.pf-form') }}">ID Card Search</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ route('login') }}">Login</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
 
-                <div class="card-body">
-                    <form id="ajax-form" enctype="multipart/form-data">
-                        <div class="row row-cols-lg-2 gx-4">
+    <div class="container py-4">
+        <div class="row row-cols-lg-1 gx-3">
+            <div class="col">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="card-title mb-0">Nu Smart Data Add</h5>
+                    </div>
+
+                    <div class="card-body">
+                        <form id="ajax-form" enctype="multipart/form-data">
+                            <div class="row row-cols-lg-2 gx-4">
                             <div>
                                 <div class="mb-3">
                                     <label for="name" class="form-label">Name</label>

@@ -144,7 +144,8 @@ class NuSmartCardController extends Controller
      */
     public function pfForm(): View
     {
-        return view('frontend.nuSmartCard.pf');
+        $idCardSettings = IdCardSetting::first();
+        return view('frontend.nuSmartCard.pf', compact('idCardSettings'));
     }
 
     /**
@@ -158,11 +159,15 @@ class NuSmartCardController extends Controller
 
         $nuSmartCard = NuSmartCard::with(['designation', 'department', 'blood'])
             ->where('pf_number', $data['pf_number'])
-            ->firstOrFail();
+            ->first();
+
+        if (!$nuSmartCard) {
+            return back()->with('error', 'No information found for this PF number.');
+        }
 
         $idCardSettings = IdCardSetting::first();
 
-        return view('nu-smart-card.card', compact('nuSmartCard', 'idCardSettings'));
+        return view('frontend.nuSmartCard.pf', compact('nuSmartCard', 'idCardSettings'));
     }
 
     /**

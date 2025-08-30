@@ -197,8 +197,10 @@ class NuSmartCardController extends Controller
             return back()->with('error', 'Unable to generate PDF for the ID card.');
         }
 
+        $defaultFont = file_exists(public_path('fonts/nikosh.ttf')) ? 'nikosh' : 'dejavusans';
+
         $mpdf = new \Mpdf\Mpdf([
-            'default_font' => 'nikosh',
+            'default_font' => $defaultFont,
             'mode' => 'utf-8',
             'margin_left' => 5,
             'margin_right' => 5,
@@ -263,8 +265,10 @@ class NuSmartCardController extends Controller
             return back()->with('error', 'Unable to generate PDF for ID cards.');
         }
 
+        $defaultFont = file_exists(public_path('fonts/nikosh.ttf')) ? 'nikosh' : 'dejavusans';
+
         $mpdf = new \Mpdf\Mpdf([
-            'default_font' => 'nikosh',
+            'default_font' => $defaultFont,
             'mode' => 'utf-8',
             'margin_left' => 5,
             'margin_right' => 5,

@@ -215,11 +215,10 @@ class NuSmartCardController extends Controller
 
         $pdfContent = $mpdf->Output('', 'S');
 
-        return response()->streamDownload(
-            fn () => print($pdfContent),
-            'id-card.pdf',
-            ['Content-Type' => 'application/pdf']
-        );
+        return response($pdfContent, 200)->withHeaders([
+            'Content-Type' => 'application/pdf',
+            'Content-Disposition' => 'attachment; filename="id-card.pdf"',
+        ]);
     }
 
     /**

@@ -25,12 +25,12 @@
         }
         .sheet{
             display:grid;
-            grid-template-columns: 5.5cm 5.5cm;
+            grid-template-columns: 5.4cm 5.4cm;
             gap: 20px;
         }
         .card{
-            width:5.5cm;
-            height:8.7cm;
+            width:5.4cm;
+            height:8.56cm;
             background:#fff;
             border-radius:14px;
             border:1px solid var(--border);

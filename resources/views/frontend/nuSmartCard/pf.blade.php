@@ -140,6 +140,8 @@
         }
         @media print{
             body{background:#fff;padding:0;}
+            nav, .no-print, form, h1, .alert{display:none!important;}
+            .container{padding:0!important;margin:0!important;}
             .sheet{gap:0;grid-template-columns:5.4cm 5.4cm;justify-content:space-between;padding:0 1cm;}
             .card{box-shadow:none;margin:0;}
         }
@@ -183,7 +185,9 @@
 
         @isset($nuSmartCard)
             <div class="d-flex flex-column align-items-center">
-                @include('nu-smart-card.partials.id-card', ['nuSmartCard' => $nuSmartCard, 'idCardSettings' => $idCardSettings])
+                <div class="print-area">
+                    @include('nu-smart-card.partials.id-card', ['nuSmartCard' => $nuSmartCard, 'idCardSettings' => $idCardSettings])
+                </div>
                 @php $pdfUrl = route('nu-smart-card.pf-show.pdf', ['pf_number' => $nuSmartCard->pf_number]); @endphp
                 <div class="no-print mt-3 text-center">
                     <button class="btn btn-secondary me-2" onclick="window.print()">Print</button>

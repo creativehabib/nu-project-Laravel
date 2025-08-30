@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>ID Card 5.5cm x 8.7cm</title>
+    <title>ID Card 5.4cm x 8.56cm</title>
     <style>
         @page { size: A4; margin: 1cm; }
         :root{
@@ -25,12 +25,12 @@
         }
         .sheet{
             display:grid;
-            grid-template-columns: 5.5cm 5.5cm;
+            grid-template-columns: 5.4cm 5.4cm;
             gap: 20px;
         }
         .card {
-            width: 5.5cm;
-            height: 8.7cm;
+            width: 5.4cm;
+            height: 8.56cm;
             background: #fff;
             border-radius: 14px;
             border: 1px solid var(--border);
@@ -141,7 +141,7 @@
         }
         @media print{
             body{background:#fff;padding:0;}
-            .sheet{gap:0;grid-template-columns:5.5cm 5.5cm;justify-content:space-between;padding:0 1cm;}
+            .sheet{gap:0;grid-template-columns:5.4cm 5.4cm;justify-content:space-between;padding:0 1cm;}
             .card{box-shadow:none;margin:0;}
         }
     </style>

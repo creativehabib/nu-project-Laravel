@@ -24,12 +24,12 @@
         }
         .sheet{
             display:grid;
-            grid-template-columns: 5.5cm 5.5cm;
+            grid-template-columns: 5.4cm 5.4cm;
             gap: 20px;
         }
         .card {
-            width: 5.5cm;
-            height: 8.7cm;
+            width: 5.4cm;
+            height: 8.56cm;
             background: #fff;
             border-radius: 14px;
             border: 1px solid var(--border);
@@ -140,7 +140,7 @@
         }
         @media print{
             body{background:#fff;padding:0;}
-            .sheet{gap:0;grid-template-columns:5.5cm 5.5cm;justify-content:space-between;padding:0 1cm;}
+            .sheet{gap:0;grid-template-columns:5.4cm 5.4cm;justify-content:space-between;padding:0 1cm;}
             .card{box-shadow:none;margin:0;}
         }
     </style>
@@ -184,13 +184,10 @@
         @isset($nuSmartCard)
             <div class="d-flex flex-column align-items-center">
                 @include('nu-smart-card.partials.id-card', ['nuSmartCard' => $nuSmartCard, 'idCardSettings' => $idCardSettings])
+                @php $pdfUrl = route('nu-smart-card.pf-show.pdf', ['pf_number' => $nuSmartCard->pf_number]); @endphp
                 <div class="no-print mt-3 text-center">
                     <button class="btn btn-secondary me-2" onclick="window.print()">Print</button>
-                    <form action="{{ route('nu-smart-card.pf-show.pdf') }}" method="POST" class="d-inline">
-                        @csrf
-                        <input type="hidden" name="pf_number" value="{{ $nuSmartCard->pf_number }}">
-                        <button type="submit" class="btn btn-dark">Download PDF</button>
-                    </form>
+                    <a href="{{ $pdfUrl }}" class="btn btn-dark" target="_blank">Download PDF</a>
                 </div>
             </div>
         @endisset

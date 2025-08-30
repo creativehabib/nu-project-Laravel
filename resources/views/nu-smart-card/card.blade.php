@@ -27,12 +27,12 @@
         }
         .sheet{
             display:grid;
-            grid-template-columns: 5.5cm 5.5cm;
+            grid-template-columns: 5.4cm 5.4cm;
             gap: 20px;
         }
         .card {
-            width: 5.5cm;
-            height: 8.7cm;
+            width: 5.4cm;
+            height: 8.56cm;
             background: #fff;
             border-radius: 14px;
             border: 1px solid var(--border);
@@ -143,20 +143,17 @@
         }
         @media print{
             body{background:#fff;padding:0;}
-            .sheet{gap:0;grid-template-columns:5.5cm 5.5cm;justify-content:space-between;padding:0 1cm;}
+            .sheet{gap:0;grid-template-columns:5.4cm 5.4cm;justify-content:space-between;padding:0 1cm;}
             .card{box-shadow:none;margin:0;}
         }
     </style>
 </head>
 <body>
 @php use SimpleSoftwareIO\QrCode\Facades\QrCode; @endphp
+@php $pdfUrl = route('nu-smart-card.pf-show.pdf', ['pf_number' => $nuSmartCard->pf_number]); @endphp
 <div class="no-print">
     <button onclick="window.print()" style="padding:8px 12px;background:#4b5563;color:#fff;border:none;border-radius:4px;">Print</button>
-    <form action="{{ route('nu-smart-card.pf-show.pdf') }}" method="POST" style="display:inline;">
-        @csrf
-        <input type="hidden" name="pf_number" value="{{ $nuSmartCard->pf_number }}">
-        <button type="submit" style="padding:8px 12px;background:#1f2937;color:#fff;border:none;border-radius:4px;">Download PDF</button>
-    </form>
+    <a href="{{ $pdfUrl }}" style="padding:8px 12px;background:#1f2937;color:#fff;border:none;border-radius:4px;" target="_blank">Download PDF</a>
 </div>
 <div class="sheet">
     <!-- FRONT -->

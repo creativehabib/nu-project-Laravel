@@ -1,6 +1,6 @@
 @extends('layouts.base', ['subtitle' => 'ID Card Search'])
 
-@section('css')
+@push('css')
     <style>
         @page { size: A4; margin: 1cm; }
         :root{
@@ -146,25 +146,10 @@
             .card{box-shadow:none;margin:0;}
         }
     </style>
-@endsection
+@endpush
 
 @section('content')
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <div class="container">
-            <a class="navbar-brand" href="{{ route('home') }}">National University</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"><a class="nav-link" href="#services">Services</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#works">Our Work</a></li>
-                    <li class="nav-item"><a class="nav-link" href="{{ route('nu-smart-card.pf-form') }}">ID Card Search</a></li>
-                    <li class="nav-item"><a class="nav-link" href="{{ route('login') }}">Login</a></li>
-                </ul>
-            </div>
-        </div>
-    </nav>
+    @include('frontend.layouts.top-nav')
 
     <div class="container py-5">
         <h1 class="display-6 text-center mb-4">Find ID Card</h1>

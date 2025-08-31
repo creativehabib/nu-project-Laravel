@@ -20,7 +20,7 @@ Route::get('/', [FrontEndController::class, 'index'])->name('home');
 Route::prefix('jobs')->group(function () {
     Route::get('/apply_internal', [FrontEndController::class, 'apply_internal'])->name('apply_internal');
     Route::get('/apply', [FrontEndController::class, 'apply'])->name('apply');
-    
+
 });
 
 
@@ -64,7 +64,7 @@ Route::group(['prefix' => '/dashboard', 'middleware' => 'auth'], function () {
 
 // frontend route
 
-Route::get('/nu-smart-card', [NuSmartCardController::class, 'index']);
+Route::get('/nu-smart-card', [NuSmartCardController::class, 'index'])->name('nu-smart-card');
 Route::post('/nu-smart-card', [NuSmartCardController::class, 'store_data'])->name('nu-smart-card.store_data');
 Route::get('/nu-smart-card/search', [NuSmartCardController::class, 'search'])->name('nu-smart-card.search');
 Route::get('/view-data', [NuSmartCardController::class, 'viewData'])->name('view-data');

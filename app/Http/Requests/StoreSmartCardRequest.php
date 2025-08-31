@@ -27,7 +27,7 @@ class StoreSmartCardRequest extends FormRequest
             'department_id'     => ['required', 'integer', 'exists:departments,id'],
             'designation_id'    => ['required', 'integer', 'exists:designations,id'],
             'pf_number'         => 'required|numeric|unique:nu_smart_cards,pf_number',
-            'id_card_number'    => 'required|numeric|unique:nu_smart_cards,id_card_number',
+            'id_card_number'    => 'nullable|numeric',
             'mobile_number'     => ['required','numeric',new Phone(),'unique:nu_smart_cards,mobile_number'],
             'birth_date'        => 'required|date',
             'blood_id'          => 'required',

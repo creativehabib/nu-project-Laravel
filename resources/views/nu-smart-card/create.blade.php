@@ -1,6 +1,6 @@
 @extends('layouts.vertical', ['subtitle' => 'Nu Smart Card'])
 
-@section('css')
+@push('css')
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/izitoast/dist/css/iziToast.min.css">
     <style>
@@ -14,13 +14,16 @@
             max-height: 85vh;
         }
     </style>
-@endsection
+@endpush
 @section('content')
     <div class="row row-cols-lg-1 gx-3">
         <div class="col">
             <div class="card">
                 <div class="card-header">
-                    <h5 class="card-title mb-0">Nu Smart Data Add</h5>
+                    <div class="flex-box justify-content-between">
+                        <h5 class="card-title">Nu Smart Data ADD</h5>
+                        <a class="btn btn-sm btn-info" href="{{ route('nu-smart-card.index') }}">Back</a>
+                    </div>
                 </div>
 
                 <div class="card-body">
@@ -155,7 +158,7 @@
 
 @endsection
 
-@section('scripts')
+@push('scripts')
     <script src="https://cdn.jsdelivr.net/npm/izitoast/dist/js/iziToast.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.js"></script>
     <script>
@@ -265,4 +268,4 @@
 
         });
     </script>
-@endsection
+@endpush

@@ -1,5 +1,5 @@
 @extends('layouts.vertical', ['subtitle' => 'Nu Smart Card'])
-@section('css')
+@push('css')
     <style>
         .nu-action-group .btn {
             display: flex;
@@ -7,7 +7,7 @@
             gap: .25rem;
         }
     </style>
-@endsection
+@endpush
 @section('content')
 
     @include('layouts.partials/page-title', ['title' => 'Nu Module', 'subtitle' => 'Nu Smart Card'])
@@ -50,7 +50,7 @@
         </div>
     </div>
 @endsection
-@section('scripts')
+@push('scripts')
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/izitoast/dist/css/iziToast.min.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://cdn.jsdelivr.net/npm/izitoast/dist/js/iziToast.min.js"></script>
@@ -116,4 +116,4 @@
             });
         });
     </script>
-@endsection
+@endpush

@@ -1,5 +1,12 @@
 @extends('layouts.vertical', ['subtitle' => 'Nu Smart Card'])
 @section('css')
+    <style>
+        .nu-action-group .btn {
+            display: flex;
+            align-items: center;
+            gap: .25rem;
+        }
+    </style>
 @endsection
 @section('content')
 
@@ -9,19 +16,21 @@
         <div class="card-header">
             <div class="flex-box justify-content-between align-items-center">
                 <h5 class="card-title">College Inspection Staff List</h5>
-                <div class="d-flex align-items-center">
-                    <input type="text" id="search" class="form-control form-control-sm me-2" placeholder="Search...">
-                    <a class="btn btn-sm btn-success me-2" href="{{ route('export-word') }}">Word Export</a>
-                    <a class="btn btn-sm btn-red me-2" target="_blank" href="{{ route('view-pdf') }}">PDF Download</a>
-                    <a class="btn btn-sm btn-red me-2" target="_blank" href="{{ route('nu-smart-card.all-mastercard') }}">All Mastercard Download</a>
-                    <a class="btn btn-sm btn-info" href="{{ route('nu-smart-card.create') }}">Add New</a>
+                <div class="d-flex align-items-center flex-wrap gap-2">
+                    <input type="text" id="search" class="form-control form-control-sm" placeholder="Search...">
+                    <div class="btn-group btn-group-sm nu-action-group" role="group" aria-label="Actions">
+                        <a class="btn btn-success" href="{{ route('export-word') }}"><i class="bx bxs-file-doc"></i> Word</a>
+                        <a class="btn btn-red" target="_blank" href="{{ route('view-pdf') }}"><i class="bx bxs-file-pdf"></i> PDF</a>
+                        <a class="btn btn-red" target="_blank" href="{{ route('nu-smart-card.all-mastercard') }}"><i class="bx bx-download"></i> All</a>
+                        <a class="btn btn-info" href="{{ route('nu-smart-card.create') }}"><i class="bx bx-plus"></i> Add</a>
+                    </div>
                 </div>
             </div>
         </div>
 
         <div class="card-body">
             <div class="table-responsive">
-                <table class="table table-centered">
+                <table class="table table-centered table-striped table-hover align-middle">
                     <thead>
                     <tr>
                         <th scope="col">#</th>

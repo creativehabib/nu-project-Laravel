@@ -1,6 +1,9 @@
 @extends('layouts.vertical', ['subtitle' => 'Nu Smart Card'])
 @push('css')
     <style>
+        .nu-action-group {
+            flex-wrap: wrap;
+        }
         .nu-action-group .btn {
             display: flex;
             align-items: center;
@@ -14,10 +17,10 @@
 
     <div class="card">
         <div class="card-header">
-            <div class="flex-box justify-content-between align-items-center">
-                <h5 class="card-title">College Inspection Staff List</h5>
-                <div class="d-flex align-items-center flex-wrap gap-2">
-                    <input type="text" id="search" class="form-control form-control-sm" placeholder="Search...">
+            <div class="d-flex flex-column flex-md-row justify-content-between gap-2 align-items-md-center">
+                <h5 class="card-title mb-0">College Inspection Staff List</h5>
+                <div class="d-flex flex-column flex-sm-row align-items-stretch gap-2 w-100 w-md-auto">
+                    <input type="text" id="search" class="form-control form-control-sm flex-grow-1" placeholder="Search...">
                     <div class="btn-group btn-group-sm nu-action-group" role="group" aria-label="Actions">
                         <a class="btn btn-success" href="{{ route('export-word') }}"><i class="bx bxs-file-doc"></i> Word</a>
                         <a class="btn btn-red" target="_blank" href="{{ route('view-pdf') }}"><i class="bx bxs-file-pdf"></i> PDF</a>

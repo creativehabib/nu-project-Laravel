@@ -528,9 +528,13 @@ class DashboardController extends Controller
         $mpdf->watermark_font = 'DejaVuSansCondensed';
         $mpdf->watermarkTextAlpha = 0.1;
         $mpdf->WriteHTML($html);
-        ob_clean();
-        flush();
-        $mpdf->Output(Str::slug($data->name).'.pdf','I');
+
+        $pdfContent = $mpdf->Output('', 'S');
+
+        return response($pdfContent, 200)->withHeaders([
+            'Content-Type' => 'application/pdf',
+            'Content-Disposition' => 'inline; filename="'.Str::slug($data->name).'.pdf"',
+        ]);
     }
 
     public function downloadAllMastercard()

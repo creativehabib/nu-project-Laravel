@@ -134,7 +134,6 @@
             margin-top: auto;
             text-align: center;
         }
-        .no-print{margin-bottom:10px;}
         @media print{.no-print{display:none;}}
     </style>
 @endpush
@@ -142,13 +141,18 @@
 @section('content')
     @include('layouts.partials/page-title', ['title' => 'Nu Module', 'subtitle' => 'All ID Cards'])
 
-    <div class="no-print">
-        <a href="{{ route('nu-smart-card.all-cards.pdf') }}" style="padding:8px 12px;background:#2563eb;color:#fff;border-radius:4px;text-decoration:none;">Download PDF</a>
-        <button onclick="window.print()" style="padding:8px 12px;background:#4b5563;color:#fff;border:none;border-radius:4px;">Print</button>
-        <div style="margin-top:10px;">
-            {{ $nuSmartCards->links('pagination::bootstrap-5') }}
+    <div class="no-print d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2">
+        <div class="btn-group">
+            <a href="{{ route('nu-smart-card.all-cards.pdf') }}" class="btn btn-primary">
+                <i class="bx bx-download"></i> Download PDF
+            </a>
+            <button onclick="window.print()" class="btn btn-secondary">
+                <i class="bx bx-printer"></i> Print
+            </button>
         </div>
+        {{ $nuSmartCards->links('pagination::bootstrap-5') }}
     </div>
+
     <div class="sheets">
         @foreach($nuSmartCards as $nuSmartCard)
             @include('nu-smart-card.partials.id-card', ['nuSmartCard' => $nuSmartCard, 'idCardSettings' => $idCardSettings])

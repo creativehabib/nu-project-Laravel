@@ -1,6 +1,6 @@
 @extends('layouts.vertical', ['subtitle' => 'Nu Smart Card'])
 
-@section('css')
+@push('css')
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/izitoast/dist/css/iziToast.min.css">
     <style>
@@ -14,7 +14,7 @@
             max-height: 85vh;
         }
     </style>
-@endsection
+@endpush
 @section('content')
     <div class="row row-cols-lg-1 gx-3">
         <div class="col">
@@ -162,7 +162,7 @@
 
 @endsection
 
-@section('scripts')
+@push('scripts')
     <script src="https://cdn.jsdelivr.net/npm/izitoast/dist/js/iziToast.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
@@ -273,4 +273,4 @@
 
         });
     </script>
-@endsection
+@endpush

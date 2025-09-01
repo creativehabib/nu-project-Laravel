@@ -13,6 +13,12 @@
         *{ box-sizing:border-box; }
         .no-print{margin-bottom:10px;}
         @media print{.no-print{display:none;}}
+        .print-area{
+            background:#fff;
+            padding:20px;
+            border-radius:12px;
+            box-shadow:0 6px 18px rgba(0,0,0,.08);
+        }
         .back-body {
             padding: 10px;
             display: flex;
@@ -144,6 +150,7 @@
             .container{padding:0!important;margin:0!important;}
             .sheet{gap:0;grid-template-columns:5.4cm 5.4cm;justify-content:space-between;padding:0 1cm;}
             .card{box-shadow:none;margin:0;}
+            .print-area{box-shadow:none;padding:0;}
         }
     </style>
 @endpush
@@ -158,13 +165,13 @@
             <div class="alert alert-danger text-center">{{ session('error') }}</div>
         @endif
 
-        <form action="{{ route('nu-smart-card.pf-show') }}" method="POST" class="row g-3 justify-content-center mb-4">
+        <form action="{{ route('nu-smart-card.pf-show') }}" method="POST" class="row justify-content-center mb-4">
             @csrf
-            <div class="col-auto">
-                <input type="text" name="pf_number" value="{{ old('pf_number') }}" class="form-control" placeholder="Enter PF Number">
-            </div>
-            <div class="col-auto">
-                <button type="submit" class="btn btn-primary">Search</button>
+            <div class="col-md-6 col-lg-4">
+                <div class="input-group">
+                    <input type="text" name="pf_number" value="{{ old('pf_number') }}" class="form-control" placeholder="Enter PF Number">
+                    <button type="submit" class="btn btn-primary">Search</button>
+                </div>
             </div>
         </form>
 

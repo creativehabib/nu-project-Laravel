@@ -1,16 +1,4 @@
 @extends('layouts.vertical', ['subtitle' => 'Nu Smart Card'])
-@push('css')
-    <style>
-        .nu-action-group {
-            flex-wrap: wrap;
-        }
-        .nu-action-group .btn {
-            display: flex;
-            align-items: center;
-            gap: .25rem;
-        }
-    </style>
-@endpush
 @section('content')
 
     @include('layouts.partials/page-title', ['title' => 'Nu Module', 'subtitle' => 'Nu Smart Card'])
@@ -19,13 +7,13 @@
         <div class="card-header">
             <div class="d-flex flex-column flex-md-row justify-content-between gap-2 align-items-md-center">
                 <h5 class="card-title mb-0">College Inspection Staff List</h5>
-                <div class="d-flex flex-column flex-sm-row align-items-stretch gap-2 w-100 w-md-auto">
+                <div class="d-flex flex-column flex-sm-row align-items-stretch gap-2 w-md-auto">
                     <input type="text" id="search" class="form-control form-control-sm flex-grow-1" placeholder="Search...">
-                    <div class="btn-group btn-group-sm nu-action-group" role="group" aria-label="Actions">
-                        <a class="btn btn-success" href="{{ route('export-word') }}"><i class="bx bxs-file-doc"></i> Word</a>
-                        <a class="btn btn-red" target="_blank" href="{{ route('view-pdf') }}"><i class="bx bxs-file-pdf"></i> PDF</a>
-                        <a class="btn btn-red" target="_blank" href="{{ route('nu-smart-card.all-mastercard') }}"><i class="bx bx-download"></i> All</a>
-                        <a class="btn btn-info" href="{{ route('nu-smart-card.create') }}"><i class="bx bx-plus"></i> Add</a>
+                    <div class="d-flex align-items-center gap-1"  aria-label="Actions">
+                        <a class="d-flex align-items-center gap-1 btn btn-success" href="{{ route('export-word') }}"><i class="bx bxs-file-doc"></i> Word</a>
+                        <a class="d-flex align-items-center gap-1 btn btn-red" target="_blank" href="{{ route('view-pdf') }}"><i class="bx bxs-file-pdf"></i> PDF</a>
+                        <a class="d-flex align-items-center gap-1 btn btn-red" target="_blank" href="{{ route('nu-smart-card.all-mastercard') }}"><i class="bx bx-download"></i> All</a>
+                        <a class="d-flex align-items-center gap-1 btn btn-info" href="{{ route('nu-smart-card.create') }}"><i class="bx bx-plus"></i> Add</a>
                     </div>
                 </div>
             </div>

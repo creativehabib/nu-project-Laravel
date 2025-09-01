@@ -1,6 +1,6 @@
 @extends('layouts.vertical', ['subtitle' => 'Nu Smart Card'])
 
-@section('css')
+@push('css')
     <style>
         @page { size: Legal; margin: 1cm; }
         :root{
@@ -137,7 +137,7 @@
         .no-print{margin-bottom:10px;}
         @media print{.no-print{display:none;}}
     </style>
-@endsection
+@endpush
 
 @section('content')
     @include('layouts.partials/page-title', ['title' => 'Nu Module', 'subtitle' => 'All ID Cards'])

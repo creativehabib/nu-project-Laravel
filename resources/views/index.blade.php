@@ -393,6 +393,6 @@
 <!-- end row -->
 @endsection
 
-@section('scripts')
+@push('scripts')
 @vite(['resources/js/pages/dashboard.js'])
-@endsection
+@endpush

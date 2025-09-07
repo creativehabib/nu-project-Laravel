@@ -1,7 +1,7 @@
 @extends('layouts.vertical', ['subtitle' => 'Blood Group'])
-@section('css')
+@push('css')
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/izitoast/1.4.0/css/iziToast.min.css">
-@endsection
+@endpush
 @section('content')
 
     @include('layouts.partials/page-title', ['title' => 'Nu Module', 'subtitle' => 'Blood Group'])
@@ -85,7 +85,7 @@
 
 
 @endsection
-@section('scripts')
+@push('scripts')
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/izitoast/1.4.0/js/iziToast.min.js"></script>
 <script type="text/javascript">
@@ -247,7 +247,5 @@
         });
 
     });
-
-
 </script>
-@endsection
+@endpush

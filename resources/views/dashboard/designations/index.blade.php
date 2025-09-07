@@ -67,7 +67,7 @@
     </div>
 @endsection
 
-@section('scripts')
+@push('scripts')
 <script>
     $(function () {
         var createUrl = "{{ route('designations.store') }}";
@@ -98,4 +98,4 @@
         });
     });
 </script>
-@endsection
+@endpush
